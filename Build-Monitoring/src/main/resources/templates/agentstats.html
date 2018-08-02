@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head lang="en">
+<title>Bootstrap Example</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<link rel="stylesheet"
+	href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css">
+<script type="text/javascript"
+	src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script type="text/javascript"
+	src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript"
+	src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
+<style>
+@media screen and (min-width: 768px) {
+	.modal-dialog {
+		width: 700px; /* New width for default modal */
+	}
+	.modal-sm {
+		width: 350px; /* New width for small modal */
+	}
+}
+
+@media screen and (min-width: 992px) {
+	.modal-lg {
+		width: 950px; /* New width for large modal */
+	}
+}
+
+.yellow {
+	color: #c1b50d
+}
+
+.red {
+	color: #a83b28
+}
+
+.green {
+	color: #3e7c48
+}
+/* Remove the navbar's default rounded borders and increase the bottom margin */
+.navbar {
+	margin-bottom: 50px;
+	border-radius: 0;
+}
+
+/* Remove the jumbotron's default bottom margin */
+.jumbotron {
+	margin-bottom: 0;
+}
+
+/* Add a gray background color and some padding to the footer */
+footer {
+	background-color: #f2f2f2;
+	padding: 25px;
+}
+
+.header {
+	margin: 10px;
+	border-bottom: 1px solid grey;
+}
+
+nav.navbar-findcond {
+	background: #fff;
+	border-color: #ccc;
+	box-shadow: 0 0 2px 0 #ccc;
+}
+
+nav.navbar-findcond a {
+	color: #f15555;
+}
+
+nav.navbar-findcond ul.navbar-nav a {
+	color: #f15555;
+	border-style: solid;
+	border-width: 0 0 2px 0;
+	border-color: #fff;
+}
+
+nav.navbar-findcond ul.navbar-nav a:hover, nav.navbar-findcond ul.navbar-nav a:visited,
+	nav.navbar-findcond ul.navbar-nav a:focus, nav.navbar-findcond ul.navbar-nav a:active
+	{
+	background: #fff;
+}
+
+nav.navbar-findcond ul.navbar-nav a:hover {
+	border-color: #f15555;
+}
+
+nav.navbar-findcond li.divider {
+	background: #ccc;
+}
+
+nav.navbar-findcond button.navbar-toggle {
+	background: #f15555;
+	border-radius: 2px;
+}
+
+nav.navbar-findcond button.navbar-toggle:hover {
+	background: #999;
+}
+
+nav.navbar-findcond button.navbar-toggle>span.icon-bar {
+	background: #fff;
+}
+
+nav.navbar-findcond ul.dropdown-menu {
+	border: 0;
+	background: #fff;
+	border-radius: 4px;
+	margin: 4px 0;
+	box-shadow: 0 0 4px 0 #ccc;
+}
+
+nav.navbar-findcond ul.dropdown-menu>li>a {
+	color: #444;
+}
+
+nav.navbar-findcond ul.dropdown-menu>li>a:hover {
+	background: #f15555;
+	color: #fff;
+}
+
+nav.navbar-findcond span.badge {
+	background: #f15555;
+	font-weight: normal;
+	font-size: 11px;
+	margin: 0 4px;
+}
+
+nav.navbar-findcond span.badge.new {
+	background: rgba(255, 0, 0, 0.8);
+	color: #fff;
+}
+
+.switch input {
+	display: none;
+}
+
+.switch {
+	display: inline-block;
+	width: 60px;
+	height: 30px;
+	margin: 8px;
+	transform: translateY(50%);
+	position: relative;
+}
+
+.slider {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	border-radius: 30px;
+	box-shadow: 0 0 0 2px #777, 0 0 4px #777;
+	cursor: pointer;
+	border: 4px solid transparent;
+	overflow: hidden;
+	transition: .4s;
+}
+
+.slider:before {
+	position: absolute;
+	content: "";
+	width: 100%;
+	height: 100%;
+	background: #777;
+	border-radius: 30px;
+	transform: translateX(-30px);
+	transition: .4s;
+}
+
+input:checked+.slider:before {
+	transform: translateX(30px);
+	background: limeGreen;
+}
+
+input:checked+.slider {
+	box-shadow: 0 0 0 2px limeGreen, 0 0 2px limeGreen;
+}
+
+/* Slider for stats*/
+.onoffswitch {
+	position: relative;
+	width: 122px;
+	margin: 0 auto;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+}
+
+.onoffswitch-checkbox {
+	display: none;
+}
+
+.onoffswitch-label {
+	display: block;
+	overflow: hidden;
+	cursor: pointer;
+	border: 2px solid #416BAD;
+	border-radius: 0px;
+}
+
+.onoffswitch-inner {
+	display: block;
+	width: 200%;
+	margin-left: -100%;
+	transition: margin 0.3s ease-in 0s;
+}
+
+.onoffswitch-inner:before, .onoffswitch-inner:after {
+	display: block;
+	float: left;
+	width: 50%;
+	height: 31px;
+	padding: 0;
+	line-height: 27px;
+	font-size: 17px;
+	color: white;
+	font-family: Trebuchet, Arial, sans-serif;
+	font-weight: bold;
+	box-sizing: border-box;
+	border: 2px solid transparent;
+	background-clip: padding-box;
+}
+
+.onoffswitch-inner:before {
+	content: "NON BUILD";
+	padding-left: 7px;
+	background-color: #FFFFFF;
+	color: #504D7D;
+}
+
+.onoffswitch-inner:after {
+	content: "BUILD";
+	padding-right: 7px;
+	background-color: #FFFFFF;
+	color: #36572D;
+	text-align: right;
+}
+
+.onoffswitch-switch {
+	display: block;
+	width: 11px;
+	margin: 0px;
+	background: #36572D;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	right: 111px;
+	transition: all 0.3s ease-in 0s;
+}
+
+.onoffswitch-checkbox:checked+.onoffswitch-label .onoffswitch-inner {
+	margin-left: 0;
+}
+
+.onoffswitch-checkbox:checked+.onoffswitch-label .onoffswitch-switch {
+	right: 0px;
+	background-color: #504D7D;
+}
+
+/*loader styles*/
+
+.loader,
+.loader:before,
+.loader:after {
+  background: #3d5b8c;
+  -webkit-animation: load1 1s infinite ease-in-out;
+  animation: load1 1s infinite ease-in-out;
+  width: 1em;
+  height: 4em;
+}
+.loader {
+  color: #3d5b8c;
+  text-indent: -9999em;
+  margin: 88px auto;
+  position: relative;
+  font-size: 11px;
+  -webkit-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-animation-delay: -0.16s;
+  animation-delay: -0.16s;
+}
+.loader:before,
+.loader:after {
+  position: absolute;
+  top: 0;
+  content: '';
+}
+.loader:before {
+  left: -1.5em;
+  -webkit-animation-delay: -0.32s;
+  animation-delay: -0.32s;
+}
+.loader:after {
+  left: 1.5em;
+}
+@-webkit-keyframes load1 {
+  0%,
+  80%,
+  100% {
+    box-shadow: 0 0;
+    height: 4em;
+  }
+  40% {
+    box-shadow: 0 -2em;
+    height: 5em;
+  }
+}
+@keyframes load1 {
+  0%,
+  80%,
+  100% {
+    box-shadow: 0 0;
+    height: 4em;
+  }
+  40% {
+    box-shadow: 0 -2em;
+    height: 5em;
+  }
+}
+
+.blue
+	{
+		background: rgba(0,0,0,.1);
+
+	}
+	.normal
+	{
+		background: rgba(0,0,0,.1);
+	}
+/*table style*/
+
+  .table-responsive>.fixed-column {
+  position: absolute;
+  display: inline-block;
+  width: auto;
+  border-right: 1px solid #ddd;
+  background-color: #fff;
+  /* bootstrap v3 fix for fixed column background color*/
+  border-radius: 2px;
+}
+
+@media ( min-width :768px) {
+  .table-responsive>.fixed-column {
+    display: none;
+  }
+}
+
+.headerstyle {
+  color: white;
+}
+
+table.table-bordered {
+  border: 1px solid #8995bc;
+  margin-top: 20px;
+}
+
+table.table-bordered>thead>tr>th {
+  border: 1px solid #8995bc;
+}
+
+table.table-bordered>tbody>tr>td {
+  border: 1px solid #8995bc;
+  font-size: 15px;
+}
+/*th, td { white-space: nowrap; }*/
+div.dataTables_wrapper {
+  margin: 0 auto;
+}
+
+.DTFC_LeftBodyLiner {
+  margin-top: -13px;
+}
+
+.DTFC_LeftBodyLiner>table>tbody>tr {
+  background-color: #f9fcf9;
+}
+
+.dataTables_wrapper>div:nth-child(2) {
+  overflow-x: scroll;
+}
+
+.dataTables_wrapper>div:nth-child(2)::-webkit-scrollbar {
+  width: 12px;
+}
+
+.dataTables_wrapper>div:nth-child(2)::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px #45597a;
+  border-radius: 10px;
+}
+
+.dataTables_wrapper>div:nth-child(2)::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 6px #45597a;
+}
+
+
+
+.glyphicon {
+  margin-left: 10px;
+  display: inline;
+}
+</style>
+
+</head>
+<body ng-app="myApp" ng-controller="myCtrl" ng-class=bodyClass>
+	<nav class="navbar navbar-findcond navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed"
+					data-toggle="collapse" data-target="#navbar">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#">Build Regression Tool</a>
+			</div>
+			<div class="collapse navbar-collapse" id="navbar">
+				<ul class="nav navbar-nav navbar-right">
+					<li class="active"><a href="/build/details"><i
+							class="fa fa-fw fa-bell-o"></i>Home</a></li>
+					<li class="active"><a href="/build/agentstats">Stats<span
+							class="sr-only">(current)</span></a></li>
+					<li class="dropdown"><a href="#" class="dropdown-toggle"
+						data-toggle="dropdown" role="button" aria-expanded="false">Regression
+							<span class="caret"></span>
+					</a>
+						<ul class="dropdown-menu" role="menu">
+							<li><a href="/build/monitor">Configuration</a></li>
+							<li><a href="/build/regression">Regression</a></li>
+						</ul></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<br />
+	<br />
+	<br />
+	<br />
+	<div class="container">
+		<div class="loader" ng-show="isLoading">Loading...</div>
+		<div ng-hide="isLoading">
+		<ul class="nav nav-tabs">
+			<li ng-repeat="x in buildData" ng-if="$index < 1"
+				ng-click="getAgentStats(x.agentStatList)" class="active"><a
+				data-toggle="tab" href="#{{x.alterEnv}}">{{x.environament}}</a></li>
+			<li ng-repeat="x in buildData" ng-if="$index > 0"
+				ng-click="getAgentStats(x.agentStatList)"><a data-toggle="tab"
+				href="#{{x.alterEnv}}">{{x.environament}}</a></li>
+		</ul>
+
+		<div class="tab-content">
+			<div ng-repeat="x in buildData" ng-if="$index < 1"
+				id="{{x.alterEnv}}" class="tab-pane fade in active">
+				<h3>{{x.environament}}</h3>
+				
+          <table class="table table-bordered example" style="width: 100%;">
+            <thead style="background-color: #56638c">
+
+              <tr>
+                <th class="text-center headerstyle"><a href="#"
+                  style="text-decoration: none; color: white;"
+                  ng-click="sortType = 'className';sortReverse = !sortReverse">CLASS
+                    <span ng-show="sortType == 'className'  && !sortReverse"
+                    class="glyphicon glyphicon-circle-arrow-down"></span><span
+                    ng-show="sortType == 'className' && sortReverse"
+                    class="glyphicon glyphicon-circle-arrow-up"></span></th>
+                <th class="text-center headerstyle"><a href="#"
+                  style="text-decoration: none; color: white;"
+                  ng-click="sortType = 'buildTotalRequest';sortReverse = !sortReverse">TOTAL(B)<span
+                    ng-show="sortType == 'buildTotalRequest'  && !sortReverse"
+                    class="glyphicon glyphicon-circle-arrow-down"></span><span
+                    ng-show="sortType == 'buildTotalRequest' && sortReverse"
+                    class="glyphicon glyphicon-circle-arrow-up"></span></th>
+                <th class="text-center headerstyle"><a href="#"
+                  style="text-decoration: none; color: white;"
+                  ng-click="sortType = 'nonBuildTotalRequest';sortReverse = !sortReverse">TOTAL(NB)<span
+                    ng-show="sortType == 'nonBuildTotalRequest'  && !sortReverse"
+                    class="glyphicon glyphicon-circle-arrow-down text-center headerstyle"></span><span
+                    ng-show="sortType == 'nonBuildTotalRequest' && sortReverse"
+                    class="glyphicon glyphicon-circle-arrow-up"></span></th>
+                <th class="text-center headerstyle"><a href="#"
+                  style="text-decoration: none; color: white;"
+                  ng-click="sortType = 'oldBuildTotalRequest';sortReverse = !sortReverse">TOTAL(OB)<span
+                    ng-show="sortType == 'oldBuildTotalRequest'  && !sortReverse"
+                    class="glyphicon glyphicon-circle-arrow-down"></span><span
+                    ng-show="sortType == 'oldBuildTotalRequest' && sortReverse"
+                    class="glyphicon glyphicon-circle-arrow-up"></span></th>
+                <th class="text-center headerstyle"><a href="#"
+                  style="text-decoration: none; color: white;"
+                  ng-click="sortType = 'buildSuccessPer';sortReverse = !sortReverse">SUCCESS(B%)<span
+                    ng-show="sortType == 'buildSuccessPer'  && !sortReverse"
+                    class="glyphicon glyphicon-circle-arrow-down"></span><span
+                    ng-show="sortType == 'buildSuccessPer' && sortReverse"
+                    class="glyphicon glyphicon-circle-arrow-up"></span></th>
+                <th class="text-center headerstyle"><a href="#"
+                  style="text-decoration: none; color: white;"
+                  ng-click="sortType = 'nonBuildSuccessPer';sortReverse = !sortReverse">SUCCESS(NB%)<span
+                    ng-show="sortType == 'nonBuildSuccessPer'  && !sortReverse"
+                    class="glyphicon glyphicon-circle-arrow-down"></span><span
+                    ng-show="sortType == 'nonBuildSuccessPer' && sortReverse"
+                    class="glyphicon glyphicon-circle-arrow-up"></span></th>
+                <th class="text-center headerstyle"><a href="#"
+                  style="text-decoration: none; color: white;"
+                  ng-click="sortType = 'oldBuildSuccessPer';sortReverse = !sortReverse">SUCCESS(OB%)<span
+                    ng-show="sortType == 'oldBuildSuccessPer'  && !sortReverse"
+                    class="glyphicon glyphicon-circle-arrow-down"></span><span
+                    ng-show="sortType == 'oldBuildSuccessPer' && sortReverse"
+                    class="glyphicon glyphicon-circle-arrow-up"></span></th>
+                <th class="text-center headerstyle"><a href="#"
+                  style="text-decoration: none; color: white;"
+                  ng-click="sortType = 'successDiff';sortReverse = !sortReverse">SUCCESS|DIFF(B/NB)<span
+                    ng-show="sortType == 'successDiff'  && !sortReverse"
+                    class="glyphicon glyphicon-circle-arrow-down"></span><span
+                    ng-show="sortType == 'successDiff' && sortReverse"
+                    class="glyphicon glyphicon-circle-arrow-up"></span></th>
+
+                <th class="text-center headerstyle"><a href="#"
+                  style="text-decoration: none; color: white;"
+                  ng-click="sortType = 'buildLatency';sortReverse = !sortReverse">LATENCY(B)<span
+                    ng-show="sortType == 'buildLatency'  && !sortReverse"
+                    class="glyphicon glyphicon-circle-arrow-down"></span><span
+                    ng-show="sortType == 'buildLatency' && sortReverse"
+                    class="glyphicon glyphicon-circle-arrow-up"></span></th>
+                <th class="text-center headerstyle"><a href="#"
+                  style="text-decoration: none; color: white;"
+                  ng-click="sortType = 'nonBuildLatency';sortReverse = !sortReverse">LATENCY(NB)<span
+                    ng-show="sortType == 'nonBuildLatency'  && !sortReverse"
+                    class="glyphicon glyphicon-circle-arrow-down"></span><span
+                    ng-show="sortType == 'nonBuildLatency' && sortReverse"
+                    class="glyphicon glyphicon-circle-arrow-up"></span></th>
+                <th class="text-center headerstyle"><a href="#"
+                  style="text-decoration: none; color: white;"
+                  ng-click="sortType = 'oldBuildLatency';sortReverse = !sortReverse">LATENCY(OB)<span
+                    ng-show="sortType == 'oldBuildLatency'  && !sortReverse"
+                    class="glyphicon glyphicon-circle-arrow-down"></span><span
+                    ng-show="sortType == 'oldBuildLatency' && sortReverse"
+                    class="glyphicon glyphicon-circle-arrow-up"></span></th>
+
+              </tr>
+            </thead>
+            <tbody>
+
+              <tr
+                ng-repeat="y in x.agentStatList |  orderBy: sortType:!sortReverse">
+                <td><a data-toggle="modal" href="#myModal"
+                  style="text-decoration: none; color: #56638c;"
+                  ng-click="showAgentStatsBreakUp(x,y)"> <strong>{{y.className}}<strong>
+                        </a></td>
+                <td>{{y.buildTotalRequest}}</span></td>
+                <td>{{y.nonBuildTotalRequest}}</td>
+                <td>{{y.oldBuildTotalRequest}}</td>
+                <td>{{y.buildSuccessPer}}</td>
+                <td>{{y.nonBuildSuccessPer}}</td>
+                <td>{{y.oldBuildSuccessPer}}</td>
+                <td data-order="{{y.successDiff}}">{{y.successDiff | number
+                  :2}} <a href="#" style="text-decoration:none;"
+                  title="{{y.className}} | {{y.buildTotalRequest}}(B) / {{y.nonBuildTotalRequest}}(NB) / {{y.oldBuildTotalRequest}}(OB)"><span
+                    ng-class="getSuccDiffAlert(y.successDiff)"
+                    style="margin-left: 50px;"></span></a>
+                </td>
+                <td>{{y.buildLatency | number :2}}</td>
+                <td>{{y.nonBuildLatency | number :2}}</td>
+                <td>{{y.oldBuildLatency | number :2}}</td>
+              
+              </tr>
+            </tbody>
+          </table>			</div>
+			<div ng-repeat="x in buildData" ng-if="$index > 0"
+				id="{{x.alterEnv}}" class="tab-pane fade">
+				<h3>{{x.environament}}</h3>
+				
+          <table class="table table-bordered example" style="width: 100%;">
+            <thead style="background-color: #56638c">
+
+              <tr>
+                <th class="text-center headerstyle"><a href="#"
+                  style="text-decoration: none; color: white;"
+                  ng-click="sortType = 'className';sortReverse = !sortReverse">CLASS
+                    <span ng-show="sortType == 'className'  && !sortReverse"
+                    class="glyphicon glyphicon-circle-arrow-down"></span><span
+                    ng-show="sortType == 'className' && sortReverse"
+                    class="glyphicon glyphicon-circle-arrow-up"></span></th>
+                <th class="text-center headerstyle"><a href="#"
+                  style="text-decoration: none; color: white;"
+                  ng-click="sortType = 'buildTotalRequest';sortReverse = !sortReverse">TOTAL(B)<span
+                    ng-show="sortType == 'buildTotalRequest'  && !sortReverse"
+                    class="glyphicon glyphicon-circle-arrow-down"></span><span
+                    ng-show="sortType == 'buildTotalRequest' && sortReverse"
+                    class="glyphicon glyphicon-circle-arrow-up"></span></th>
+                <th class="text-center headerstyle"><a href="#"
+                  style="text-decoration: none; color: white;"
+                  ng-click="sortType = 'nonBuildTotalRequest';sortReverse = !sortReverse">TOTAL(NB)<span
+                    ng-show="sortType == 'nonBuildTotalRequest'  && !sortReverse"
+                    class="glyphicon glyphicon-circle-arrow-down text-center headerstyle"></span><span
+                    ng-show="sortType == 'nonBuildTotalRequest' && sortReverse"
+                    class="glyphicon glyphicon-circle-arrow-up"></span></th>
+                <th class="text-center headerstyle"><a href="#"
+                  style="text-decoration: none; color: white;"
+                  ng-click="sortType = 'oldBuildTotalRequest';sortReverse = !sortReverse">TOTAL(OB)<span
+                    ng-show="sortType == 'oldBuildTotalRequest'  && !sortReverse"
+                    class="glyphicon glyphicon-circle-arrow-down"></span><span
+                    ng-show="sortType == 'oldBuildTotalRequest' && sortReverse"
+                    class="glyphicon glyphicon-circle-arrow-up"></span></th>
+                <th class="text-center headerstyle"><a href="#"
+                  style="text-decoration: none; color: white;"
+                  ng-click="sortType = 'buildSuccessPer';sortReverse = !sortReverse">SUCCESS(B%)<span
+                    ng-show="sortType == 'buildSuccessPer'  && !sortReverse"
+                    class="glyphicon glyphicon-circle-arrow-down"></span><span
+                    ng-show="sortType == 'buildSuccessPer' && sortReverse"
+                    class="glyphicon glyphicon-circle-arrow-up"></span></th>
+                <th class="text-center headerstyle"><a href="#"
+                  style="text-decoration: none; color: white;"
+                  ng-click="sortType = 'nonBuildSuccessPer';sortReverse = !sortReverse">SUCCESS(NB%)<span
+                    ng-show="sortType == 'nonBuildSuccessPer'  && !sortReverse"
+                    class="glyphicon glyphicon-circle-arrow-down"></span><span
+                    ng-show="sortType == 'nonBuildSuccessPer' && sortReverse"
+                    class="glyphicon glyphicon-circle-arrow-up"></span></th>
+                <th class="text-center headerstyle"><a href="#"
+                  style="text-decoration: none; color: white;"
+                  ng-click="sortType = 'oldBuildSuccessPer';sortReverse = !sortReverse">SUCCESS(OB%)<span
+                    ng-show="sortType == 'oldBuildSuccessPer'  && !sortReverse"
+                    class="glyphicon glyphicon-circle-arrow-down"></span><span
+                    ng-show="sortType == 'oldBuildSuccessPer' && sortReverse"
+                    class="glyphicon glyphicon-circle-arrow-up"></span></th>
+                <th class="text-center headerstyle"><a href="#"
+                  style="text-decoration: none; color: white;"
+                  ng-click="sortType = 'successDiff';sortReverse = !sortReverse">SUCCESS|DIFF(B/NB)<span
+                    ng-show="sortType == 'successDiff'  && !sortReverse"
+                    class="glyphicon glyphicon-circle-arrow-down"></span><span
+                    ng-show="sortType == 'successDiff' && sortReverse"
+                    class="glyphicon glyphicon-circle-arrow-up"></span></th>
+
+                <th class="text-center headerstyle"><a href="#"
+                  style="text-decoration: none; color: white;"
+                  ng-click="sortType = 'buildLatency';sortReverse = !sortReverse">LATENCY(B)<span
+                    ng-show="sortType == 'buildLatency'  && !sortReverse"
+                    class="glyphicon glyphicon-circle-arrow-down"></span><span
+                    ng-show="sortType == 'buildLatency' && sortReverse"
+                    class="glyphicon glyphicon-circle-arrow-up"></span></th>
+                <th class="text-center headerstyle"><a href="#"
+                  style="text-decoration: none; color: white;"
+                  ng-click="sortType = 'nonBuildLatency';sortReverse = !sortReverse">LATENCY(NB)<span
+                    ng-show="sortType == 'nonBuildLatency'  && !sortReverse"
+                    class="glyphicon glyphicon-circle-arrow-down"></span><span
+                    ng-show="sortType == 'nonBuildLatency' && sortReverse"
+                    class="glyphicon glyphicon-circle-arrow-up"></span></th>
+                <th class="text-center headerstyle"><a href="#"
+                  style="text-decoration: none; color: white;"
+                  ng-click="sortType = 'oldBuildLatency';sortReverse = !sortReverse">LATENCY(OB)<span
+                    ng-show="sortType == 'oldBuildLatency'  && !sortReverse"
+                    class="glyphicon glyphicon-circle-arrow-down"></span><span
+                    ng-show="sortType == 'oldBuildLatency' && sortReverse"
+                    class="glyphicon glyphicon-circle-arrow-up"></span></th>
+
+              </tr>
+            </thead>
+                        <tbody>
+
+              <tr
+                ng-repeat="y in x.agentStatList |  orderBy: sortType:!sortReverse">
+                <td><a data-toggle="modal" href="#myModal"
+                  style="text-decoration: none; color: #56638c;"
+                  ng-click="showAgentStatsBreakUp(x,y)"> <strong>{{y.className}}<strong>
+                        </a></td>
+                <td>{{y.buildTotalRequest}}</span></td>
+                <td>{{y.nonBuildTotalRequest}}</td>
+                <td>{{y.oldBuildTotalRequest}}</td>
+                <td>{{y.buildSuccessPer}}</td>
+                <td>{{y.nonBuildSuccessPer}}</td>
+                <td>{{y.oldBuildSuccessPer}}</td>
+                <td data-order="{{y.successDiff}}">{{y.successDiff | number
+                  :2}} <a href="#" style="text-decoration:none;"
+                  title="{{y.className}} | {{y.buildTotalRequest}}(B) / {{y.nonBuildTotalRequest}}(NB) / {{y.oldBuildTotalRequest}}(OB)"><span
+                    ng-class="getSuccDiffAlert(y.successDiff)"
+                    style="margin-left: 50px;"></span></a>
+                </td>
+                <td>{{y.buildLatency | number :2}}</td>
+                <td>{{y.nonBuildLatency | number :2}}</td>
+                <td>{{y.oldBuildLatency | number :2}}</td>
+              
+              </tr>
+            </tbody>
+          </table>			</div>
+		</div>
+		<div class="modal fade" id="myModal" role="dialog">
+			<div class="modal-dialog">
+
+				<!-- Modal content-->
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4 class="modal-title text-center">{{className}}</h4>
+					</div>
+					<div class="modal-body">
+						<div class="onoffswitch">
+							<input type="checkbox" name="onoffswitch" ng-model="buildTypeStat"
+								class="onoffswitch-checkbox" id="myonoffswitch"> <label
+								class="onoffswitch-label" for="myonoffswitch"> <span
+								class="onoffswitch-inner"></span> <span
+								class="onoffswitch-switch"></span>
+							</label>
+						</div>
+						<br />
+						<div class="row" ng-hide="buildTypeStat">
+							<div class="col-sm-12">
+								<div class="panel panel-primary">
+									<div class="panel-header bg-primary text-center">Last 7
+										days stats</div>
+									<div class="panel-body">
+										<div class="loader" ng-show="isStatLoading">Loading...</div>
+										<div class="panel-group" ng-repeat="y in ds" ng-hide="isStatLoading">
+											<div class="panel panel-default" ng-if=y[0].buildIP>
+												<div class="panel-heading">
+													<h4 class="panel-title">
+														<a data-toggle="collapse"
+															href="#{{y[0].gathererIp.replace('.','').replace('.','').replace('.','')}}">{{y[0].gathererIp}}
+															/ <strong class="text-primary">Build</strong>
+														</a>
+
+													</h4>
+												</div>
+												<div
+													id="{{y[0].gathererIp.replace('.','').replace('.','').replace('.','')}}"
+													class="panel-collapse collapse table-responsive">
+													<table class="table table-bordered">
+														<thead>
+															<tr>
+																<th>Date</th>
+																<th>Total</th>
+																<th>Success</th>
+																<th>Agent</th>
+																<th>Site</th>
+															</tr>
+														</thead>
+														<tbody>
+															<tr ng-repeat="x in y">
+																<td>{{x.timeStamp}}</td>
+																<td>{{x.totalRequests}}</td>
+																<td>{{x.success}}</td>
+																<td>{{x.agentErrors}}</td>
+																<td>{{x.siteErrors}}</td>
+															</tr>
+														</tbody>
+													</table>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row" ng-show="buildTypeStat">
+							<div class="col-sm-12">
+								<div class="panel panel-primary">
+									<div class="panel-header bg-primary text-center">Last 7
+										days stats</div>
+									<div class="panel-body">
+										<div class="loader" ng-show="isStatLoading">Loading...</div>
+										<div class="panel-group" ng-repeat="y in ds" ng-hide="isStatLoading">
+											<div class="panel panel-default" ng-if=!y[0].buildIP>
+												<div class="panel-heading">
+													<h4 class="panel-title">
+														<a data-toggle="collapse"
+															href="#{{y[0].gathererIp.replace('.','').replace('.','').replace('.','')}}">{{y[0].gathererIp}}
+															/ <strong class="text-primary">Non Build</strong>
+														</a>
+
+													</h4>
+												</div>
+												<div
+													id="{{y[0].gathererIp.replace('.','').replace('.','').replace('.','')}}"
+													class="panel-collapse collapse table-responsive">
+													<table class="table table-bordered">
+														<thead>
+															<tr>
+																<th>Date</th>
+																<th>Total</th>
+																<th>Success</th>
+																<th>Agent</th>
+																<th>Site</th>
+															</tr>
+														</thead>
+														<tbody>
+															<tr ng-repeat="x in y">
+																<td>{{x.timeStamp}}</td>
+																<td>{{x.totalRequests}}</td>
+																<td>{{x.success}}</td>
+																<td>{{x.agentErrors}}</td>
+																<td>{{x.siteErrors}}</td>
+															</tr>
+														</tbody>
+													</table>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+
+			</div>
+		</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		//<![CDATA[
+		var app = angular.module('myApp', []);
+		app.controller('myCtrl', function($scope, $http, $timeout) {
+
+			$scope.sortType = 'successDiff'; // set the default sort type
+			$scope.sortReverse = false; // set the default sort order
+			$scope.isLoading=true;
+			$http({
+				method : "GET",
+				url : "http://localhost:7777/build/comparestats"
+			}).then(
+					function mySuccess(response) {
+						$scope.isLoading=false;
+						$scope.buildData = response.data;
+						angular.element(document).ready(function() {
+							dTable = $('.example')
+							dTable.DataTable({
+								"ordering" : false
+								
+							});
+						});
+						$scope.showAgentStatsBreakUp = function(stats,
+								agentstats) {
+							$scope.isStatLoading=true;
+							$scope.className=agentstats.className;
+							$scope.buildTypeStat = false;
+							$scope.ds = '';
+							$http.get(
+									'http://localhost:7777/build/dailystats?type=agent&buildip='
+											+ stats.buildIps + '&nonBuildIp='
+											+ stats.nonBuildIps + '&env='
+											+ stats.environament + '&class='
+											+ agentstats.className).then(
+									function(response) {
+										$scope.isStatLoading=false;
+										$scope.ds = response.data;
+									});
+						};
+
+					}, function myError(response) {
+						$scope.buildData = response.statusText;
+					});
+
+			$scope.getSuccDiffAlert = function(val1) {
+				//if(val1 <= -3 && val1 >= -10)
+				if (val1 >= 60 && val1 <= 70) {
+					return "glyphicon glyphicon-warning-sign yellow";
+				}
+				//else if(val1 < -10)
+				else if (val1 >= 71) {
+					return "glyphicon glyphicon-question-sign red"
+				} else {
+					return "glyphicon glyphicon-ok-sign green";
+				}
+			};
+		});
+		//]]>
+	</script>
+
+</body>
+</html>

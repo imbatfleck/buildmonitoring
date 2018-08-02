@@ -1,0 +1,19 @@
+select distinct class_name,tag,COUNTRY_NAME, CASE WHEN AGGREGATION_TYPE_ID = 1 THEN 'SCRAPING' WHEN AGGREGATION_TYPE_ID in (3,4,5,6,7,8,9,10,11) THEN 'FEED' WHEN AGGREGATION_TYPE_ID in (12,13,14,15,16) THEN 'HYBRID' END as AGENT_TYPE, CASE WHEN is_beta = 1 THEN 'BETA' WHEN is_beta = 0 THEN 'FULL' END as BETA_STATUS, CASE WHEN is_ready = 1 THEN 'ENABLED' WHEN is_ready = 0 THEN 'DISABLED' END as SITE_STATUS
+from (select s.site_id, si.sum_info_id, s.Name as site_name,db.value as SUM_INFO_DISPLAY_NAME,t.tag, s.base_URL, lf.login_url, ct.COUNTRY_NAME, si.AGGREGATION_TYPE_ID, si.is_beta, si.is_ready, to_char(si.ROW_CREATED, 'dd-MM-yyyy') as CREATED, si.mfa_type_id,si.class_name, sic.SUM_INFO_CATEGORY_NAME
+from sum_info si,login_form lf,db_message_catalog db,tag t,locale l,SUM_INFO_SPTD_LOCALE sp,site s, sum_info_extn sie, SUM_INFO_CATEGORY sic, country ct, aggregation_type ag
+where si.mc_key = db.mc_key
+--and db.mc_key= 'com.yodlee.db.org_name.org_info.2980'
+and si.AGGREGATION_TYPE_ID=ag.AGGREGATION_TYPE_ID
+and l.COUNTRY_ID = ct.COUNTRY_ID
+and si.SUM_INFO_ID = sie.SUM_INFO_ID
+and si.AGGREGATION_TYPE_ID not in (2)
+and sie.SUM_INFO_CATEGORY_ID = sic.SUM_INFO_CATEGORY_ID
+and sic.SUM_INFO_CATEGORY_ID in (1,5)
+and s.site_id = si.site_id
+and si.Environment not in ('Stage')
+and lf.LOGIN_FORM_ID=si.LOGIN_FORM_ID
+and sp.IS_PRIMARY = 1
+and si.tag_id=t.tag_id
+and sp.LOCALE_ID=l.LOCALE_ID
+and sp.sum_info_id=si.sum_info_id
+and t.tag_id in (5,4,12,22,21,94,13,2,88,65,84,10,17,87,92,91))

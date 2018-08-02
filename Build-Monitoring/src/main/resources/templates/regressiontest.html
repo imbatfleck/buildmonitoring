@@ -1,0 +1,510 @@
+<html>
+<head>
+ <title>Bootstrap Example</title>
+ <meta charset="utf-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+<script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script> 
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"> </script>
+<style type="text/css">
+
+/*config styles*/
+#sel1
+{
+  width: 120px;
+}
+option
+{
+  font-weight: bold;
+}
+.sep
+{
+  background-color: #c9d0db;
+}
+.row
+{
+  float: none; margin: 0 auto;
+} 
+#buildcont
+{
+  width: 250px;
+}
+#date
+{
+ width: 250px; 
+}
+#id
+{
+ width: 250px;  
+}
+#iparea
+{
+
+ margin: auto; width: 527px; height: 314px;
+}
+#iparea::-webkit-input-placeholder {
+ text-align: center;
+ font-size: 48px;
+ padding: 40px;
+}
+
+#iparea:-moz-placeholder { /* Firefox 18- */
+ text-align: center;  
+}
+
+#iparea::-moz-placeholder {  /* Firefox 19+ */
+ text-align: center;  
+}
+
+#iparea:-ms-input-placeholder {  
+ text-align: center; 
+}
+
+/*common css*/
+
+@media screen and (min-width: 768px) {
+	.modal-dialog {
+		width: 700px; /* New width for default modal */
+	}
+	.modal-sm {
+		width: 350px; /* New width for small modal */
+	}
+}
+
+@media screen and (min-width: 992px) {
+	.modal-lg {
+		width: 950px; /* New width for large modal */
+	}
+}
+
+.yellow {
+	color: #c1b50d
+}
+
+.red {
+	color: #a83b28
+}
+
+.green {
+	color: #3e7c48
+}
+/* Remove the navbar's default rounded borders and increase the bottom margin */
+.navbar {
+	margin-bottom: 50px;
+	border-radius: 0;
+}
+
+/* Remove the jumbotron's default bottom margin */
+.jumbotron {
+	margin-bottom: 0;
+}
+
+/* Add a gray background color and some padding to the footer */
+footer {
+	background-color: #f2f2f2;
+	padding: 25px;
+}
+
+.header {
+	margin: 10px;
+	border-bottom: 1px solid grey;
+}
+
+nav.navbar-findcond {
+	background: #fff;
+	border-color: #ccc;
+	box-shadow: 0 0 2px 0 #ccc;
+}
+
+nav.navbar-findcond a {
+	color: #f15555;
+}
+
+nav.navbar-findcond ul.navbar-nav a {
+	color: #f15555;
+	border-style: solid;
+	border-width: 0 0 2px 0;
+	border-color: #fff;
+}
+
+nav.navbar-findcond ul.navbar-nav a:hover, nav.navbar-findcond ul.navbar-nav a:visited,
+	nav.navbar-findcond ul.navbar-nav a:focus, nav.navbar-findcond ul.navbar-nav a:active
+	{
+	background: #fff;
+}
+
+nav.navbar-findcond ul.navbar-nav a:hover {
+	border-color: #f15555;
+}
+
+nav.navbar-findcond li.divider {
+	background: #ccc;
+}
+
+nav.navbar-findcond button.navbar-toggle {
+	background: #f15555;
+	border-radius: 2px;
+}
+
+nav.navbar-findcond button.navbar-toggle:hover {
+	background: #999;
+}
+
+nav.navbar-findcond button.navbar-toggle>span.icon-bar {
+	background: #fff;
+}
+
+nav.navbar-findcond ul.dropdown-menu {
+	border: 0;
+	background: #fff;
+	border-radius: 4px;
+	margin: 4px 0;
+	box-shadow: 0 0 4px 0 #ccc;
+}
+
+nav.navbar-findcond ul.dropdown-menu>li>a {
+	color: #444;
+}
+
+nav.navbar-findcond ul.dropdown-menu>li>a:hover {
+	background: #f15555;
+	color: #fff;
+}
+
+nav.navbar-findcond span.badge {
+	background: #f15555;
+	font-weight: normal;
+	font-size: 11px;
+	margin: 0 4px;
+}
+
+nav.navbar-findcond span.badge.new {
+	background: rgba(255, 0, 0, 0.8);
+	color: #fff;
+}
+
+.switch input {
+	display: none;
+}
+
+.switch {
+	display: inline-block;
+	width: 60px;
+	height: 30px;
+	margin: 8px;
+	transform: translateY(50%);
+	position: relative;
+}
+
+.slider {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	border-radius: 30px;
+	box-shadow: 0 0 0 2px #777, 0 0 4px #777;
+	cursor: pointer;
+	border: 4px solid transparent;
+	overflow: hidden;
+	transition: .4s;
+}
+
+.slider:before {
+	position: absolute;
+	content: "";
+	width: 100%;
+	height: 100%;
+	background: #777;
+	border-radius: 30px;
+	transform: translateX(-30px);
+	transition: .4s;
+}
+
+input:checked+.slider:before {
+	transform: translateX(30px);
+	background: limeGreen;
+}
+
+input:checked+.slider {
+	box-shadow: 0 0 0 2px limeGreen, 0 0 2px limeGreen;
+}
+
+/* Slider for stats*/
+.onoffswitch {
+	position: relative;
+	width: 122px;
+	margin: 0 auto;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+}
+
+.onoffswitch-checkbox {
+	display: none;
+}
+
+.onoffswitch-label {
+	display: block;
+	overflow: hidden;
+	cursor: pointer;
+	border: 2px solid #416BAD;
+	border-radius: 0px;
+}
+
+.onoffswitch-inner {
+	display: block;
+	width: 200%;
+	margin-left: -100%;
+	transition: margin 0.3s ease-in 0s;
+}
+
+.onoffswitch-inner:before, .onoffswitch-inner:after {
+	display: block;
+	float: left;
+	width: 50%;
+	height: 31px;
+	padding: 0;
+	line-height: 27px;
+	font-size: 17px;
+	color: white;
+	font-family: Trebuchet, Arial, sans-serif;
+	font-weight: bold;
+	box-sizing: border-box;
+	border: 2px solid transparent;
+	background-clip: padding-box;
+}
+
+.onoffswitch-inner:before {
+	content: "NON BUILD";
+	padding-left: 7px;
+	background-color: #FFFFFF;
+	color: #504D7D;
+}
+
+.onoffswitch-inner:after {
+	content: "BUILD";
+	padding-right: 7px;
+	background-color: #FFFFFF;
+	color: #36572D;
+	text-align: right;
+}
+
+.onoffswitch-switch {
+	display: block;
+	width: 11px;
+	margin: 0px;
+	background: #36572D;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	right: 111px;
+	transition: all 0.3s ease-in 0s;
+}
+
+.onoffswitch-checkbox:checked+.onoffswitch-label .onoffswitch-inner {
+	margin-left: 0;
+}
+
+.onoffswitch-checkbox:checked+.onoffswitch-label .onoffswitch-switch {
+	right: 0px;
+	background-color: #504D7D;
+}
+
+/*loader styles*/
+
+.loader,
+.loader:before,
+.loader:after {
+  background: #3d5b8c;
+  -webkit-animation: load1 1s infinite ease-in-out;
+  animation: load1 1s infinite ease-in-out;
+  width: 1em;
+  height: 4em;
+}
+.loader {
+  color: #3d5b8c;
+  text-indent: -9999em;
+  margin: 88px auto;
+  position: relative;
+  font-size: 11px;
+  -webkit-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-animation-delay: -0.16s;
+  animation-delay: -0.16s;
+}
+.loader:before,
+.loader:after {
+  position: absolute;
+  top: 0;
+  content: '';
+}
+.loader:before {
+  left: -1.5em;
+  -webkit-animation-delay: -0.32s;
+  animation-delay: -0.32s;
+}
+.loader:after {
+  left: 1.5em;
+}
+@-webkit-keyframes load1 {
+  0%,
+  80%,
+  100% {
+    box-shadow: 0 0;
+    height: 4em;
+  }
+  40% {
+    box-shadow: 0 -2em;
+    height: 5em;
+  }
+}
+@keyframes load1 {
+  0%,
+  80%,
+  100% {
+    box-shadow: 0 0;
+    height: 4em;
+  }
+  40% {
+    box-shadow: 0 -2em;
+    height: 5em;
+  }
+}
+
+.blue
+	{
+		background: rgba(0,0,0,.1);
+
+	}
+	.normal
+	{
+		background: rgba(0,0,0,.1);
+	}
+/*table style*/
+
+  .table-responsive>.fixed-column {
+  position: absolute;
+  display: inline-block;
+  width: auto;
+  border-right: 1px solid #ddd;
+  background-color: #fff;
+  /* bootstrap v3 fix for fixed column background color*/
+  border-radius: 2px;
+}
+
+@media ( min-width :768px) {
+  .table-responsive>.fixed-column {
+    display: none;
+  }
+}
+
+.headerstyle {
+  color: white;
+}
+
+table.table-bordered {
+  border: 1px solid #8995bc;
+  margin-top: 20px;
+}
+
+table.table-bordered>thead>tr>th {
+  border: 1px solid #8995bc;
+}
+
+table.table-bordered>tbody>tr>td {
+  border: 1px solid #8995bc;
+  font-size: 15px;
+}
+/*th, td { white-space: nowrap; }*/
+div.dataTables_wrapper {
+  margin: 0 auto;
+}
+
+.DTFC_LeftBodyLiner {
+  margin-top: -13px;
+}
+
+.DTFC_LeftBodyLiner>table>tbody>tr {
+  background-color: #f9fcf9;
+}
+
+#DataTables_Table_0_wrapper>div:nth-child(2) {
+  overflow-x: scroll;
+}
+
+#DataTables_Table_0_wrapper>div:nth-child(2)::-webkit-scrollbar {
+  width: 12px;
+}
+
+#DataTables_Table_0_wrapper>div:nth-child(2)::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px #45597a;
+  border-radius: 10px;
+}
+
+#DataTables_Table_0_wrapper>div:nth-child(2)::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 6px #45597a;
+}
+
+
+
+.glyphicon {
+  margin-left: 10px;
+  display: inline;
+}
+
+
+</style>   
+</head>
+ <nav class="navbar navbar-findcond navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed"
+        data-toggle="collapse" data-target="#navbar">
+        <span class="sr-only">Toggle navigation</span> <span
+        class="icon-bar"></span> <span class="icon-bar"></span> <span
+        class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Build Regression Tool</a>
+    </div>
+    <div class="collapse navbar-collapse" id="navbar">
+      <ul class="nav navbar-nav navbar-right">
+        <li class="active"><a href="/build/details"><i
+          class="fa fa-fw fa-bell-o"></i>Home</a></li>
+          <li class="active"><a href="/build/agentstats">Stats<span
+            class="sr-only">(current)</span></a></li>
+            <li class="dropdown"><a href="#" class="dropdown-toggle"
+              data-toggle="dropdown" role="button" aria-expanded="false">Regression
+              <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu" role="menu">
+              <li><a href="/build/monitor">Configuration</a></li>
+			  <li><a href="/build/regression">Regression</a></li>
+            </ul></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+
+    <div class="container" ng-app="app" ng-controller="myCtrl">
+    <div class="row text-center">
+
+    		<h1 class="text-muted">Coming soon..</h1>
+    		<h4><a href="/build/details">Go back to monitoring page</a></h4>
+    </div>
+   </div>
+
+</body>
+</html>
