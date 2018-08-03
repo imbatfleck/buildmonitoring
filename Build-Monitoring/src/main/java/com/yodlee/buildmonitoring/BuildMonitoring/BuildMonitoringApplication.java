@@ -7,7 +7,11 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -30,6 +34,7 @@ import com.yodlee.buildmonitoring.BuildMonitoring.envsetup.IPBuildSetUp;
 import com.yodlee.buildmonitoring.BuildMonitoring.envsetup.IPSetUP;
 import com.yodlee.buildmonitoring.BuildMonitoring.model.BuildConfigDetails;
 import com.yodlee.buildmonitoring.BuildMonitoring.model.LocaleDetails;
+import com.yodlee.buildmonitoring.BuildMonitoring.serviceimp.BuildStatsServiceImp;
 
 @SpringBootApplication
 @EnableCaching
@@ -52,11 +57,11 @@ public class BuildMonitoringApplication {
 
 		System.out.println("+++++++++++getting connection");
 
-		/*
-		 * SITEPConn = DriverManager.getConnection(dbProps.getProperty("url") +
-		 * dbProps.getProperty("dbName"), dbProps.getProperty("userName"),
-		 * dbProps.getProperty("password"));
-		 */
+		
+		/* SITEPConn = DriverManager.getConnection(dbProps.getProperty("url") +
+		 dbProps.getProperty("dbName"), dbProps.getProperty("userName"),
+		 dbProps.getProperty("password"));*/
+		 
 
 		/*
 		 * String
@@ -64,7 +69,35 @@ public class BuildMonitoringApplication {
 		 * ; getConfigDetails(data);
 		 */
 		SpringApplication.run(BuildMonitoringApplication.class, args);
-
+		
+		/*String date="Thursday, 02 August, 2018 21:00 IST";
+		SimpleDateFormat dateFormat=new SimpleDateFormat("E, dd MMM, yyyy HH:mm z");
+		Date dateOne=null;
+		try {
+			dateOne=dateFormat.parse(date);
+			System.out.println("++++date="+dateOne);
+			
+			Calendar cal = Calendar.getInstance();
+			cal.setTime(dateOne);
+			cal.add(Calendar.DATE, -7);
+			Date dateBefore30Days = cal.getTime();
+			System.out.println("+++oldbuild date="+dateBefore30Days);
+			
+			cal.setTime(dateBefore30Days);
+			cal.add(Calendar.HOUR, 4);
+			Date afterdays=cal.getTime();
+			
+			System.out.println("+++oldbuild date="+afterdays);
+			
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			System.out.println("+++++=inside catch");
+		}
+		
+		Date currentDate=new Date();
+		long diffDate=currentDate.getTime()-dateOne.getTime();
+		System.out.println("+++++++++++++currentDate="+(diffDate/(1000*60*60)));*/
+		//for()
 		// getConnection();
 
 	}
@@ -72,11 +105,13 @@ public class BuildMonitoringApplication {
 	public static HashMap<String, List<BuildConfigDetails>> getConfigDetails(String data, String buildNumber,
 			String buildDate, String confirm, String isDelete) {
 		if (isDelete != null && isDelete.equals("true")) {
+			BuildStatsServiceImp.buildStats=null;
 			isDisable=true;
 			String bn = "BuildNumber=" + buildNumber;
 			String bd = "BuildDate=" + buildDate;
 			String fn = "FileName="+"NOT_FOUND";
-			String propFile = bn + "\n" + bd + "\n" + fn;
+			String en="IsEnable=false";
+			String propFile = bn + "\n" + bd + "\n" + fn+"\n"+en;
 			Utility.writeToFile("build", "properties", propFile);
 			return null;
 		}
@@ -137,16 +172,14 @@ public class BuildMonitoringApplication {
 			String bn = "BuildNumber=" + buildNumber;
 			String bd = "BuildDate=" + buildDate;
 			String fn = "FileName=" + buildNumber + ".txt";
+			String en="IsEnable=true";
 			
-			String propFile = bn + "\n" + bd + "\n" + fn;
+			String propFile = bn + "\n" + bd + "\n" + fn+"\n"+en;
 			Utility.writeToFile("build", "properties", propFile);
 			Utility.writeToFile(buildNumber, "txt", compConfing);
-			isDisable=false;
-
 		}
 		System.out.println("Complete configuration");
 		System.out.println(compConfing);
-		configDetails = configMap;
 		return configMap;
 	}
 

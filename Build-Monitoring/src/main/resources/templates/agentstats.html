@@ -70,76 +70,76 @@ footer {
 }
 
 nav.navbar-findcond {
-	background: #fff;
-	border-color: #ccc;
-	box-shadow: 0 0 2px 0 #ccc;
+  background: #5e66a3;
+  border-color: #ccc;
+  box-shadow: 0 0 2px 0 #ccc;
 }
 
 nav.navbar-findcond a {
-	color: #f15555;
+  color:#f8f7ff;
 }
 
 nav.navbar-findcond ul.navbar-nav a {
-	color: #f15555;
-	border-style: solid;
-	border-width: 0 0 2px 0;
-	border-color: #fff;
+  color: #f8f7ff;
+  border-style: solid;
+  border-width: 0 0 2px 0;
+  border-color: #fff;
 }
 
 nav.navbar-findcond ul.navbar-nav a:hover, nav.navbar-findcond ul.navbar-nav a:visited,
-	nav.navbar-findcond ul.navbar-nav a:focus, nav.navbar-findcond ul.navbar-nav a:active
-	{
-	background: #fff;
+nav.navbar-findcond ul.navbar-nav a:focus, nav.navbar-findcond ul.navbar-nav a:active
+{
+  background: #9299ce;
 }
 
 nav.navbar-findcond ul.navbar-nav a:hover {
-	border-color: #f15555;
+  border-color: #f15555;
 }
 
 nav.navbar-findcond li.divider {
-	background: #ccc;
+  background: #ccc;
 }
 
 nav.navbar-findcond button.navbar-toggle {
-	background: #f15555;
-	border-radius: 2px;
+  background: #f15555;
+  border-radius: 2px;
 }
 
 nav.navbar-findcond button.navbar-toggle:hover {
-	background: #999;
+  background: #999;
 }
 
 nav.navbar-findcond button.navbar-toggle>span.icon-bar {
-	background: #fff;
+  background: #fff;
 }
 
 nav.navbar-findcond ul.dropdown-menu {
-	border: 0;
-	background: #fff;
-	border-radius: 4px;
-	margin: 4px 0;
-	box-shadow: 0 0 4px 0 #ccc;
+  border: 0;
+  background: #fff;
+  border-radius: 4px;
+  margin: 4px 0;
+  box-shadow: 0 0 4px 0 #ccc;
 }
 
 nav.navbar-findcond ul.dropdown-menu>li>a {
-	color: #444;
+  color: #444;
 }
 
 nav.navbar-findcond ul.dropdown-menu>li>a:hover {
-	background: #f15555;
-	color: #fff;
+  background: #f15555;
+  color: #fff;
 }
 
 nav.navbar-findcond span.badge {
-	background: #f15555;
-	font-weight: normal;
-	font-size: 11px;
-	margin: 0 4px;
+  background: #f15555;
+  font-weight: normal;
+  font-size: 11px;
+  margin: 0 4px;
 }
 
 nav.navbar-findcond span.badge.new {
-	background: rgba(255, 0, 0, 0.8);
-	color: #fff;
+  background: rgba(255, 0, 0, 0.8);
+  color: #fff;
 }
 
 .switch input {
@@ -467,7 +467,7 @@ div.dataTables_wrapper {
 				id="{{x.alterEnv}}" class="tab-pane fade in active">
 				<h3>{{x.environament}}</h3>
 				
-          <table class="table table-bordered example" style="width: 100%;">
+         <table class="table table-bordered example" style="width: 100%;">
             <thead style="background-color: #56638c">
 
               <tr>
@@ -549,10 +549,117 @@ div.dataTables_wrapper {
                     class="glyphicon glyphicon-circle-arrow-down"></span><span
                     ng-show="sortType == 'oldBuildLatency' && sortReverse"
                     class="glyphicon glyphicon-circle-arrow-up"></span></th>
+                    
+                    <th class="text-center headerstyle"><a href="#"
+                  style="text-decoration: none; color: white;"
+                  ng-click="sortType = 'latencyDiff';sortReverse = !sortReverse">LATENCY'DIFF(B/NB)<span
+                    ng-show="sortType == 'latencyDiff'  && !sortReverse"
+                    class="glyphicon glyphicon-circle-arrow-down"></span><span
+                    ng-show="sortType == 'latencyDiff' && sortReverse"
+                    class="glyphicon glyphicon-circle-arrow-up"></span></th>
+                    
+                    <th class="text-center headerstyle"><a href="#"
+                  style="text-decoration: none; color: white;"
+                  ng-click="sortType = 'buildInfraLatency';sortReverse = !sortReverse">INFRA'LATENCY(B)<span
+                    ng-show="sortType == 'buildInfraLatency'  && !sortReverse"
+                    class="glyphicon glyphicon-circle-arrow-down"></span><span
+                    ng-show="sortType == 'buildInfraLatency' && sortReverse"
+                    class="glyphicon glyphicon-circle-arrow-up"></span></th>
+                    
+                    <th class="text-center headerstyle"><a href="#"
+                  style="text-decoration: none; color: white;"
+                  ng-click="sortType = 'nonBuildInfraLatency';sortReverse = !sortReverse">INFRA'LATENCY(NB)<span
+                    ng-show="sortType == 'nonBuildInfraLatency'  && !sortReverse"
+                    class="glyphicon glyphicon-circle-arrow-down"></span><span
+                    ng-show="sortType == 'nonBuildInfraLatency' && sortReverse"
+                    class="glyphicon glyphicon-circle-arrow-up"></span></th>
+                    
+                    <th class="text-center headerstyle"><a href="#"
+                  style="text-decoration: none; color: white;"
+                  ng-click="sortType = 'oldBuildInfraLatency';sortReverse = !sortReverse">INFRA'LATENCY(OB)<span
+                    ng-show="sortType == 'oldBuildInfraLatency'  && !sortReverse"
+                    class="glyphicon glyphicon-circle-arrow-down"></span><span
+                    ng-show="sortType == 'oldBuildInfraLatency' && sortReverse"
+                    class="glyphicon glyphicon-circle-arrow-up"></span></th>
+                    
+                    <th class="text-center headerstyle"><a href="#"
+                  style="text-decoration: none; color: white;"
+                  ng-click="sortType = 'infraLatencyDiff';sortReverse = !sortReverse">INFRA'LATENCY'DIFF(B/NB)<span
+                    ng-show="sortType == 'infraLatencyDiff'  && !sortReverse"
+                    class="glyphicon glyphicon-circle-arrow-down"></span><span
+                    ng-show="sortType == 'infraLatencyDiff' && sortReverse"
+                    class="glyphicon glyphicon-circle-arrow-up"></span></th>
+                    
+                    
+                    
+                    <th class="text-center headerstyle"><a href="#"
+                  style="text-decoration: none; color: white;"
+                  ng-click="sortType = 'buildErr413';sortReverse = !sortReverse">ERR'413(B)<span
+                    ng-show="sortType == 'buildErr413'  && !sortReverse"
+                    class="glyphicon glyphicon-circle-arrow-down"></span><span
+                    ng-show="sortType == 'buildErr413' && sortReverse"
+                    class="glyphicon glyphicon-circle-arrow-up"></span></th>
+                    
+                    <th class="text-center headerstyle"><a href="#"
+                  style="text-decoration: none; color: white;"
+                  ng-click="sortType = 'nonBuildErr413';sortReverse = !sortReverse">ERR'413(NB)<span
+                    ng-show="sortType == 'nonBuildErr413'  && !sortReverse"
+                    class="glyphicon glyphicon-circle-arrow-down"></span><span
+                    ng-show="sortType == 'nonBuildErr413' && sortReverse"
+                    class="glyphicon glyphicon-circle-arrow-up"></span></th>
+                    
+                    <th class="text-center headerstyle"><a href="#"
+                  style="text-decoration: none; color: white;"
+                  ng-click="sortType = 'oldBuildErr413';sortReverse = !sortReverse">ERR'413(OB)<span
+                    ng-show="sortType == 'oldBuildErr413'  && !sortReverse"
+                    class="glyphicon glyphicon-circle-arrow-down"></span><span
+                    ng-show="sortType == 'oldBuildErr413' && sortReverse"
+                    class="glyphicon glyphicon-circle-arrow-up"></span></th>
+                    
+                    <th class="text-center headerstyle"><a href="#"
+                  style="text-decoration: none; color: white;"
+                  ng-click="sortType = 'err413Diff';sortReverse = !sortReverse">ERR'413'DIFF(B/NB)<span
+                    ng-show="sortType == 'err413Diff'  && !sortReverse"
+                    class="glyphicon glyphicon-circle-arrow-down"></span><span
+                    ng-show="sortType == 'err413Diff' && sortReverse"
+                    class="glyphicon glyphicon-circle-arrow-up"></span></th>
+                    
+                     <th class="text-center headerstyle"><a href="#"
+                  style="text-decoration: none; color: white;"
+                  ng-click="sortType = 'buildInfraError';sortReverse = !sortReverse">INFRA(B)<span
+                    ng-show="sortType == 'buildInfraError'  && !sortReverse"
+                    class="glyphicon glyphicon-circle-arrow-down"></span><span
+                    ng-show="sortType == 'buildInfraError' && sortReverse"
+                    class="glyphicon glyphicon-circle-arrow-up"></span></th>
+                    
+                    <th class="text-center headerstyle"><a href="#"
+                  style="text-decoration: none; color: white;"
+                  ng-click="sortType = 'nonBuildInfraError';sortReverse = !sortReverse">INFRA(NB)<span
+                    ng-show="sortType == 'nonBuildInfraError'  && !sortReverse"
+                    class="glyphicon glyphicon-circle-arrow-down"></span><span
+                    ng-show="sortType == 'nonBuildInfraError' && sortReverse"
+                    class="glyphicon glyphicon-circle-arrow-up"></span></th>
+                    
+                    <th class="text-center headerstyle"><a href="#"
+                  style="text-decoration: none; color: white;"
+                  ng-click="sortType = 'oldBuildInfraError';sortReverse = !sortReverse">INFRA(OB)<span
+                    ng-show="sortType == 'oldBuildInfraError'  && !sortReverse"
+                    class="glyphicon glyphicon-circle-arrow-down"></span><span
+                    ng-show="sortType == 'oldBuildInfraError' && sortReverse"
+                    class="glyphicon glyphicon-circle-arrow-up"></span></th>
+                    
+                    <th class="text-center headerstyle"><a href="#"
+                  style="text-decoration: none; color: white;"
+                  ng-click="sortType = 'infraDiff';sortReverse = !sortReverse">INFRA'DIFF(B/NB)<span
+                    ng-show="sortType == 'infraDiff'  && !sortReverse"
+                    class="glyphicon glyphicon-circle-arrow-down"></span><span
+                    ng-show="sortType == 'infraDiff' && sortReverse"
+                    class="glyphicon glyphicon-circle-arrow-up"></span></th>
+                    
 
               </tr>
             </thead>
-            <tbody>
+                        <tbody>
 
               <tr
                 ng-repeat="y in x.agentStatList |  orderBy: sortType:!sortReverse">
@@ -575,10 +682,46 @@ div.dataTables_wrapper {
                 <td>{{y.buildLatency | number :2}}</td>
                 <td>{{y.nonBuildLatency | number :2}}</td>
                 <td>{{y.oldBuildLatency | number :2}}</td>
+                <td data-order="{{y.latencyDiff}}">{{y.latencyDiff | number
+                  :2}} <a href="#" style="text-decoration:none;"
+                  title="{{y.className}} | {{y.buildTotalRequest}}(B) / {{y.nonBuildTotalRequest}}(NB) / {{y.oldBuildTotalRequest}}(OB)"><span
+                    ng-class="getLatDiffAlert(y.latencyDiff)"
+                    style="margin-left: 50px;"></span></a>
+                </td>
+                
+                <td>{{y.buildInfraLatency | number :2}}</td>
+                <td>{{y.nonBuildInfraLatency | number :2}}</td>
+                <td>{{y.oldBuildInfraLatency | number :2}}</td>
+                <td data-order="{{y.infraLatencyDiff}}">{{y.infraLatencyDiff | number
+                  :2}} <a href="#" style="text-decoration:none;"
+                  title="{{y.className}} | {{y.buildTotalRequest}}(B) / {{y.nonBuildTotalRequest}}(NB) / {{y.oldBuildTotalRequest}}(OB)"><span
+                    ng-class="getInfraLatDiffAlert(y.infraLatencyDiff)"
+                    style="margin-left: 50px;"></span></a>
+                </td>
+                
+                <td>{{y.buildErr413 | number :2}}</td>
+                <td>{{y.nonBuildErr413 | number :2}}</td>
+                <td>{{y.oldBuildErr413 | number :2}}</td>
+                <td data-order="{{y.err413Diff}}">{{y.err413Diff | number
+                  :2}} <a href="#" style="text-decoration:none;"
+                  title="{{y.className}} | {{y.buildTotalRequest}}(B) / {{y.nonBuildTotalRequest}}(NB) / {{y.oldBuildTotalRequest}}(OB)"><span
+                    ng-class="get413DiffAlert(y.err413Diff)"
+                    style="margin-left: 50px;"></span></a>
+                </td>
+                
+                 <td>{{y.buildInfraError | number :2}}</td>
+                <td>{{y.nonBuildInfraError | number :2}}</td>
+                <td>{{y.oldBuildInfraError | number :2}}</td>
+                <td data-order="{{y.infraDiff}}">{{y.infraDiff | number
+                  :2}} <a href="#" style="text-decoration:none;"
+                  title="{{y.className}} | {{y.buildTotalRequest}}(B) / {{y.nonBuildTotalRequest}}(NB) / {{y.oldBuildTotalRequest}}(OB)"><span
+                    ng-class="getInfraDiffAlert(y.infraDiff)"
+                    style="margin-left: 50px;"></span></a>
+                </td>
               
               </tr>
             </tbody>
-          </table>			</div>
+          </table>					</div>
 			<div ng-repeat="x in buildData" ng-if="$index > 0"
 				id="{{x.alterEnv}}" class="tab-pane fade">
 				<h3>{{x.environament}}</h3>
@@ -665,6 +808,113 @@ div.dataTables_wrapper {
                     class="glyphicon glyphicon-circle-arrow-down"></span><span
                     ng-show="sortType == 'oldBuildLatency' && sortReverse"
                     class="glyphicon glyphicon-circle-arrow-up"></span></th>
+                    
+                    <th class="text-center headerstyle"><a href="#"
+                  style="text-decoration: none; color: white;"
+                  ng-click="sortType = 'latencyDiff';sortReverse = !sortReverse">LATENCY'DIFF(B/NB)<span
+                    ng-show="sortType == 'latencyDiff'  && !sortReverse"
+                    class="glyphicon glyphicon-circle-arrow-down"></span><span
+                    ng-show="sortType == 'latencyDiff' && sortReverse"
+                    class="glyphicon glyphicon-circle-arrow-up"></span></th>
+                    
+                    <th class="text-center headerstyle"><a href="#"
+                  style="text-decoration: none; color: white;"
+                  ng-click="sortType = 'buildInfraLatency';sortReverse = !sortReverse">INFRA'LATENCY(B)<span
+                    ng-show="sortType == 'buildInfraLatency'  && !sortReverse"
+                    class="glyphicon glyphicon-circle-arrow-down"></span><span
+                    ng-show="sortType == 'buildInfraLatency' && sortReverse"
+                    class="glyphicon glyphicon-circle-arrow-up"></span></th>
+                    
+                    <th class="text-center headerstyle"><a href="#"
+                  style="text-decoration: none; color: white;"
+                  ng-click="sortType = 'nonBuildInfraLatency';sortReverse = !sortReverse">INFRA'LATENCY(NB)<span
+                    ng-show="sortType == 'nonBuildInfraLatency'  && !sortReverse"
+                    class="glyphicon glyphicon-circle-arrow-down"></span><span
+                    ng-show="sortType == 'nonBuildInfraLatency' && sortReverse"
+                    class="glyphicon glyphicon-circle-arrow-up"></span></th>
+                    
+                    <th class="text-center headerstyle"><a href="#"
+                  style="text-decoration: none; color: white;"
+                  ng-click="sortType = 'oldBuildInfraLatency';sortReverse = !sortReverse">INFRA'LATENCY(OB)<span
+                    ng-show="sortType == 'oldBuildInfraLatency'  && !sortReverse"
+                    class="glyphicon glyphicon-circle-arrow-down"></span><span
+                    ng-show="sortType == 'oldBuildInfraLatency' && sortReverse"
+                    class="glyphicon glyphicon-circle-arrow-up"></span></th>
+                    
+                    <th class="text-center headerstyle"><a href="#"
+                  style="text-decoration: none; color: white;"
+                  ng-click="sortType = 'infraLatencyDiff';sortReverse = !sortReverse">INFRA'LATENCY'DIFF(B/NB)<span
+                    ng-show="sortType == 'infraLatencyDiff'  && !sortReverse"
+                    class="glyphicon glyphicon-circle-arrow-down"></span><span
+                    ng-show="sortType == 'infraLatencyDiff' && sortReverse"
+                    class="glyphicon glyphicon-circle-arrow-up"></span></th>
+                    
+                    
+                    
+                    <th class="text-center headerstyle"><a href="#"
+                  style="text-decoration: none; color: white;"
+                  ng-click="sortType = 'buildErr413';sortReverse = !sortReverse">ERR'413(B)<span
+                    ng-show="sortType == 'buildErr413'  && !sortReverse"
+                    class="glyphicon glyphicon-circle-arrow-down"></span><span
+                    ng-show="sortType == 'buildErr413' && sortReverse"
+                    class="glyphicon glyphicon-circle-arrow-up"></span></th>
+                    
+                    <th class="text-center headerstyle"><a href="#"
+                  style="text-decoration: none; color: white;"
+                  ng-click="sortType = 'nonBuildErr413';sortReverse = !sortReverse">ERR'413(NB)<span
+                    ng-show="sortType == 'nonBuildErr413'  && !sortReverse"
+                    class="glyphicon glyphicon-circle-arrow-down"></span><span
+                    ng-show="sortType == 'nonBuildErr413' && sortReverse"
+                    class="glyphicon glyphicon-circle-arrow-up"></span></th>
+                    
+                    <th class="text-center headerstyle"><a href="#"
+                  style="text-decoration: none; color: white;"
+                  ng-click="sortType = 'oldBuildErr413';sortReverse = !sortReverse">ERR'413(OB)<span
+                    ng-show="sortType == 'oldBuildErr413'  && !sortReverse"
+                    class="glyphicon glyphicon-circle-arrow-down"></span><span
+                    ng-show="sortType == 'oldBuildErr413' && sortReverse"
+                    class="glyphicon glyphicon-circle-arrow-up"></span></th>
+                    
+                    <th class="text-center headerstyle"><a href="#"
+                  style="text-decoration: none; color: white;"
+                  ng-click="sortType = 'err413Diff';sortReverse = !sortReverse">ERR'413'DIFF(B/NB)<span
+                    ng-show="sortType == 'err413Diff'  && !sortReverse"
+                    class="glyphicon glyphicon-circle-arrow-down"></span><span
+                    ng-show="sortType == 'err413Diff' && sortReverse"
+                    class="glyphicon glyphicon-circle-arrow-up"></span></th>
+                    
+                     <th class="text-center headerstyle"><a href="#"
+                  style="text-decoration: none; color: white;"
+                  ng-click="sortType = 'buildInfraError';sortReverse = !sortReverse">INFRA(B)<span
+                    ng-show="sortType == 'buildInfraError'  && !sortReverse"
+                    class="glyphicon glyphicon-circle-arrow-down"></span><span
+                    ng-show="sortType == 'buildInfraError' && sortReverse"
+                    class="glyphicon glyphicon-circle-arrow-up"></span></th>
+                    
+                    <th class="text-center headerstyle"><a href="#"
+                  style="text-decoration: none; color: white;"
+                  ng-click="sortType = 'nonBuildInfraError';sortReverse = !sortReverse">INFRA(NB)<span
+                    ng-show="sortType == 'nonBuildInfraError'  && !sortReverse"
+                    class="glyphicon glyphicon-circle-arrow-down"></span><span
+                    ng-show="sortType == 'nonBuildInfraError' && sortReverse"
+                    class="glyphicon glyphicon-circle-arrow-up"></span></th>
+                    
+                    <th class="text-center headerstyle"><a href="#"
+                  style="text-decoration: none; color: white;"
+                  ng-click="sortType = 'oldBuildInfraError';sortReverse = !sortReverse">INFRA(OB)<span
+                    ng-show="sortType == 'oldBuildInfraError'  && !sortReverse"
+                    class="glyphicon glyphicon-circle-arrow-down"></span><span
+                    ng-show="sortType == 'oldBuildInfraError' && sortReverse"
+                    class="glyphicon glyphicon-circle-arrow-up"></span></th>
+                    
+                    <th class="text-center headerstyle"><a href="#"
+                  style="text-decoration: none; color: white;"
+                  ng-click="sortType = 'infraDiff';sortReverse = !sortReverse">INFRA'DIFF(B/NB)<span
+                    ng-show="sortType == 'infraDiff'  && !sortReverse"
+                    class="glyphicon glyphicon-circle-arrow-down"></span><span
+                    ng-show="sortType == 'infraDiff' && sortReverse"
+                    class="glyphicon glyphicon-circle-arrow-up"></span></th>
+                    
 
               </tr>
             </thead>
@@ -691,6 +941,42 @@ div.dataTables_wrapper {
                 <td>{{y.buildLatency | number :2}}</td>
                 <td>{{y.nonBuildLatency | number :2}}</td>
                 <td>{{y.oldBuildLatency | number :2}}</td>
+                <td data-order="{{y.latencyDiff}}">{{y.latencyDiff | number
+                  :2}} <a href="#" style="text-decoration:none;"
+                  title="{{y.className}} | {{y.buildTotalRequest}}(B) / {{y.nonBuildTotalRequest}}(NB) / {{y.oldBuildTotalRequest}}(OB)"><span
+                    ng-class="getLatDiffAlert(y.latencyDiff)"
+                    style="margin-left: 50px;"></span></a>
+                </td>
+                
+                <td>{{y.buildInfraLatency | number :2}}</td>
+                <td>{{y.nonBuildInfraLatency | number :2}}</td>
+                <td>{{y.oldBuildInfraLatency | number :2}}</td>
+                <td data-order="{{y.infraLatencyDiff}}">{{y.infraLatencyDiff | number
+                  :2}} <a href="#" style="text-decoration:none;"
+                  title="{{y.className}} | {{y.buildTotalRequest}}(B) / {{y.nonBuildTotalRequest}}(NB) / {{y.oldBuildTotalRequest}}(OB)"><span
+                    ng-class="getInfraLatDiffAlert(y.infraLatencyDiff)"
+                    style="margin-left: 50px;"></span></a>
+                </td>
+                
+                <td>{{y.buildErr413 | number :2}}</td>
+                <td>{{y.nonBuildErr413 | number :2}}</td>
+                <td>{{y.oldBuildErr413 | number :2}}</td>
+                <td data-order="{{y.err413Diff}}">{{y.err413Diff | number
+                  :2}} <a href="#" style="text-decoration:none;"
+                  title="{{y.className}} | {{y.buildTotalRequest}}(B) / {{y.nonBuildTotalRequest}}(NB) / {{y.oldBuildTotalRequest}}(OB)"><span
+                    ng-class="get413DiffAlert(y.err413Diff)"
+                    style="margin-left: 50px;"></span></a>
+                </td>
+                
+                 <td>{{y.buildInfraError | number :2}}</td>
+                <td>{{y.nonBuildInfraError | number :2}}</td>
+                <td>{{y.oldBuildInfraError | number :2}}</td>
+                <td data-order="{{y.infraDiff}}">{{y.infraDiff | number
+                  :2}} <a href="#" style="text-decoration:none;"
+                  title="{{y.className}} | {{y.buildTotalRequest}}(B) / {{y.nonBuildTotalRequest}}(NB) / {{y.oldBuildTotalRequest}}(OB)"><span
+                    ng-class="getInfraDiffAlert(y.infraDiff)"
+                    style="margin-left: 50px;"></span></a>
+                </td>
               
               </tr>
             </tbody>
@@ -840,7 +1126,9 @@ div.dataTables_wrapper {
 						angular.element(document).ready(function() {
 							dTable = $('.example')
 							dTable.DataTable({
-								"ordering" : false
+								"ordering" : false,
+								"fixedHeader": true
+							    
 								
 							});
 						});
@@ -867,12 +1155,58 @@ div.dataTables_wrapper {
 					});
 
 			$scope.getSuccDiffAlert = function(val1) {
-				//if(val1 <= -3 && val1 >= -10)
-				if (val1 >= 60 && val1 <= 70) {
+				if(val1 <= -3 && val1 >= -10){
 					return "glyphicon glyphicon-warning-sign yellow";
 				}
-				//else if(val1 < -10)
-				else if (val1 >= 71) {
+				else if (val1 < -10) {
+					return "glyphicon glyphicon-question-sign red"
+				} else {
+					return "glyphicon glyphicon-ok-sign green";
+				}
+			};
+			
+			$scope.getLatDiffAlert = function(val1) {
+				//if(val1 <= -3 && val1 >= -10)
+				if(val1 <= -3 && val1 >= -10){
+					return "glyphicon glyphicon-warning-sign yellow";
+				}
+				else if (val1 < -10) {
+					return "glyphicon glyphicon-question-sign red"
+				} else {
+					return "glyphicon glyphicon-ok-sign green";
+				}
+			};
+			
+			$scope.getInfraLatDiffAlert = function(val1) {
+				//if(val1 <= -3 && val1 >= -10)
+				if(val1 <= -3 && val1 >= -10){
+					return "glyphicon glyphicon-warning-sign yellow";
+				}
+				else if (val1 < -10) {
+					return "glyphicon glyphicon-question-sign red"
+				} else {
+					return "glyphicon glyphicon-ok-sign green";
+				}
+			};
+			
+			$scope.getInfraDiffAlert = function(val1) {
+				//if(val1 <= -3 && val1 >= -10)
+				if(val1 <= -1 && val1 >= -2){
+					return "glyphicon glyphicon-warning-sign yellow";
+				}
+				else if (val1 < -10) {
+					return "glyphicon glyphicon-question-sign red"
+				} else {
+					return "glyphicon glyphicon-ok-sign green";
+				}
+			};
+			
+			$scope.get413DiffAlert = function(val1) {
+				//if(val1 <= -3 && val1 >= -10)
+				if(val1 <= -1 && val1 >= -2){
+					return "glyphicon glyphicon-warning-sign yellow";
+				}
+				else if (val1 < -10) {
 					return "glyphicon glyphicon-question-sign red"
 				} else {
 					return "glyphicon glyphicon-ok-sign green";

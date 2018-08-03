@@ -55,7 +55,7 @@ public class BuildStatsServiceImp implements BuildStatsService {
 			"MM/dd/yyyy HH:mm:ss");
 	
 	private static HashMap<String,IPBuildSetUp> buildIpMap=null;
-	private static List<CompareStatsSummary> buildStats=null;
+	public static List<CompareStatsSummary> buildStats=null;
 	private static HashMap<String,BuildStatsPOJO> buildDetails=null;
 	private static HashMap<String, HashMap<String,List<BuildStats>>> agentStatsMap=new HashMap<>();
 	
@@ -90,7 +90,7 @@ public class BuildStatsServiceImp implements BuildStatsService {
 			List<String> nonBuildIp=ips.getNonBuild();
 			List<String> currentBuildIp=ips.getCurrentBuild();
 			
-			String oldBuildstatsQuery=BuildQueries.getBuildStatsQuery(BuildMonitoringApplication.getIps(oldBuildIp),"sysdate-700");
+			String oldBuildstatsQuery=BuildQueries.getBuildStatsQuery(BuildMonitoringApplication.getIps(oldBuildIp),"to_date('25-07-2018 21:29','dd-MM-yyyy hh24:mi')) and TIMESTAMP<(to_date('26-07-2018 09:29','dd-MM-yyyy hh24:mi')");
 			String nonBuildstatsQuery=BuildQueries.getBuildStatsQuery(BuildMonitoringApplication.getIps(nonBuildIp),"sysdate-700");
 			String currentBuildstatsQuery=BuildQueries.getBuildStatsQuery(BuildMonitoringApplication.getIps(currentBuildIp),"sysdate-700");
 			oldBuilduserDetails = buildStatsDao.getBuildDetails(connection, oldBuildstatsQuery);
@@ -144,7 +144,7 @@ public class BuildStatsServiceImp implements BuildStatsService {
 				BuildStats bs=buildClassMap.get(className);
 				BuildStats nonbs=nonBuildClassMap.get(className);
 				BuildStats oldbs=oldBuildClassMap.get(className);
-				if(bs!=null && nonbs!=null && oldbs!=null)
+				if(bs!=null && nonbs!=null)
 				{
 					AgentStats agentStats=new AgentStats();
 					agentStats.setClassName(className);
@@ -152,31 +152,52 @@ public class BuildStatsServiceImp implements BuildStatsService {
 					agentStats.setTag(bs.getTag());
 					agentStats.setBuildTotalRequest(bs.getTotalRequests());
 					agentStats.setNonBuildTotalRequest(nonbs.getTotalRequests());
-					agentStats.setOldBuildTotalRequest(oldbs.getTotalRequests());
 					agentStats.setBuildSuccessPer(bs.getSuccessPerc());
 					agentStats.setNonBuildSuccessPer(nonbs.getSuccessPerc());
-					agentStats.setOldBuildSuccessPer(oldbs.getSuccessPerc());
+					
 					agentStats.setSuccessDiff(bs.getSuccessPerc()-nonbs.getSuccessPerc());
 					agentStats.setBuildLatency(bs.getAvgLatency());
 					agentStats.setNonBuildLatency(nonbs.getAvgLatency());
-					agentStats.setOldBuildLatency(oldbs.getAvgLatency());
+					
 					agentStats.setLatencyDiff(bs.getAvgLatency()-nonbs.getAvgLatency());
 					agentStats.setBuildInfraLatency(bs.getAvgInfraLatency());
 					agentStats.setNonBuildInfraLatency(nonbs.getAvgInfraLatency());
-					agentStats.setOldBuildInfraLatency(oldbs.getAvgInfraLatency());
+					
 					agentStats.setInfraLatencyDiff(bs.getAvgInfraLatency()-nonbs.getAvgInfraLatency());
 					agentStats.setBuildErr402(bs.getError402Perc());
 					agentStats.setNonBuildErr402(nonbs.getError402Perc());
-					agentStats.setOldBuildErr402(oldbs.getError402Perc());
+					
 					agentStats.setErr402Diff(bs.getError402Perc()-nonbs.getError402Perc());
 					agentStats.setBuildErr413(bs.getError413Perc());
 					agentStats.setNonBuildErr413(nonbs.getError413Perc());
-					agentStats.setOldBuildErr413(oldbs.getError413Perc());
+					
 					agentStats.setErr413Diff(bs.getError413Perc()-nonbs.getError413Perc());
 					agentStats.setBuildInfraError(bs.getAvgInfraLatency());
 					agentStats.setNonBuildInfraError(nonbs.getAvgInfraLatency());
-					agentStats.setOldBuildInfraError(oldbs.getAvgInfraLatency());
+					
 					agentStats.setInfraDiff(bs.getAvgInfraLatency()-nonbs.getAvgInfraLatency());
+					if(oldbs!=null)
+					{
+						agentStats.setOldBuildTotalRequest(oldbs.getTotalRequests());
+						agentStats.setOldBuildSuccessPer(oldbs.getSuccessPerc());
+						agentStats.setOldBuildLatency(oldbs.getAvgLatency());
+						agentStats.setOldBuildInfraLatency(oldbs.getAvgInfraLatency());
+						agentStats.setOldBuildErr402(oldbs.getError402Perc());
+						agentStats.setOldBuildErr413(oldbs.getError413Perc());
+						agentStats.setOldBuildInfraError(oldbs.getAvgInfraLatency());
+						
+					}
+					else
+					{
+						agentStats.setOldBuildTotalRequest(0);
+						agentStats.setOldBuildSuccessPer(0);
+						agentStats.setOldBuildLatency(0);
+						agentStats.setOldBuildInfraLatency(0);
+						agentStats.setOldBuildErr402(0);
+						agentStats.setOldBuildErr413(0);
+						agentStats.setOldBuildInfraError(0);
+					}
+					
 					agentStatsList.add(agentStats);
 				}
 			}

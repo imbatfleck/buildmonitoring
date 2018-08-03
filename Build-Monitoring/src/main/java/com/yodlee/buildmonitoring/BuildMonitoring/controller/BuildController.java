@@ -2,13 +2,10 @@ package com.yodlee.buildmonitoring.BuildMonitoring.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Properties;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,21 +14,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-
 import com.yodlee.buildmonitoring.BuildMonitoring.BuildMonitoringApplication;
 import com.yodlee.buildmonitoring.BuildMonitoring.ReadPropertiesFile;
 import com.yodlee.buildmonitoring.BuildMonitoring.envsetup.BuildStatsPOJO;
-import com.yodlee.buildmonitoring.BuildMonitoring.envsetup.IPBuildSetUp;
-import com.yodlee.buildmonitoring.BuildMonitoring.envsetup.IPSetUP;
 import com.yodlee.buildmonitoring.BuildMonitoring.model.BuildConfigDetails;
 import com.yodlee.buildmonitoring.BuildMonitoring.model.BuildStats;
-import com.yodlee.buildmonitoring.BuildMonitoring.model.Company;
 import com.yodlee.buildmonitoring.BuildMonitoring.model.CompareStatsSummary;
-import com.yodlee.buildmonitoring.BuildMonitoring.model.StatsSummary;
 import com.yodlee.buildmonitoring.BuildMonitoring.queries.BuildQueries;
 import com.yodlee.buildmonitoring.BuildMonitoring.service.BuildStatsService;
 
@@ -166,40 +156,43 @@ public class BuildController {
 			 System.out.println("++++++++inside build props");
 			 buildProps = ReadPropertiesFile.getProperties("build.properties");
 		}
-		else
-		{
-			
-		}
 		String fileName=buildProps.getProperty("FileName");
+		String isEnabled=buildProps.getProperty("IsEnable");
+		
 		System.out.println("+++++++filename="+fileName);
-		if(fileName.contains("txt"))
+		System.out.println("+++++++isEnabled="+isEnabled);
+		if(isEnabled.equals("true"))
 		{
-			BuildMonitoringApplication.isDisable=false;
-			System.out.println("++++++++inside text props");
 			File f = new File(fileName);
 			if(f.exists() && !f.isDirectory()) { 
 				BuildMonitoringApplication.isFilePresent=true;
 			}
 		}
-		else if(BuildMonitoringApplication.isDisable && fileName.contains("NOT"))
-		{
-			System.out.println("++++++++inside not text props");
-			BuildMonitoringApplication.isFilePresent=false;
-		}
 		else
 		{
-			 BuildMonitoringApplication.isFilePresent=true;
+			BuildMonitoringApplication.isFilePresent=false;
 		}
+		
 		String data=req.getParameter("data");
 		String buildNumber=req.getParameter("bn");
 		String buildDate=req.getParameter("date");
 		String confirm=req.getParameter("confirm");
+		
 		if(data==null
-				&& buildNumber==null)
+				&&buildDate==null
+				&&isEnabled.equals("true"))
 		{
+			HashMap<String,List<BuildConfigDetails>> fnpMap=new HashMap<>();
+			fnpMap.put("FNP", null);
+			return new ResponseEntity<HashMap<String,List<BuildConfigDetails>>>(fnpMap, HttpStatus.OK);
+		}
+		if(data==null
+				&&buildDate==null
+				&&isEnabled.equals("false"))
+		{
+			
 			return null;
 		}
-		
 		System.out.println("++++++++++++buildnumber="+buildNumber);
 		System.out.println("++++++++++++builddate="+buildDate);
 		if(BuildMonitoringApplication.isFilePresent)
@@ -208,16 +201,6 @@ public class BuildController {
 			fnpMap.put("FNP", null);
 			return new ResponseEntity<HashMap<String,List<BuildConfigDetails>>>(fnpMap, HttpStatus.OK);
 		}
-		
-		
-		/*if(true)
-		{
-			HashMap<String,List<BuildConfigDetails>> fnpMap=new HashMap<>();
-			fnpMap.put("FNP", null);
-			return new ResponseEntity<HashMap<String,List<BuildConfigDetails>>>(fnpMap, HttpStatus.OK);
-		}*/
-		System.out.println("++++++++++++++++++++coming into controller="+req.getParameter("data"));
-		//return "JSON: The company name: " + company.getName() + ", Employees count: " + company.getEmployees() + ", Headoffice: " + company.getHeadoffice(); 
 		return new ResponseEntity<HashMap<String,List<BuildConfigDetails>>>(BuildMonitoringApplication.getConfigDetails(data,buildNumber,buildDate,confirm,null), HttpStatus.OK);
 	}
 	@RequestMapping(value="/deletebuilddetails",method=RequestMethod.POST)

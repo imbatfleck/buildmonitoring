@@ -116,76 +116,76 @@ footer {
 }
 
 nav.navbar-findcond {
-	background: #fff;
-	border-color: #ccc;
-	box-shadow: 0 0 2px 0 #ccc;
+  background: #5e66a3;
+  border-color: #ccc;
+  box-shadow: 0 0 2px 0 #ccc;
 }
 
 nav.navbar-findcond a {
-	color: #f15555;
+  color:#f8f7ff;
 }
 
 nav.navbar-findcond ul.navbar-nav a {
-	color: #f15555;
-	border-style: solid;
-	border-width: 0 0 2px 0;
-	border-color: #fff;
+  color: #f8f7ff;
+  border-style: solid;
+  border-width: 0 0 2px 0;
+  border-color: #fff;
 }
 
 nav.navbar-findcond ul.navbar-nav a:hover, nav.navbar-findcond ul.navbar-nav a:visited,
-	nav.navbar-findcond ul.navbar-nav a:focus, nav.navbar-findcond ul.navbar-nav a:active
-	{
-	background: #fff;
+nav.navbar-findcond ul.navbar-nav a:focus, nav.navbar-findcond ul.navbar-nav a:active
+{
+  background: #9299ce;
 }
 
 nav.navbar-findcond ul.navbar-nav a:hover {
-	border-color: #f15555;
+  border-color: #f15555;
 }
 
 nav.navbar-findcond li.divider {
-	background: #ccc;
+  background: #ccc;
 }
 
 nav.navbar-findcond button.navbar-toggle {
-	background: #f15555;
-	border-radius: 2px;
+  background: #f15555;
+  border-radius: 2px;
 }
 
 nav.navbar-findcond button.navbar-toggle:hover {
-	background: #999;
+  background: #999;
 }
 
 nav.navbar-findcond button.navbar-toggle>span.icon-bar {
-	background: #fff;
+  background: #fff;
 }
 
 nav.navbar-findcond ul.dropdown-menu {
-	border: 0;
-	background: #fff;
-	border-radius: 4px;
-	margin: 4px 0;
-	box-shadow: 0 0 4px 0 #ccc;
+  border: 0;
+  background: #fff;
+  border-radius: 4px;
+  margin: 4px 0;
+  box-shadow: 0 0 4px 0 #ccc;
 }
 
 nav.navbar-findcond ul.dropdown-menu>li>a {
-	color: #444;
+  color: #444;
 }
 
 nav.navbar-findcond ul.dropdown-menu>li>a:hover {
-	background: #f15555;
-	color: #fff;
+  background: #f15555;
+  color: #fff;
 }
 
 nav.navbar-findcond span.badge {
-	background: #f15555;
-	font-weight: normal;
-	font-size: 11px;
-	margin: 0 4px;
+  background: #f15555;
+  font-weight: normal;
+  font-size: 11px;
+  margin: 0 4px;
 }
 
 nav.navbar-findcond span.badge.new {
-	background: rgba(255, 0, 0, 0.8);
-	color: #fff;
+  background: rgba(255, 0, 0, 0.8);
+  color: #fff;
 }
 
 .switch input {
@@ -500,8 +500,18 @@ div.dataTables_wrapper {
 
     <div class="container" ng-app="app" ng-controller="myCtrl">
       <form>
-      	<!-- <div ng-show="disableForm">Form is disabled</div> -->
-        <div class="form-group">
+      	<div ng-show="isDisabled">
+      		<div class="row text-center" style="margin-top: 40px">
+      			<div class="page-header">
+        			<h1 class="text-muted">Monitoring for Build {{buildNumber}} is going on.</h1>
+        			     
+      			</div>
+      			<button id="singlebutton" type="submit" name="singlebutton" class="btn btn-lg  text- btn-primary" data-toggle="modal"
+             data-target="#confirmmodal" ng-click="processData(data,number,date,am_pm,time)">Disable Monitoring</button>
+    			
+   			 </div>
+      	</div>
+        <div class="form-group" ng-hide="isDisabled">
           <div class="row">
             <div class="col-sm-4">
               <div>
@@ -583,15 +593,13 @@ div.dataTables_wrapper {
             <div class="col-md-12 text-center"> 
              <div class="col-md-12 text-center"> 
              <button id="singlebutton" type="submit" name="singlebutton" class="btn btn-lg  text- btn-primary" data-toggle="modal"
-             data-target="#{{datatarget}}" ng-click="processData(data,number,date,am_pm,time)" ng-show="!isDisabled">Enable Monitoring</button>
-
-             <button id="singlebutton" type="submit" name="singlebutton" class="btn btn-lg  text- btn-primary" data-toggle="modal"
-             data-target="#confirmmodal" ng-click="processData(data,number,date,am_pm,time)" ng-show="isDisabled">Disable Monitoring</button> 
+             data-target="#{{datatarget}}" ng-click="processData(data,number,date,am_pm,time)" ng-show="!isDisabled">Enable Monitoring</button> 
            </div>
 
          </div>
 
 
+       </div>
        </div>
        <div class="modal fade" id="confirmmodal" role="dialog">
         <div class="modal-dialog modal-sm">
@@ -699,15 +707,14 @@ div.dataTables_wrapper {
             method : "GET",
             url : "http://localhost:7777/build/getbuilddetails"
           }).then(function mySuccess(response) {
-        	  $scope.isDisabled=true;
         	  $scope.rd=response.data;
         	  var temp = JSON.stringify($scope.rd);
 			  $scope.ds=temp;
         	  $scope.$watch('ds', function () {
 					if ($scope.ds.match("FNP")) {
-						$scope.disableForm=true;
+						$scope.isDisabled = true;
 					} else {
-						$scope.disableForm=false;
+						$scope.isDisabled =false;
 					}
 				});
 
@@ -717,8 +724,7 @@ div.dataTables_wrapper {
 
     //$timeout(callAtTimeout,1000);
     
-    $scope.confirmData=function() {
-      $scope.textarea='Monitoring for build '+$scope.buildNumber+' is going on. Please disable it for new monitoring.' 
+    $scope.confirmData=function() { 
       $scope.isDisabled = true;
       $http({
         method : "GET",
@@ -743,12 +749,12 @@ div.dataTables_wrapper {
     
     $scope.deleteData=function() {
     	$scope.textarea='Paste the ip details here.'
-        $scope.isDisabled = false;
         $http({
           method : "GET",
           url : "http://localhost:7777/build/deletebuilddetails?data="+$scope.stats+"&bn="+$scope.buildNumber+"&date="+$scope.date+" "+$scope.time+" "+$scope.am_pm+"&confirm=true"
         }).then(function mySuccess(response) {
           $scope.deletedata=response.data;
+          $scope.isDisabled = false;
        
         }, function myError(response) {
         	//alert("http fail");
