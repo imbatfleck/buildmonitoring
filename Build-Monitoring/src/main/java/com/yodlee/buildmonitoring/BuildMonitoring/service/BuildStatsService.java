@@ -3,6 +3,7 @@ package com.yodlee.buildmonitoring.BuildMonitoring.service;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,4 +23,5 @@ public interface BuildStatsService {
 	List<CompareStatsSummary> getComaprisonStats(Connection connection) throws SQLException, IOException;
 	HashMap<String, List<BuildStats>> getDailyStats(Connection connection,String statsQuery, String env) throws SQLException;
 	HashMap<String, List<BuildStats>> getAgentDailyStats(Connection connection, String agentBuildStatsQuery,String className) throws SQLException;
+	String doRegression(String data) throws IOException, InterruptedException, ParseException;
 }

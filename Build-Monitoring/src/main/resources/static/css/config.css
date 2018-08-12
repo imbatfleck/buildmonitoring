@@ -1,0 +1,50 @@
+#sel1
+{
+  width: 120px;
+}
+option
+{
+  font-weight: bold;
+}
+.sep
+{
+  background-color: #c9d0db;
+}
+.row
+{
+  float: none; margin: 0 auto;
+} 
+#buildcont
+{
+  width: 250px;
+}
+#date
+{
+ width: 250px; 
+}
+#id
+{
+ width: 250px;  
+}
+#iparea
+{
+
+ margin: auto; width: 527px; height: 314px;
+}
+#iparea::-webkit-input-placeholder {
+ text-align: center;
+ font-size: 48px;
+ padding: 40px;
+}
+
+#iparea:-moz-placeholder { /* Firefox 18- */
+ text-align: center;  
+}
+
+#iparea::-moz-placeholder {  /* Firefox 19+ */
+ text-align: center;  
+}
+
+#iparea:-ms-input-placeholder {  
+ text-align: center; 
+}

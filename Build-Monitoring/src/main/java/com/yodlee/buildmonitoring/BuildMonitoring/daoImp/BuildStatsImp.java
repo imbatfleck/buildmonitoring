@@ -112,6 +112,30 @@ public class BuildStatsImp implements BuildStatsDao{
 			}
 			sr.setTotalRequests(rs.getInt("total_request"));
 			sr.setSuccess(rs.getInt("success"));
+			sr.setAgentErrors(rs.getInt("agent_errors"));
+			sr.setSiteErrors(rs.getInt("site_errors"));
+			sr.setUarErrors(rs.getInt("uar_errors"));
+			sr.setInfraErrors(rs.getInt("infra_errors"));
+			sr.setError402(rs.getInt("ERR402"));
+			sr.setError406(rs.getInt("ERR406"));
+			sr.setError407(rs.getInt("ERR407"));
+			sr.setError414(rs.getInt("ERR414"));
+			sr.setError422(rs.getInt("ERR422"));
+			sr.setError427(rs.getInt("ERR427"));
+			sr.setError428(rs.getInt("ERR428"));
+			sr.setError429(rs.getInt("ERR429"));
+			sr.setError518(rs.getInt("ERR518"));
+			sr.setError519(rs.getInt("ERR519"));
+			sr.setError522(rs.getInt("ERR522"));
+			sr.setError523(rs.getInt("ERR523"));
+			sr.setSuccessPerc(rs.getDouble("successPer"));
+			sr.setAvgLatency(rs.getDouble("script_latency"));
+			sr.setAvgInfraLatency(rs.getDouble("infra_script_latency"));
+			sr.setNumNavigations(rs.getDouble("num_of_navigations"));
+			sr.setError413(rs.getInt("ERR413"));
+			sr.setDocDownloadErrors(rs.getInt("ERRDOCDOWNLOAD"));
+			sr.setError402Perc(rs.getDouble("err402Per"));
+			sr.setError413Perc(rs.getDouble("err413Per"));
 			buildStatList.add(sr);
 		}
 		
@@ -155,6 +179,8 @@ public class BuildStatsImp implements BuildStatsDao{
 			sr.setAgentErrors(rs.getInt("agent_errors"));
 			sr.setSiteErrors(rs.getInt("site_errors"));
 			sr.setUarErrors(rs.getInt("uar_errors"));
+			sr.setAvgLatency(rs.getDouble("script_latency"));
+			sr.setAvgInfraLatency(rs.getDouble("infra_script_latency"));
 			buildStatList.add(sr);
 		}
 		return buildStatList;

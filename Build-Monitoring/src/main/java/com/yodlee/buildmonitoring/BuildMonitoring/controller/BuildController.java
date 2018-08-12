@@ -3,8 +3,10 @@ package com.yodlee.buildmonitoring.BuildMonitoring.controller;
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Properties;
 
@@ -18,12 +20,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import com.yodlee.buildmonitoring.BuildMonitoring.BuildMonitoringApplication;
 import com.yodlee.buildmonitoring.BuildMonitoring.ReadPropertiesFile;
+import com.yodlee.buildmonitoring.BuildMonitoring.Utility;
+import com.yodlee.buildmonitoring.BuildMonitoring.buildregression.model.BatchDetails;
+import com.yodlee.buildmonitoring.BuildMonitoring.buildregression.statusmodel.BuildRegressionStatus;
 import com.yodlee.buildmonitoring.BuildMonitoring.envsetup.BuildStatsPOJO;
 import com.yodlee.buildmonitoring.BuildMonitoring.model.BuildConfigDetails;
 import com.yodlee.buildmonitoring.BuildMonitoring.model.BuildStats;
 import com.yodlee.buildmonitoring.BuildMonitoring.model.CompareStatsSummary;
 import com.yodlee.buildmonitoring.BuildMonitoring.queries.BuildQueries;
 import com.yodlee.buildmonitoring.BuildMonitoring.service.BuildStatsService;
+import com.yodlee.buildmonitoring.BuildMonitoring.serviceimp.BuildStatsServiceImp;
+import com.yodlee.buildmonitoring.BuildMonitoring.serviceimp.RegressionService;
 
 @Controller
 @RequestMapping(value="/build",method=RequestMethod.GET)
@@ -38,6 +45,12 @@ public class BuildController {
 	{
 		System.out.println("+++++++++++details page");
 		return "regression";
+	}
+	
+	@RequestMapping(value="/home",method=RequestMethod.GET)
+	public String getIndexPage()
+	{
+		return "index";
 	}
 	
 	@RequestMapping(value="/agentstats",method=RequestMethod.GET)
@@ -104,19 +117,14 @@ public class BuildController {
 		System.out.println("+++++++++++combined ips  daily="+combinedIps);
 		System.out.println("+++++++++++build ip env="+env);
 		System.out.println("+++++++++++type="+type);
-		try {
-			Thread.sleep(5000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
 		if(type==null)
 		{
-			return new ResponseEntity<HashMap<String,List<BuildStats>>>(buildStatsService.getDailyStats(BuildMonitoringApplication.SITEPConn, BuildQueries.getBuildDailyStatsQuery(combinedIps, "sysdate-700"),env), HttpStatus.OK);
+			return new ResponseEntity<HashMap<String,List<BuildStats>>>(buildStatsService.getDailyStats(BuildMonitoringApplication.SITEPConn, BuildQueries.getBuildDailyStatsQuery(combinedIps, "sysdate-7"),env), HttpStatus.OK);
 		}
 		else
 		{
-			return new ResponseEntity<HashMap<String,List<BuildStats>>>(buildStatsService.getAgentDailyStats(BuildMonitoringApplication.SITEPConn, BuildQueries.getAgentBuildStatsQuery(combinedIps, "sysdate-700",className),className), HttpStatus.OK);
+			return new ResponseEntity<HashMap<String,List<BuildStats>>>(buildStatsService.getAgentDailyStats(BuildMonitoringApplication.SITEPConn, BuildQueries.getAgentBuildStatsQuery(combinedIps, "sysdate-7",className),className), HttpStatus.OK);
 			//return new ResponseEntity<HashMap<String,List<BuildStats>>>(buildStatsService.getAgentDailyStats(BuildMonitoringApplication.SITEPConn, BuildQueries.getAgentBuildStatsQuery(buildIps, "sysdate-700",className),className), HttpStatus.OK);
 		}
 	}
@@ -212,6 +220,36 @@ public class BuildController {
 		String isDelete=req.getParameter("confirm");
 		
 		return new ResponseEntity<HashMap<String,List<BuildConfigDetails>>>(BuildMonitoringApplication.getConfigDetails(data,buildNumber,buildDate,null,isDelete), HttpStatus.OK);
+	}
+	@RequestMapping(value="/doregression",method=RequestMethod.GET)
+	public ResponseEntity<LinkedHashSet<BatchDetails>> doRegression(HttpServletRequest req)
+	{
+		return new ResponseEntity<LinkedHashSet<BatchDetails>>(BuildMonitoringApplication.getBatchDetailsInfo(null), HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="/startregression",method=RequestMethod.GET)
+	public ResponseEntity<String> startRegression(HttpServletRequest req) throws IOException, InterruptedException, ParseException
+	{
+		String data=req.getParameter("data");
+		
+		return new ResponseEntity<String>(buildStatsService.doRegression(data), HttpStatus.OK);
+	}
+	@RequestMapping(value="/regressionstatus",method=RequestMethod.GET)
+	public ResponseEntity<BuildRegressionStatus> regressionStatus(HttpServletRequest req) throws IOException
+	{
+		System.out.println("+++++checking status");
+		BuildRegressionStatus status=null;
+		String batchID=req.getParameter("batchid");
+		for(BuildRegressionStatus regStatus:RegressionService.buildRegStList)
+		{
+			if(regStatus.getBatchID().equals(batchID))
+			{
+				status=regStatus;
+				break;
+			}
+		}
+		
+		return new ResponseEntity<BuildRegressionStatus>(status, HttpStatus.OK);
 	}
 
 }

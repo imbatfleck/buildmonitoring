@@ -7,17 +7,14 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Properties;
+import java.util.Stack;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.apache.poi.ss.usermodel.Cell;
@@ -29,6 +26,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
+import com.yodlee.buildmonitoring.BuildMonitoring.buildregression.loginmodel.AuthenticationDeatils;
+import com.yodlee.buildmonitoring.BuildMonitoring.buildregression.model.BatchDetails;
 import com.yodlee.buildmonitoring.BuildMonitoring.envsetup.EnvIPSetUp;
 import com.yodlee.buildmonitoring.BuildMonitoring.envsetup.IPBuildSetUp;
 import com.yodlee.buildmonitoring.BuildMonitoring.envsetup.IPSetUP;
@@ -40,6 +39,21 @@ import com.yodlee.buildmonitoring.BuildMonitoring.serviceimp.BuildStatsServiceIm
 @EnableCaching
 @EnableScheduling
 public class BuildMonitoringApplication {
+	
+	public static Stack<AuthenticationDeatils> authStack=new Stack<>();
+	public static Stack<AuthenticationDeatils> reservedAuthStack=new Stack<>();
+	public static List<AuthenticationDeatils> authList=new ArrayList<>();
+	public static final ArrayList<String> custRouteList=new ArrayList<>();
+	
+
+	private static final String BUILD_DETAIL_KEY = "build.detail";
+	private static final String BUILD_DETAIL_PROP_FILE = "batchdetails.properties";
+	
+	private static final String UPDATED_BUILD_DETAIL_PROP_FILE="updatedbatdetail.properties";
+
+	private static Properties buildProps = ReadPropertiesFile.getProperties(BUILD_DETAIL_PROP_FILE);
+	private static String buildDetails = buildProps.getProperty(BUILD_DETAIL_KEY);
+
 
 	public static Connection SITEPConn;
 	public static HashMap<String, Boolean> IPBuildMapper = new HashMap<>();
@@ -55,7 +69,15 @@ public class BuildMonitoringApplication {
 
 		SITEPConn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "hr", "hr");
 
-		System.out.println("+++++++++++getting connection");
+		
+		// System.out.println("+++++++++++getting connection");
+
+		/*
+		 * String s=null; try { if(s.equals("a")) {
+		 * 
+		 * } } catch (Exception e) { // TODO: handle exception
+		 * System.out.println(e.getMessage()); }
+		 */
 
 		
 		/* SITEPConn = DriverManager.getConnection(dbProps.getProperty("url") +
@@ -69,35 +91,30 @@ public class BuildMonitoringApplication {
 		 * ; getConfigDetails(data);
 		 */
 		SpringApplication.run(BuildMonitoringApplication.class, args);
-		
-		/*String date="Thursday, 02 August, 2018 21:00 IST";
-		SimpleDateFormat dateFormat=new SimpleDateFormat("E, dd MMM, yyyy HH:mm z");
-		Date dateOne=null;
-		try {
-			dateOne=dateFormat.parse(date);
-			System.out.println("++++date="+dateOne);
-			
-			Calendar cal = Calendar.getInstance();
-			cal.setTime(dateOne);
-			cal.add(Calendar.DATE, -7);
-			Date dateBefore30Days = cal.getTime();
-			System.out.println("+++oldbuild date="+dateBefore30Days);
-			
-			cal.setTime(dateBefore30Days);
-			cal.add(Calendar.HOUR, 4);
-			Date afterdays=cal.getTime();
-			
-			System.out.println("+++oldbuild date="+afterdays);
-			
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			System.out.println("+++++=inside catch");
-		}
-		
-		Date currentDate=new Date();
-		long diffDate=currentDate.getTime()-dateOne.getTime();
-		System.out.println("+++++++++++++currentDate="+(diffDate/(1000*60*60)));*/
-		//for()
+
+		/*
+		 * String date="Thursday, 02 August, 2018 21:00 IST"; SimpleDateFormat
+		 * dateFormat=new SimpleDateFormat("E, dd MMM, yyyy HH:mm z"); Date
+		 * dateOne=null; try { dateOne=dateFormat.parse(date);
+		 * System.out.println("++++date="+dateOne);
+		 * 
+		 * Calendar cal = Calendar.getInstance(); cal.setTime(dateOne);
+		 * cal.add(Calendar.DATE, -7); Date dateBefore30Days = cal.getTime();
+		 * System.out.println("+++oldbuild date="+dateBefore30Days);
+		 * 
+		 * cal.setTime(dateBefore30Days); cal.add(Calendar.HOUR, 4); Date
+		 * afterdays=cal.getTime();
+		 * 
+		 * System.out.println("+++oldbuild date="+afterdays);
+		 * 
+		 * } catch (ParseException e) { // TODO Auto-generated catch block
+		 * System.out.println("+++++=inside catch"); }
+		 * 
+		 * Date currentDate=new Date(); long
+		 * diffDate=currentDate.getTime()-dateOne.getTime();
+		 * System.out.println("+++++++++++++currentDate="+(diffDate/(1000*60*60)));
+		 */
+		// for()
 		// getConnection();
 
 	}
@@ -105,13 +122,20 @@ public class BuildMonitoringApplication {
 	public static HashMap<String, List<BuildConfigDetails>> getConfigDetails(String data, String buildNumber,
 			String buildDate, String confirm, String isDelete) {
 		if (isDelete != null && isDelete.equals("true")) {
-			BuildStatsServiceImp.buildStats=null;
-			isDisable=true;
+			BuildStatsServiceImp.buildStats = null;
+			isDisable = true;
+			System.out.println("+++++++++triggerd removing");
+			if (BuildStatsServiceImp.triggeredCompareMap.containsKey("TRIGGERED")) {
+				System.out.println("++++++triggered removed");
+				BuildStatsServiceImp.triggeredCompareMap.remove("TRIGGERED");
+			}
+			BuildStatsServiceImp.buildStats = null;
+			BuildStatsServiceImp.dailyStatsMap = null;
 			String bn = "BuildNumber=" + buildNumber;
 			String bd = "BuildDate=" + buildDate;
-			String fn = "FileName="+"NOT_FOUND";
-			String en="IsEnable=false";
-			String propFile = bn + "\n" + bd + "\n" + fn+"\n"+en;
+			String fn = "FileName=" + "NOT_FOUND";
+			String en = "IsEnable=false";
+			String propFile = bn + "\n" + bd + "\n" + fn + "\n" + en;
 			Utility.writeToFile("build", "properties", propFile);
 			return null;
 		}
@@ -172,9 +196,9 @@ public class BuildMonitoringApplication {
 			String bn = "BuildNumber=" + buildNumber;
 			String bd = "BuildDate=" + buildDate;
 			String fn = "FileName=" + buildNumber + ".txt";
-			String en="IsEnable=true";
-			
-			String propFile = bn + "\n" + bd + "\n" + fn+"\n"+en;
+			String en = "IsEnable=true";
+
+			String propFile = bn + "\n" + bd + "\n" + fn + "\n" + en;
 			Utility.writeToFile("build", "properties", propFile);
 			Utility.writeToFile(buildNumber, "txt", compConfing);
 		}
@@ -208,8 +232,17 @@ public class BuildMonitoringApplication {
 		for (String env : envUniqueList) {
 			IPBuildSetUp ipBuildSetUp = new IPBuildSetUp();
 			for (String envMap : map.keySet()) {
+				System.out.println("++++++++envmap=" + envMap);
+				String compEnv = null;
+				if (envMap.contains("NonBuildIp")) {
+					compEnv = envMap.replace("NonBuildIp", "").trim();
+				} else if (envMap.contains("OldBuildIp")) {
+					compEnv = envMap.replace("OldBuildIp", "").trim();
+				} else {
+					compEnv = envMap.replace("BuildIp", "").trim();
+				}
 
-				if (envMap.toLowerCase().contains(env.toLowerCase())) {
+				if (compEnv.toLowerCase().equals(env.toLowerCase())) {
 					if (envMap.toLowerCase().contains("old")) {
 						ipBuildSetUp.setOldBuild(map.get(envMap).getBuildIP());
 					} else if (envMap.toLowerCase().contains("non")) {
@@ -335,6 +368,112 @@ public class BuildMonitoringApplication {
 		}
 
 		return localeList;
+	}
+
+	public static LinkedHashSet<BatchDetails> getBatchDetailsInfo(String data) {
+		
+		if(data!=null)
+		{
+			buildProps = ReadPropertiesFile.getProperties(UPDATED_BUILD_DETAIL_PROP_FILE);
+			buildDetails = buildProps.getProperty(BUILD_DETAIL_KEY);
+		}
+		else
+		{
+			buildProps = ReadPropertiesFile.getProperties(BUILD_DETAIL_PROP_FILE);
+			buildDetails = buildProps.getProperty(BUILD_DETAIL_KEY);
+		}
+		LinkedHashSet<BatchDetails> batchDeatilSet = new LinkedHashSet<>();
+		String[] batchList = buildDetails.split(",");
+		for (String bat : batchList) {
+			BatchDetails batchDetails = new BatchDetails();
+			String[] batchDet = bat.split("\\|");
+			batchDetails.setBatchName(batchDet[0]);
+			batchDetails.setBatchID(batchDet[1]);
+			batchDetails.setBatchNickName(batchDet[2]);
+			batchDeatilSet.add(batchDetails);
+		}
+
+		return batchDeatilSet;
+	}
+	
+	public static void createAuthPool() throws IOException
+	{
+		
+		try {
+			FileInputStream fileInputStream=new FileInputStream(new File("authdetails.xlsx"));
+			XSSFWorkbook workbook=new XSSFWorkbook(fileInputStream);
+			XSSFSheet sheet = workbook.getSheetAt(0);
+			 
+            //Iterate through each rows one by one
+            Iterator<Row> rowIterator = sheet.iterator();
+            int j=0;
+            while (rowIterator.hasNext())
+            {
+	            	AuthenticationDeatils authenticationDeatils=new AuthenticationDeatils();
+	                Row row = rowIterator.next();
+	                //For each row, iterate through all the columns
+	                Iterator<Cell> cellIterator = row.cellIterator();
+	                int i=0;
+	                while (cellIterator.hasNext())
+	                {
+	                    Cell cell = cellIterator.next();
+	                    //Check the cell type and format accordingly
+	                    switch (cell.getCellType())
+	                    {
+	                    
+	                        case Cell.CELL_TYPE_NUMERIC:
+	                            break;
+	                        case Cell.CELL_TYPE_STRING:
+	                            String cellValue=cell.getStringCellValue();
+	                            if(j!=0)
+	                            {
+		                            if(i==0)
+		                            {
+		                            	authenticationDeatils.setUsername(cell.getStringCellValue());
+		                            }
+		                            else
+		                            {
+		                            	authenticationDeatils.setPassword(cell.getStringCellValue());
+		                            }
+	                            }
+	                            break;
+	                    }
+	                    i++;
+	                }
+	                authList.add(authenticationDeatils);
+	                reservedAuthStack.add(authenticationDeatils);
+            	
+                j++;
+            }
+            fileInputStream.close();
+
+			
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		for(AuthenticationDeatils authDet:authList)
+		{
+			if(authDet.getUsername()==null)
+			{
+				authList.remove(authDet);
+				break;
+			}
+			
+		}
+		
+		for(AuthenticationDeatils authDet:authList)
+		{
+			authStack.push(authDet);
+			
+		}
+	}
+	
+	public static void createRouteList()
+	{
+		custRouteList.add("C");
+		custRouteList.add("R");
 	}
 
 }

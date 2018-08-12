@@ -10,6 +10,16 @@ public class CompareStatsSummary {
 	private String nonBuildIps;
 	private long buildTotalRequest;
 	private long nonBuildTotalRequest;
+	
+	private long buildAgentErr;
+	private long nonBuildAgentErr;
+	
+	private long buildSiteErr;
+	private long nonBuildSiteErr;
+	
+	private long buildUARErr;
+	private long nonBuildUARErr;
+	
 	private double buildSuccessPer;
 	private double nonBuildSuccessPer;
 	private double successDiff;
@@ -34,6 +44,42 @@ public class CompareStatsSummary {
 	
 	
 	
+	public long getBuildAgentErr() {
+		return buildAgentErr;
+	}
+	public void setBuildAgentErr(long buildAgentErr) {
+		this.buildAgentErr = buildAgentErr;
+	}
+	public long getNonBuildAgentErr() {
+		return nonBuildAgentErr;
+	}
+	public void setNonBuildAgentErr(long nonBuildAgentErr) {
+		this.nonBuildAgentErr = nonBuildAgentErr;
+	}
+	public long getBuildSiteErr() {
+		return buildSiteErr;
+	}
+	public void setBuildSiteErr(long buildSiteErr) {
+		this.buildSiteErr = buildSiteErr;
+	}
+	public long getNonBuildSiteErr() {
+		return nonBuildSiteErr;
+	}
+	public void setNonBuildSiteErr(long nonBuildSiteErr) {
+		this.nonBuildSiteErr = nonBuildSiteErr;
+	}
+	public long getBuildUARErr() {
+		return buildUARErr;
+	}
+	public void setBuildUARErr(long buildUARErr) {
+		this.buildUARErr = buildUARErr;
+	}
+	public long getNonBuildUARErr() {
+		return nonBuildUARErr;
+	}
+	public void setNonBuildUARErr(long nonBuildUARErr) {
+		this.nonBuildUARErr = nonBuildUARErr;
+	}
 	public String getNonBuildIps() {
 		return nonBuildIps;
 	}

@@ -33,9 +33,76 @@ public class AgentStats {
 	private String locale;
 	private String tag;
 	
+	private long buildAgentErr;
+	private long nonBuildAgentErr;
+	private long oldBuildAgentErr;
+	
+	private long buildSiteErr;
+	private long nonBuildSiteErr;
+	private long oldBuildSiteErr;
+	
+	private long buildUARErr;
+	private long nonBuildUARErr;
+	private long oldBuildUARErr;
+	
+	
 	
 
 	
+	public long getBuildAgentErr() {
+		return buildAgentErr;
+	}
+	public void setBuildAgentErr(long buildAgentErr) {
+		this.buildAgentErr = buildAgentErr;
+	}
+	public long getNonBuildAgentErr() {
+		return nonBuildAgentErr;
+	}
+	public void setNonBuildAgentErr(long nonBuildAgentErr) {
+		this.nonBuildAgentErr = nonBuildAgentErr;
+	}
+	public long getOldBuildAgentErr() {
+		return oldBuildAgentErr;
+	}
+	public void setOldBuildAgentErr(long oldBuildAgentErr) {
+		this.oldBuildAgentErr = oldBuildAgentErr;
+	}
+	public long getBuildSiteErr() {
+		return buildSiteErr;
+	}
+	public void setBuildSiteErr(long buildSiteErr) {
+		this.buildSiteErr = buildSiteErr;
+	}
+	public long getNonBuildSiteErr() {
+		return nonBuildSiteErr;
+	}
+	public void setNonBuildSiteErr(long nonBuildSiteErr) {
+		this.nonBuildSiteErr = nonBuildSiteErr;
+	}
+	public long getOldBuildSiteErr() {
+		return oldBuildSiteErr;
+	}
+	public void setOldBuildSiteErr(long oldBuildSiteErr) {
+		this.oldBuildSiteErr = oldBuildSiteErr;
+	}
+	public long getBuildUARErr() {
+		return buildUARErr;
+	}
+	public void setBuildUARErr(long buildUARErr) {
+		this.buildUARErr = buildUARErr;
+	}
+	public long getNonBuildUARErr() {
+		return nonBuildUARErr;
+	}
+	public void setNonBuildUARErr(long nonBuildUARErr) {
+		this.nonBuildUARErr = nonBuildUARErr;
+	}
+	public long getOldBuildUARErr() {
+		return oldBuildUARErr;
+	}
+	public void setOldBuildUARErr(long oldBuildUARErr) {
+		this.oldBuildUARErr = oldBuildUARErr;
+	}
 	public String getLocale() {
 		return locale;
 	}

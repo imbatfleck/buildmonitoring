@@ -7,12 +7,14 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -34,6 +36,9 @@ import org.springframework.stereotype.Service;
 import com.yodlee.buildmonitoring.BuildMonitoring.BuildMonitoringApplication;
 import com.yodlee.buildmonitoring.BuildMonitoring.ReadPropertiesFile;
 import com.yodlee.buildmonitoring.BuildMonitoring.Utility;
+import com.yodlee.buildmonitoring.BuildMonitoring.buildregression.loginmodel.AuthenticationDeatils;
+import com.yodlee.buildmonitoring.BuildMonitoring.buildregression.model.BatchDetails;
+import com.yodlee.buildmonitoring.BuildMonitoring.buildregression.statusmodel.BuildRegressionStatus;
 import com.yodlee.buildmonitoring.BuildMonitoring.dao.BuildStatsDao;
 import com.yodlee.buildmonitoring.BuildMonitoring.daoImp.BuildStatsImp;
 import com.yodlee.buildmonitoring.BuildMonitoring.envsetup.BuildStatsPOJO;
@@ -49,7 +54,7 @@ import com.yodlee.buildmonitoring.BuildMonitoring.serviceutility.ServiceUtility;
 
 @Service
 public class BuildStatsServiceImp implements BuildStatsService {
-
+	
 	private static BuildStatsDao buildStatsDao=new BuildStatsImp();
 	private static final SimpleDateFormat dateFormat = new SimpleDateFormat(
 			"MM/dd/yyyy HH:mm:ss");
@@ -61,8 +66,9 @@ public class BuildStatsServiceImp implements BuildStatsService {
 	
 	private static List<BuildStats> agentBuildStats=null;
 	
-	private static HashMap<String,HashMap<String,List<BuildStats>>> dailyStatsMap=new HashMap<>();
+	public static HashMap<String,HashMap<String,List<BuildStats>>> dailyStatsMap=new HashMap<>();
 	private static HashMap<String, Boolean> triggeredMap=new HashMap<>();
+	public static HashMap<String, Boolean> triggeredCompareMap=new HashMap<>();
 	private static HashMap<String, Boolean> triggeredAgentMap=new HashMap<>();
 	
 	@Override
@@ -90,9 +96,9 @@ public class BuildStatsServiceImp implements BuildStatsService {
 			List<String> nonBuildIp=ips.getNonBuild();
 			List<String> currentBuildIp=ips.getCurrentBuild();
 			
-			String oldBuildstatsQuery=BuildQueries.getBuildStatsQuery(BuildMonitoringApplication.getIps(oldBuildIp),"to_date('25-07-2018 21:29','dd-MM-yyyy hh24:mi')) and TIMESTAMP<(to_date('26-07-2018 09:29','dd-MM-yyyy hh24:mi')");
-			String nonBuildstatsQuery=BuildQueries.getBuildStatsQuery(BuildMonitoringApplication.getIps(nonBuildIp),"sysdate-700");
-			String currentBuildstatsQuery=BuildQueries.getBuildStatsQuery(BuildMonitoringApplication.getIps(currentBuildIp),"sysdate-700");
+			String oldBuildstatsQuery=BuildQueries.getBuildStatsQuery(BuildMonitoringApplication.getIps(oldBuildIp),"to_date('30-07-2018 21:29','dd-MM-yyyy hh24:mi')) and TIMESTAMP<(to_date('31-07-2018 05:29','dd-MM-yyyy hh24:mi')");
+			String nonBuildstatsQuery=BuildQueries.getBuildStatsQuery(BuildMonitoringApplication.getIps(nonBuildIp),"sysdate-6/24");
+			String currentBuildstatsQuery=BuildQueries.getBuildStatsQuery(BuildMonitoringApplication.getIps(currentBuildIp),"sysdate-6/24");
 			oldBuilduserDetails = buildStatsDao.getBuildDetails(connection, oldBuildstatsQuery);
 			nonBuilduserDetails = buildStatsDao.getBuildDetails(connection, nonBuildstatsQuery);
 			currentBuilduserDetails = buildStatsDao.getBuildDetails(connection, currentBuildstatsQuery);
@@ -110,6 +116,26 @@ public class BuildStatsServiceImp implements BuildStatsService {
 	@Override
 	public  List<CompareStatsSummary> getComaprisonStats(Connection connection) throws SQLException, IOException
 	{
+		if(triggeredCompareMap.containsKey("TRIGGERED"))
+		{
+			System.out.println("++++++++inside not triggered");
+			if(buildStats!=null)
+			{
+				return buildStats;
+			}
+			else
+			{
+				List<CompareStatsSummary> list=new ArrayList<>();
+				CompareStatsSummary cs=new CompareStatsSummary();
+				cs.setAlterEnv("MRH");
+				list.add(cs);
+				return list;
+			}
+		}
+		
+		System.out.println("++++++++triggered query");
+		
+		triggeredCompareMap.put("TRIGGERED",true);
 		Map<String,CompareStatsSummary> summaryMap = new LinkedHashMap<>();
 		List<CompareStatsSummary> compStatSumm=new ArrayList<>();
 		
@@ -152,6 +178,16 @@ public class BuildStatsServiceImp implements BuildStatsService {
 					agentStats.setTag(bs.getTag());
 					agentStats.setBuildTotalRequest(bs.getTotalRequests());
 					agentStats.setNonBuildTotalRequest(nonbs.getTotalRequests());
+					
+					agentStats.setBuildAgentErr(bs.getAgentErrors());
+					agentStats.setNonBuildAgentErr(nonbs.getAgentErrors());
+					
+					agentStats.setBuildSiteErr(bs.getSiteErrors());
+					agentStats.setNonBuildSiteErr(nonbs.getSiteErrors());
+					
+					agentStats.setBuildUARErr(bs.getUarErrors());
+					agentStats.setNonBuildUARErr(nonbs.getUarErrors());
+					
 					agentStats.setBuildSuccessPer(bs.getSuccessPerc());
 					agentStats.setNonBuildSuccessPer(nonbs.getSuccessPerc());
 					
@@ -185,6 +221,12 @@ public class BuildStatsServiceImp implements BuildStatsService {
 						agentStats.setOldBuildErr402(oldbs.getError402Perc());
 						agentStats.setOldBuildErr413(oldbs.getError413Perc());
 						agentStats.setOldBuildInfraError(oldbs.getAvgInfraLatency());
+						agentStats.setOldBuildAgentErr(oldbs.getAgentErrors());
+						
+						
+						agentStats.setOldBuildSiteErr(oldbs.getSiteErrors());
+						
+						agentStats.setOldBuildUARErr(oldbs.getUarErrors());
 						
 					}
 					else
@@ -196,6 +238,12 @@ public class BuildStatsServiceImp implements BuildStatsService {
 						agentStats.setOldBuildErr402(0);
 						agentStats.setOldBuildErr413(0);
 						agentStats.setOldBuildInfraError(0);
+						agentStats.setOldBuildAgentErr(0);
+						
+						
+						agentStats.setOldBuildSiteErr(0);
+						
+						agentStats.setOldBuildUARErr(0);
 					}
 					
 					agentStatsList.add(agentStats);
@@ -227,6 +275,15 @@ public class BuildStatsServiceImp implements BuildStatsService {
 			compareStatsSummary.setAgentStatList(agentStatsList);
 			compareStatsSummary.setBuildIps(buildIP);
 			compareStatsSummary.setNonBuildIps(nonBuildIP);
+			compareStatsSummary.setBuildAgentErr(buildStat.getAvgAgentError());
+			compareStatsSummary.setNonBuildAgentErr(nonBuildStat.getAvgAgentError());
+			
+			compareStatsSummary.setBuildSiteErr(buildStat.getAvgSiteError());
+			compareStatsSummary.setNonBuildSiteErr(nonBuildStat.getAvgSiteError());
+			
+			compareStatsSummary.setBuildUARErr(buildStat.getAvgUARError());
+			compareStatsSummary.setNonBuildUARErr(nonBuildStat.getAvgUARError());
+			
 			compStatSumm.add(compareStatsSummary);
 			//summaryMap.put(env, compareStatsSummary);
 		}
@@ -272,6 +329,7 @@ public class BuildStatsServiceImp implements BuildStatsService {
 	    long now = System.currentTimeMillis() / 1000;
 	    System.out.println("Regular task performed using Cron at "
 				+ dateFormat.format(new Date()));
+	    triggeredCompareMap.remove("TRIGGERED");
 	    buildStats=null;
 	    dailyStatsMap=null;
 	    return getComaprisonStats(BuildMonitoringApplication.SITEPConn);
@@ -367,6 +425,43 @@ public class BuildStatsServiceImp implements BuildStatsService {
 		}
 		return agentStats;
 	}
+
+	@Override
+	public String doRegression(String data) throws IOException, InterruptedException, ParseException {
+		if(!RegressionService.buildRegStList.isEmpty())
+		{
+			RegressionService.buildRegStList.clear();
+			System.out.println("+++++++not empty="+RegressionService.buildRegStList);
+		}
+		
+		if(data!=null)
+		{
+			data=data.replace("$", "|");
+			data=data.replace(";", ",");
+			data="build.detail="+data;
+			Utility.writeToFile("updatedbatdetail", "properties", data);
+		}
+		if(!BuildMonitoringApplication.authStack.isEmpty())
+		{
+			BuildMonitoringApplication.authStack.clear();
+			
+		}
+		if(!BuildMonitoringApplication.custRouteList.isEmpty())
+		{
+			BuildMonitoringApplication.custRouteList.clear();
+		}
+		BuildMonitoringApplication.createAuthPool();
+		BuildMonitoringApplication.createRouteList();
+		
+		LinkedHashSet<BatchDetails> batchList=BuildMonitoringApplication.getBatchDetailsInfo(data);
+		RegressionService.batchProcessCount=batchList.size();
+		for(BatchDetails bdetails:batchList)
+		{
+			RegressionService.startRegression(bdetails.getBatchName(),bdetails.getBatchID());
+		}
+		return null;
+	}
+
 	
 	
 	

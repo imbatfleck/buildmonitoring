@@ -1,0 +1,72 @@
+/*table style*/
+
+ .table-responsive>.fixed-column {
+  position: absolute;
+  display: inline-block;
+  width: auto;
+  border-right: 1px solid #ddd;
+  background-color: #fff;
+  /* bootstrap v3 fix for fixed column background color*/
+  border-radius: 2px;
+}
+
+@media ( min-width :768px) {
+  .table-responsive>.fixed-column {
+    display: none;
+  }
+}
+
+.headerstyle {
+  color: white;
+}
+
+table.table-bordered {
+  border: 1px solid #8995bc;
+  margin-top: 20px;
+}
+
+table.table-bordered>thead>tr>th {
+  border: 1px solid #8995bc;
+}
+
+table.table-bordered>tbody>tr>td {
+  border: 1px solid #8995bc;
+  font-size: 15px;
+}
+/*th, td { white-space: nowrap; }*/
+div.dataTables_wrapper {
+  margin: 0 auto;
+}
+
+.DTFC_LeftBodyLiner {
+  margin-top: -13px;
+}
+
+.DTFC_LeftBodyLiner>table>tbody>tr {
+  background-color: #f9fcf9;
+}
+
+.dataTables_wrapper>div:nth-child(2) {
+  overflow-x: scroll;
+}
+
+.dataTables_wrapper>div:nth-child(2)::-webkit-scrollbar {
+  width: 12px;
+}
+
+.dataTables_wrapper>div:nth-child(2)::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px #45597a;
+  border-radius: 10px;
+}
+
+.dataTables_wrapper>div:nth-child(2)::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 6px #45597a;
+}
+
+
+
+.glyphicon {
+  margin-left: 10px;
+  display: inline;
+}

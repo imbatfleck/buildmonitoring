@@ -9,6 +9,12 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<link rel="stylesheet" href="/css/common.css">
+<link rel="stylesheet" href="/css/navbar.css">
+<link rel="stylesheet" href="/css/toggleipbreak.css">
+<link rel="stylesheet" href="/css/loader.css">
+
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script
@@ -17,387 +23,15 @@
 	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
 <script
 	src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdn.zingchart.com/zingchart.min.js"></script>
+<script src="https://cdn.zingchart.com/angular/zingchart-angularjs.js"></script>
 <style>
-@media screen and (min-width: 768px) {
-	.modal-dialog {
-		width: 700px; /* New width for default modal */
-	}
-	.modal-sm {
-		width: 350px; /* New width for small modal */
-	}
+#resizable {
+	height: 400px;
+	width: 500px;
+	padding: 3px;
+	border: 2px solid #284a82;
 }
-
-@media screen and (min-width: 992px) {
-	.modal-lg {
-		width: 950px; /* New width for large modal */
-	}
-}
-
-.switch input {
-	display: none;
-}
-
-.switch {
-	display: inline-block;
-	width: 60px;
-	height: 30px;
-	margin: 8px;
-	transform: translateY(50%);
-	position: relative;
-}
-
-.slider {
-	position: absolute;
-	top: 0;
-	bottom: 0;
-	left: 0;
-	right: 0;
-	border-radius: 30px;
-	box-shadow: 0 0 0 2px #777, 0 0 4px #777;
-	cursor: pointer;
-	border: 4px solid transparent;
-	overflow: hidden;
-	transition: .4s;
-}
-
-.slider:before {
-	position: absolute;
-	content: "";
-	width: 100%;
-	height: 100%;
-	background: #777;
-	border-radius: 30px;
-	transform: translateX(-30px);
-	transition: .4s;
-}
-
-input:checked+.slider:before {
-	transform: translateX(30px);
-	background: limeGreen;
-}
-
-input:checked+.slider {
-	box-shadow: 0 0 0 2px limeGreen, 0 0 2px limeGreen;
-}
-/* Remove the navbar's default rounded borders and increase the bottom margin */
-.navbar {
-	margin-bottom: 50px;
-	border-radius: 0;
-}
-
-/* Remove the jumbotron's default bottom margin */
-.jumbotron {
-	margin-bottom: 0;
-}
-
-/* Add a gray background color and some padding to the footer */
-footer {
-	background-color: #f2f2f2;
-	padding: 25px;
-}
-
-.header {
-	margin: 10px;
-	border-bottom: 1px solid grey;
-}
-
-nav.navbar-findcond {
-  background: #5e66a3;
-  border-color: #ccc;
-  box-shadow: 0 0 2px 0 #ccc;
-}
-
-nav.navbar-findcond a {
-  color:#f8f7ff;
-}
-
-nav.navbar-findcond ul.navbar-nav a {
-  color: #f8f7ff;
-  border-style: solid;
-  border-width: 0 0 2px 0;
-  border-color: #fff;
-}
-
-nav.navbar-findcond ul.navbar-nav a:hover, nav.navbar-findcond ul.navbar-nav a:visited,
-nav.navbar-findcond ul.navbar-nav a:focus, nav.navbar-findcond ul.navbar-nav a:active
-{
-  background: #9299ce;
-}
-
-nav.navbar-findcond ul.navbar-nav a:hover {
-  border-color: #f15555;
-}
-
-nav.navbar-findcond li.divider {
-  background: #ccc;
-}
-
-nav.navbar-findcond button.navbar-toggle {
-  background: #f15555;
-  border-radius: 2px;
-}
-
-nav.navbar-findcond button.navbar-toggle:hover {
-  background: #999;
-}
-
-nav.navbar-findcond button.navbar-toggle>span.icon-bar {
-  background: #fff;
-}
-
-nav.navbar-findcond ul.dropdown-menu {
-  border: 0;
-  background: #fff;
-  border-radius: 4px;
-  margin: 4px 0;
-  box-shadow: 0 0 4px 0 #ccc;
-}
-
-nav.navbar-findcond ul.dropdown-menu>li>a {
-  color: #444;
-}
-
-nav.navbar-findcond ul.dropdown-menu>li>a:hover {
-  background: #f15555;
-  color: #fff;
-}
-
-nav.navbar-findcond span.badge {
-  background: #f15555;
-  font-weight: normal;
-  font-size: 11px;
-  margin: 0 4px;
-}
-
-nav.navbar-findcond span.badge.new {
-  background: rgba(255, 0, 0, 0.8);
-  color: #fff;
-}
-/*Switch style*/
-.onoffswitch {
-	position: relative;
-	width: 172px;
-	margin: 0 auto;
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-}
-
-.onoffswitch-checkbox {
-	display: none;
-}
-
-.onoffswitch-label {
-	display: block;
-	overflow: hidden;
-	cursor: pointer;
-	border: 2px solid #416bad;
-	border-radius: 29px;
-}
-
-.onoffswitch-inner {
-	display: block;
-	width: 200%;
-	margin-left: -100%;
-	transition: margin 0.3s ease-in 0s;
-}
-
-.onoffswitch-inner:before, .onoffswitch-inner:after {
-	display: block;
-	float: left;
-	width: 50%;
-	height: 40px;
-	padding: 0;
-	line-height: 40px;
-	font-size: 16px;
-	color: white;
-	font-family: Trebuchet, Arial, sans-serif;
-	font-weight: bold;
-	box-sizing: border-box;
-}
-
-.onoffswitch-inner:before {
-	content: "IP/BREAK UP";
-	padding-left: 7px;
-	background-color: #FFFFFF;
-	color: #504D7D;
-}
-
-.onoffswitch-inner:after {
-	content: "BREAK UP";
-	padding-right: 7px;
-	background-color: #FFFFFF;
-	color: #36572D;
-	text-align: right;
-}
-
-.onoffswitch-switch {
-	display: block;
-	width: 25px;
-	margin: 7.5px;
-	background: #36572D;
-	position: absolute;
-	top: 0;
-	bottom: 0;
-	right: 128px;
-	border: 2px solid #416bad;
-	border-radius: 29px;
-	transition: all 0.3s ease-in 0s;
-}
-
-.onoffswitch-checkbox:checked+.onoffswitch-label .onoffswitch-inner {
-	margin-left: 0;
-}
-
-.onoffswitch-checkbox:checked+.onoffswitch-label .onoffswitch-switch {
-	right: 0px;
-	background-color: #504D7D;
-}
-
-/*secondary switch*/
-.onoffswitchSec {
-	position: relative;
-	width: 107px;
-	margin: 0 auto;
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-}
-
-.onoffswitchSec-checkbox {
-	display: none;
-}
-
-.onoffswitchSec-label {
-	display: block;
-	overflow: hidden;
-	cursor: pointer;
-	border: 2px solid #416BAD;
-	border-radius: 0px;
-}
-
-.onoffswitchSec-inner {
-	display: block;
-	width: 200%;
-	margin-left: -100%;
-	transition: margin 0.3s ease-in 0s;
-}
-
-.onoffswitchSec-inner:before, .onoffswitchSec-inner:after {
-	display: block;
-	float: left;
-	width: 50%;
-	height: 20px;
-	padding: 0;
-	line-height: 16px;
-	font-size: 13px;
-	color: white;
-	font-family: Trebuchet, Arial, sans-serif;
-	font-weight: bold;
-	box-sizing: border-box;
-	border: 2px solid transparent;
-	background-clip: padding-box;
-}
-
-.onoffswitchSec-inner:before {
-	content: "NON BUILD";
-	padding-left: 7px;
-	background-color: #FFFFFF;
-	color: #504D7D;
-}
-
-.onoffswitchSec-inner:after {
-	content: "BUILD";
-	padding-right: 7px;
-	background-color: #FFFFFF;
-	color: #36572D;
-	text-align: right;
-}
-
-.onoffswitchSec-switch {
-	display: block;
-	width: 11px;
-	margin: 0px;
-	background: #36572D;
-	position: absolute;
-	top: 0;
-	bottom: 0;
-	right: 96px;
-	transition: all 0.3s ease-in 0s;
-}
-
-.onoffswitchSec-checkbox:checked+.onoffswitchSec-label .onoffswitchSec-inner
-	{
-	margin-left: 0;
-}
-
-.onoffswitchSec-checkbox:checked+.onoffswitchSec-label .onoffswitchSec-switch
-	{
-	right: 0px;
-	background-color: #504D7D;
-}
-
-/*loader design*/
-.loader,
-.loader:before,
-.loader:after {
-  background: #3d5b8c;
-  -webkit-animation: load1 1s infinite ease-in-out;
-  animation: load1 1s infinite ease-in-out;
-  width: 1em;
-  height: 4em;
-}
-.loader {
-  color: #3d5b8c;
-  text-indent: -9999em;
-  margin: 88px auto;
-  position: relative;
-  font-size: 11px;
-  -webkit-transform: translateZ(0);
-  -ms-transform: translateZ(0);
-  transform: translateZ(0);
-  -webkit-animation-delay: -0.16s;
-  animation-delay: -0.16s;
-}
-.loader:before,
-.loader:after {
-  position: absolute;
-  top: 0;
-  content: '';
-}
-.loader:before {
-  left: -1.5em;
-  -webkit-animation-delay: -0.32s;
-  animation-delay: -0.32s;
-}
-.loader:after {
-  left: 1.5em;
-}
-@-webkit-keyframes load1 {
-  0%,
-  80%,
-  100% {
-    box-shadow: 0 0;
-    height: 4em;
-  }
-  40% {
-    box-shadow: 0 -2em;
-    height: 5em;
-  }
-}
-@keyframes load1 {
-  0%,
-  80%,
-  100% {
-    box-shadow: 0 0;
-    height: 4em;
-  }
-  40% {
-    box-shadow: 0 -2em;
-    height: 5em;
-  }
-}
-
 </style>
 </head>
 <body ng-app="myApp" ng-controller="myController" ng-class=bodyClass>
@@ -436,176 +70,223 @@ nav.navbar-findcond span.badge.new {
 	<br />
 	<br />
 	<div class="wrapper">
-	<div class="container">
-		<div class="loader" ng-show="isLoading">Loading...</div>
-		<div class="row" ng-hide="isLoading">
-			<div ng-hide="isMonitorEnabled">
-				<div class="jumbotron text-center text-muted" style="margin-top:20px">
-           			<h2 class="text-muted">Please configure the IPs details to start monitoring</h2>      
-             		<hr/>
-             		<a href="/build/monitor" class="btn btn-danger btn-lg" role="button">Click here to go in configuration page</a>
-        		</div>
-			</div>
-			<div ng-show="isMonitorEnabled">
-			<div class="alert alert-info">
-				<strong>Info!</strong> Data is being pulled form SITEP DB and
-				contains last 12 hours data
-			</div>
-			<div class="col-sm-4" ng-repeat="x in envArray">
-				<div class="panel panel-primary">
-					<div class="panel-heading text-center">
-						<strong class="ng-binding">{{x.environament}}</strong><br>Build
-						/ Non Build
+		<div class="container">
+
+			<div class="loader" ng-show="isLoading">Loading...</div>
+			<div class="row" ng-hide="isLoading">
+				<div class="mrh" ng-show="isMRH">
+					<div class="jumbotron text-center text-muted"
+						style="margin-top: 20px">
+						<h2 class="text-primary">Please wait for a while as current
+							request is going on</h2>
+						<hr />
+					
+						<a href="javascript:window.location.href=window.location.href"
+							class="btn btn-success btn-lg"> <span
+							class="glyphicon glyphicon-refresh"></span> Refresh
+						</a>
 					</div>
-					<div class="panel-body ">
-						<h3 class="text-center ng-binding">
-							{{x.buildTotalRequest}} / {{x.nonBuildTotalRequest}}<small>(Total)</small>
-						</h3>
+				</div>
+				<div ng-show="!isMonitorEnabled && !isMRH">
+					<div class="jumbotron text-center text-muted"
+						style="margin-top: 20px">
+						<h2 class="text-muted">Please configure the IPs details to
+							start monitoring</h2>
+						<hr />
+						<a href="/build/monitor" class="btn btn-danger btn-lg"
+							role="button">Click here to go in configuration page</a>
 					</div>
-					<div class="panel-body">
-						<table class="table table-striped">
-							<tbody>
-								<tr>
-									<td><small>Success</small> <span class="badge">%</span></td>
-									<td class="ng-binding"
-										ng-show="getAlert(x.buildSuccessPer,x.nonBuildSuccessPer)=='green'">{{x.buildSuccessPer}}
-										/ {{x.nonBuildSuccessPer}} <span
-										style="font-size: 20px; color: green"
-										class="glyphicon glyphicon-ok-sign"></span>
-									</td>
-									<td class="ng-binding"
-										ng-show="getAlert(x.buildSuccessPer,x.nonBuildSuccessPer)=='red'">{{x.buildSuccessPer}}
-										/ {{x.nonBuildSuccessPer}} <span
-										style="font-size: 20px; color: red"
-										class="glyphicon glyphicon-question-sign"></span>
-									</td>
-									<td class="ng-binding"
-										ng-show="getAlert(x.buildSuccessPer,x.nonBuildSuccessPer)=='yellow'">{{x.buildSuccessPer}}
-										/ {{x.nonBuildSuccessPer}} <span
-										style="font-size: 20px; color: yellow"
-										class="glyphicon glyphicon-warning-sign"></span>
-									</td>
-								</tr>
-								<tr>
-									<td><small>Latency</small> <span class="badge">sec</span></td>
-									<td class="ng-binding"
-										ng-show="getAlert(x.buildLatency,x.nonBuildLatency)=='green'">{{x.buildLatency}}
-										/ {{x.nonBuildLatency}} <span
-										style="font-size: 20px; color: green"
-										class="glyphicon glyphicon-ok-sign"></span>
-									</td>
-									<td class="ng-binding"
-										ng-show="getAlert(x.buildLatency,x.nonBuildLatency)=='red'">{{x.buildLatency}}
-										/ {{x.nonBuildLatency}} <span
-										style="font-size: 20px; color: red"
-										class="glyphicon glyphicon-question-sign"></span>
-									</td>
-									<td class="ng-binding"
-										ng-show="getAlert(x.buildLatency,x.nonBuildLatency)=='yellow'">{{x.buildLatency}}
-										/ {{x.nonBuildLatency}} <span
-										style="font-size: 20px; color: yellow"
-										class="glyphicon glyphicon-warning-sign"></span>
-									</td>
-								</tr>
-								<tr>
-									<td><small>Infra Latency</small> <span class="badge">sec</span></td>
-									<td class="ng-binding"
-										ng-show="getAlert(x.buildInfraLatency,x.nonBuildInfraLatency)=='green'">{{x.buildInfraLatency}}
-										/ {{x.nonBuildInfraLatency}} <span
-										style="font-size: 20px; color: green"
-										class="glyphicon glyphicon-ok-sign"></span>
-									</td>
-									<td class="ng-binding"
-										ng-show="getAlert(x.buildInfraLatency,x.nonBuildInfraLatency)=='red'">{{x.buildInfraLatency}}
-										/ {{x.nonBuildInfraLatency}} <span
-										style="font-size: 20px; color: red"
-										class="glyphicon glyphicon-question-sign"></span>
-									</td>
-									<td class="ng-binding"
-										ng-show="getAlert(x.buildInfraLatency,x.nonBuildInfraLatency)=='yellow'">{{x.buildInfraLatency}}
-										/ {{x.nonBuildInfraLatency}} <span
-										style="font-size: 20px; color: yellow"
-										class="glyphicon glyphicon-warning-sign"></span>
-									</td>
-								</tr>
-							</tbody>
-						</table>
+				</div>
+				<div ng-show="isMonitorEnabled && !isMRH">
+					<div class="alert alert-info">
+						<strong>Info!</strong> Data is being pulled form SITEP DB and
+						contains last 12 hours data
 					</div>
-					<div class="panel-footer text-center">
-						<button type="button" class="btn btn-primary" data-toggle="modal"
-							data-target="#myModal" ng-click="showStatsBreakUp(x)">View
-							More</button>
+					<div class="col-sm-4" ng-repeat="x in envArray">
+						<div class="panel panel-primary">
+							<div class="panel-heading text-center">
+								<strong class="ng-binding">{{x.environament}}</strong><br>Build
+								/ Non Build
+							</div>
+							<div class="panel-body ">
+								<h3 class="text-center ng-binding">
+									{{x.buildTotalRequest}} / {{x.nonBuildTotalRequest}}<small>(Total)</small>
+								</h3>
+							</div>
+							<div class="panel-body">
+								<table class="table table-striped">
+									<tbody>
+										<tr>
+											<td><small>Success</small> <span class="badge">%</span></td>
+											<td class="ng-binding"
+												ng-show="getAlert(x.buildSuccessPer,x.nonBuildSuccessPer)=='green'">{{x.buildSuccessPer}}
+												/ {{x.nonBuildSuccessPer}} <span
+												style="font-size: 20px; color: green"
+												class="glyphicon glyphicon-ok-sign"></span>
+											</td>
+											<td class="ng-binding"
+												ng-show="getAlert(x.buildSuccessPer,x.nonBuildSuccessPer)=='red'">{{x.buildSuccessPer}}
+												/ {{x.nonBuildSuccessPer}} <span
+												style="font-size: 20px; color: red"
+												class="glyphicon glyphicon-question-sign"></span>
+											</td>
+											<td class="ng-binding"
+												ng-show="getAlert(x.buildSuccessPer,x.nonBuildSuccessPer)=='yellow'">{{x.buildSuccessPer}}
+												/ {{x.nonBuildSuccessPer}} <span
+												style="font-size: 20px; color: yellow"
+												class="glyphicon glyphicon-warning-sign"></span>
+											</td>
+										</tr>
+										<tr>
+											<td><small>Latency</small> <span class="badge">sec</span></td>
+											<td class="ng-binding"
+												ng-show="getAlert(x.buildLatency,x.nonBuildLatency)=='green'">{{x.buildLatency}}
+												/ {{x.nonBuildLatency}} <span
+												style="font-size: 20px; color: green"
+												class="glyphicon glyphicon-ok-sign"></span>
+											</td>
+											<td class="ng-binding"
+												ng-show="getAlert(x.buildLatency,x.nonBuildLatency)=='red'">{{x.buildLatency}}
+												/ {{x.nonBuildLatency}} <span
+												style="font-size: 20px; color: red"
+												class="glyphicon glyphicon-question-sign"></span>
+											</td>
+											<td class="ng-binding"
+												ng-show="getAlert(x.buildLatency,x.nonBuildLatency)=='yellow'">{{x.buildLatency}}
+												/ {{x.nonBuildLatency}} <span
+												style="font-size: 20px; color: yellow"
+												class="glyphicon glyphicon-warning-sign"></span>
+											</td>
+										</tr>
+										<tr>
+											<td><small>Infra Latency</small> <span class="badge">sec</span></td>
+											<td class="ng-binding"
+												ng-show="getAlert(x.buildInfraLatency,x.nonBuildInfraLatency)=='green'">{{x.buildInfraLatency}}
+												/ {{x.nonBuildInfraLatency}} <span
+												style="font-size: 20px; color: green"
+												class="glyphicon glyphicon-ok-sign"></span>
+											</td>
+											<td class="ng-binding"
+												ng-show="getAlert(x.buildInfraLatency,x.nonBuildInfraLatency)=='red'">{{x.buildInfraLatency}}
+												/ {{x.nonBuildInfraLatency}} <span
+												style="font-size: 20px; color: red"
+												class="glyphicon glyphicon-question-sign"></span>
+											</td>
+											<td class="ng-binding"
+												ng-show="getAlert(x.buildInfraLatency,x.nonBuildInfraLatency)=='yellow'">{{x.buildInfraLatency}}
+												/ {{x.nonBuildInfraLatency}} <span
+												style="font-size: 20px; color: yellow"
+												class="glyphicon glyphicon-warning-sign"></span>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<div class="panel-footer text-center">
+								<button type="button" class="btn btn-primary"
+									data-toggle="modal" data-target="#myModal"
+									ng-click="showStatsBreakUp(x)">View More</button>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
-			</div>
-		</div>
 
-		<div class="modal fade" id="myModal">
-			<div class="modal-dialog modal-dialog-centered">
-				<div class="modal-content">
+			<div class="modal fade" id="myModal">
+				<div class="modal-dialog modal-dialog-centered">
+					<div class="modal-content">
 
-					<!-- Modal Header -->
+						<!-- Modal Header -->
 
 
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal">&times;</button>
-						<h2 class="text-center">
-							<strong><u>{{st.environament}}</u></strong>
-						</h2>
-						<h4 class="text-center">
-							{{st.buildTotalRequest}} <span class="badge">B</span> /
-							{{st.nonBuildTotalRequest}} <span class="badge">NB</span>
-						</h4>
-						<!-- <div>
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+							<h2 class="text-center">
+								<strong><u>{{st.environament}}</u></strong>
+							</h2>
+							<h4 class="text-center">
+								{{st.buildTotalRequest}} <span class="badge">B</span> /
+								{{st.nonBuildTotalRequest}} <span class="badge">NB</span>
+							</h4>
+							<!-- <div>
 							<label class="switch"> <input type="checkbox"
 								ng-model="myVar"> <span class="slider"></span>
 							</label>
 
 						</div> -->
-						<div class="onoffswitch">
-							<input type="checkbox" name="onoffswitch" ng-model="myVar"
-								class="onoffswitch-checkbox" id="myonoffswitch"> <label
-								class="onoffswitch-label" for="myonoffswitch"> <span
-								class="onoffswitch-inner"></span> <span
-								class="onoffswitch-switch"></span>
-							</label>
+							<div class="onoffswitch">
+								<input type="checkbox" name="onoffswitch" ng-model="myVar"
+									class="onoffswitch-checkbox" id="myonoffswitch"> <label
+									class="onoffswitch-label" for="myonoffswitch"> <span
+									class="onoffswitch-inner"></span> <span
+									class="onoffswitch-switch"></span>
+								</label>
+							</div>
 						</div>
-					</div>
 
-					<div class="modal-body" ng-show="myVar">
-						
-						<div class="onoffswitchSec">
-							<input type="checkbox" name="onoffswitchSec" ng-model="buildType"
-								class="onoffswitchSec-checkbox" id="myonoffswitchSec"> <label
-								class="onoffswitchSec-label" for="myonoffswitchSec"> <span
-								class="onoffswitchSec-inner"></span> <span
-								class="onoffswitchSec-switch"></span>
-							</label>
-						</div>
-						<br />
-						<div class="row" ng-hide="buildType">
-							<div class="col-sm-12">
-								<div class="panel panel-primary">
-									<div class="panel-header bg-primary text-center">Last 7
-										days stats</div>
-									<div class="panel-body">
-										<div class="loader" ng-show="isStatLoading">Loading...</div>
-										<div class="panel-group" ng-repeat="y in ds" ng-hide=" isStatLoading">
-											<div class="panel panel-default" ng-if=y[0].buildIP>
-												<div class="panel-heading">
-													<h4 class="panel-title">
-														<a data-toggle="collapse"
-															href="#{{y[0].gathererIp.replace('.','').replace('.','').replace('.','')}}">{{y[0].gathererIp}}
-															/ <strong class="text-primary">Build</strong>
-														</a>
+						<div class="modal-body" ng-show="myVar">
 
-													</h4>
-												</div>
-												<div
-													id="{{y[0].gathererIp.replace('.','').replace('.','').replace('.','')}}"
-													class="panel-collapse collapse table-responsive">
-													<table class="table table-bordered">
+
+							<div class="onoffswitchSec">
+								<input type="checkbox" name="onoffswitchSec"
+									ng-model="buildType" class="onoffswitchSec-checkbox"
+									id="myonoffswitchSec"> <label
+									class="onoffswitchSec-label" for="myonoffswitchSec"> <span
+									class="onoffswitchSec-inner"></span> <span
+									class="onoffswitchSec-switch"></span>
+								</label>
+							</div>
+							<br />
+							<div class="row" ng-hide="buildType">
+								<div class="col-sm-12">
+									<div class="panel panel-primary">
+										<div class="panel-header bg-primary text-center">Last 7
+											days stats</div>
+										<div class="panel-body">
+											<div class="loader" ng-show="isStatLoading">Loading...</div>
+											<div class="panel-group accordion" ng-repeat="y in ds"
+												ng-hide="isStatLoading">
+												<div class="panel panel-default" ng-if=y[0].buildIP>
+													<div class="panel-heading"
+														style="background-color: #e3e9f2">
+														<h4 class="panel-title text-center">
+															<a data-toggle="collapse"
+																href="#{{y[0].gathererIp.replace('.','').replace('.','').replace('.','')}}"
+																ng-click="getArrays(y,'success')" data-parent=".accordion">{{y[0].gathererIp}}
+																/ <strong class="text-primary">Build</strong>
+															</a>
+
+														</h4>
+													</div>
+													<div
+														id="{{y[0].gathererIp.replace('.','').replace('.','').replace('.','')}}"
+														class="panel-collapse collapse table-responsive">
+
+														<select class="form-control"
+															style="width: 200px; margin: 0 auto;" ng-model="critera"
+															ng-change="getArrays(y,critera)">
+															<option value="" class="text-muted text-center">---Select
+																Criteria---</option>
+															<option value="success" ng-selected="true">Success</option>
+															<option value="agentErrors">Agent</option>
+															<option value="siteErrors">Site</option>
+															<option value="uarErrors">UAR</option>
+															<option value="infraErrors">Infra</option>
+															<option value="avgLatency">Latency</option>
+															<option value="avgInfraLatency">Infra Latency</option>
+															<option value="error402">402</option>
+															<option value="error413">413</option>
+														</select> <br />
+														<h5 class="text-center text-info">
+															<strong><u>{{selmes}}</u></strong>
+														</h5>
+														<div id="resizable" style="margin: 0 auto;">
+															<div zingchart
+																class="{{y[0].gathererIp.replace('.','').replace('.','').replace('.','')}}{{critera}}"
+																zc-json="myJson" zc-width="100%" zc-height="80%"></div>
+														</div>
+
+														<!-- <table class="table table-bordered">
 														<thead>
 															<tr>
 																<th>Date</th>
@@ -613,6 +294,8 @@ nav.navbar-findcond span.badge.new {
 																<th>Success</th>
 																<th>Agent</th>
 																<th>Site</th>
+																<th>UAR</th>
+																<th>Latency</th>
 															</tr>
 														</thead>
 														<tbody>
@@ -622,38 +305,68 @@ nav.navbar-findcond span.badge.new {
 																<td>{{x.success}}</td>
 																<td>{{x.agentErrors}}</td>
 																<td>{{x.siteErrors}}</td>
+																<td>{{x.uarErrors}}</td>
+																<td>{{x.avgLatency}}</td>
 															</tr>
 														</tbody>
-													</table>
+													</table> -->
+													</div>
 												</div>
 											</div>
 										</div>
 									</div>
 								</div>
 							</div>
-						</div>
-						<div class="row" ng-show="buildType">
-							<div class="col-sm-12">
-								<div class="panel panel-primary">
-									<div class="panel-header bg-primary text-center">Last 7
-										days stats</div>
-									<div class="panel-body">
-										<div class="loader" ng-show="isStatLoading">Loading...</div>
-										<div class="panel-group" ng-repeat="y in ds" ng-hide="isStatLoading">
-											<div class="panel panel-default" ng-if=!y[0].buildIP>
-												<div class="panel-heading">
-													<h4 class="panel-title">
-														<a data-toggle="collapse"
-															href="#{{y[0].gathererIp.replace('.','').replace('.','').replace('.','')}}">{{y[0].gathererIp}}
-															/ <strong class="text-primary">Non Build</strong>
-														</a>
+							<div class="row" ng-show="buildType">
+								<div class="col-sm-12">
+									<div class="panel panel-primary">
+										<div class="panel-header bg-primary text-center">Last 7
+											days stats</div>
+										<div class="panel-body">
+											<div class="loader" ng-show="isStatLoading">Loading...</div>
+											<div class="panel-group accordion" ng-repeat="y in ds"
+												ng-hide="isStatLoading">
+												<div class="panel panel-default" ng-if=!y[0].buildIP>
+													<div class="panel-heading"
+														style="background-color: #e3e9f2">
+														<h4 class="panel-title text-center">
+															<a data-toggle="collapse"
+																href="#{{y[0].gathererIp.replace('.','').replace('.','').replace('.','')}}"
+																ng-click="getArrays(y,'success')" data-parent=".accordion">{{y[0].gathererIp}}
+																/ <strong class="text-primary">Non Build</strong>
+															</a>
 
-													</h4>
-												</div>
-												<div
-													id="{{y[0].gathererIp.replace('.','').replace('.','').replace('.','')}}"
-													class="panel-collapse collapse table-responsive">
-													<table class="table table-bordered">
+														</h4>
+													</div>
+													<div
+														id="{{y[0].gathererIp.replace('.','').replace('.','').replace('.','')}}"
+														class="panel-collapse collapse table-responsive">
+
+														<select class="form-control"
+															style="width: 200px; margin: 0 auto;" ng-model="critera"
+															ng-change="getArrays(y,critera)">
+															<option value="" class="text-muted text-center">---Select
+																Criteria---</option>
+															<option value="success" ng-selected="true">Success</option>
+															<option value="agentErrors">Agent</option>
+															<option value="siteErrors">Site</option>
+															<option value="uarErrors">UAR</option>
+															<option value="infraErrors">Infra</option>
+															<option value="avgLatency">Latency</option>
+															<option value="avgInfraLatency">Infra Latency</option>
+															<option value="error402">402</option>
+															<option value="error413">413</option>
+														</select> <br />
+														<h5 class="text-center text-info">
+															<strong><u>{{selmes}}</u></strong>
+														</h5>
+														<div id="resizable" style="margin: 0 auto;">
+															<div zingchart
+																class="{{y[0].gathererIp.replace('.','').replace('.','').replace('.','')}}{{critera}}"
+																zc-json="myJson" zc-width="100%" zc-height="80%"></div>
+														</div>
+
+														<!-- <table class="table table-bordered">
 														<thead>
 															<tr>
 																<th>Date</th>
@@ -661,6 +374,8 @@ nav.navbar-findcond span.badge.new {
 																<th>Success</th>
 																<th>Agent</th>
 																<th>Site</th>
+																<th>UAR</th>
+																<th>Latency</th>
 															</tr>
 														</thead>
 														<tbody>
@@ -670,9 +385,12 @@ nav.navbar-findcond span.badge.new {
 																<td>{{x.success}}</td>
 																<td>{{x.agentErrors}}</td>
 																<td>{{x.siteErrors}}</td>
+																<td>{{x.uarErrors}}</td>
+																<td>{{x.avgLatency}}</td>
 															</tr>
 														</tbody>
-													</table>
+													</table> -->
+													</div>
 												</div>
 											</div>
 										</div>
@@ -680,284 +398,298 @@ nav.navbar-findcond span.badge.new {
 								</div>
 							</div>
 						</div>
-					</div>
-					<!-- Modal body -->
-					<div class="modal-body" ng-hide="myVar">
-						<div class="row">
-							<div class="col-sm-4">
-								<div class="panel panel-primary">
-									<div class="panel-header bg-primary text-center">SUCCESS(%)</div>
-									<div class="panel-body">
-										<table class="table table-striped">
-											<tbody>
-												<tr>
-													<td><small>Build</small></td>
-													<td>{{st.buildSuccessPer | number:2}}</td>
-												</tr>
-												<tr>
-													<td><small>Non Build</small></td>
-													<td>{{st.nonBuildSuccessPer | number:2}}</td>
-												</tr>
-												<tr>
-													<td><small>Diffrence</small></span></td>
-													<td class="ng-binding"
-														ng-show="getSuccessAlertDiff(st.successDiff)=='green'">{{st.successDiff
-														| number:2}} <span style="font-size: 20px; color: green"
-														class="glyphicon glyphicon-ok-sign"></span>
-													</td>
-													<td class="ng-binding"
-														ng-show="getSuccessAlertDiff(st.successDiff)=='red'">{{st.successDiff
-														| number:2}} <span style="font-size: 20px; color: red"
-														class="glyphicon glyphicon-question-sign"></span>
-													</td>
-													<td class="ng-binding"
-														ng-show="getSuccessAlertDiff(st.successDiff)=='yellow'">{{st.successDiff
-														| number:2}} <span style="font-size: 20px; color: yellow"
-														class="glyphicon glyphicon-warning-sign"></span>
-													</td>
-												</tr>
-											</tbody>
-										</table>
+						<!-- Modal body -->
+						<div class="modal-body" ng-hide="myVar">
+							<div class="row">
+								<div class="col-sm-4">
+									<div class="panel panel-primary">
+										<div class="panel-header bg-primary text-center">SUCCESS(%)</div>
+										<div class="panel-body">
+											<table class="table table-striped">
+												<tbody>
+													<tr>
+														<td><small>Build</small></td>
+														<td>{{st.buildSuccessPer | number:2}}</td>
+													</tr>
+													<tr>
+														<td><small>Non Build</small></td>
+														<td>{{st.nonBuildSuccessPer | number:2}}</td>
+													</tr>
+													<tr>
+														<td><small>Diffrence</small></span></td>
+														<td class="ng-binding"
+															ng-show="getSuccessAlertDiff(st.successDiff)=='green'">{{st.successDiff
+															| number:2}} <span style="font-size: 20px; color: green"
+															class="glyphicon glyphicon-ok-sign"></span>
+														</td>
+														<td class="ng-binding"
+															ng-show="getSuccessAlertDiff(st.successDiff)=='red'">{{st.successDiff
+															| number:2}} <span style="font-size: 20px; color: red"
+															class="glyphicon glyphicon-question-sign"></span>
+														</td>
+														<td class="ng-binding"
+															ng-show="getSuccessAlertDiff(st.successDiff)=='yellow'">{{st.successDiff
+															| number:2}} <span style="font-size: 20px; color: yellow"
+															class="glyphicon glyphicon-warning-sign"></span>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
 									</div>
 								</div>
-							</div>
-							<div class="col-sm-4">
-								<div class="panel panel-primary">
-									<div class="panel-header bg-primary text-center">402
-										ERROR(%)</div>
-									<div class="panel-body">
-										<table class="table table-striped">
-											<tbody>
-												<tr>
-													<td><small>Build</small></td>
-													<td>{{st.buildErr402 | number:2}}</td>
-												</tr>
-												<tr>
-													<td><small>Non Build</small></td>
-													<td>{{st.nonBuildErr402 | number:2}}</td>
-												</tr>
-												<tr>
-													<td><small>Diffrence</small></span></td>
-													<td class="ng-binding"
-														ng-show="get402AlertDiff(st.err402Diff)=='green'">{{st.err402Diff
-														| number:2}} <span style="font-size: 20px; color: green"
-														class="glyphicon glyphicon-ok-sign"></span>
-													</td>
-													<td class="ng-binding"
-														ng-show="get402AlertDiff(st.err402Diff)=='red'">{{st.err402Diff
-														| number:2}} <span style="font-size: 20px; color: red"
-														class="glyphicon glyphicon-question-sign"></span>
-													</td>
-													<td class="ng-binding"
-														ng-show="get402AlertDiff(st.err402Diff)=='yellow'">{{st.err402Diff
-														| number:2}} <span style="font-size: 20px; color: yellow"
-														class="glyphicon glyphicon-warning-sign"></span>
-													</td>
-												</tr>
-											</tbody>
-										</table>
+								<div class="col-sm-4">
+									<div class="panel panel-primary">
+										<div class="panel-header bg-primary text-center">402
+											ERROR(%)</div>
+										<div class="panel-body">
+											<table class="table table-striped">
+												<tbody>
+													<tr>
+														<td><small>Build</small></td>
+														<td>{{st.buildErr402 | number:2}}</td>
+													</tr>
+													<tr>
+														<td><small>Non Build</small></td>
+														<td>{{st.nonBuildErr402 | number:2}}</td>
+													</tr>
+													<tr>
+														<td><small>Diffrence</small></span></td>
+														<td class="ng-binding"
+															ng-show="get402AlertDiff(st.err402Diff)=='green'">{{st.err402Diff
+															| number:2}} <span style="font-size: 20px; color: green"
+															class="glyphicon glyphicon-ok-sign"></span>
+														</td>
+														<td class="ng-binding"
+															ng-show="get402AlertDiff(st.err402Diff)=='red'">{{st.err402Diff
+															| number:2}} <span style="font-size: 20px; color: red"
+															class="glyphicon glyphicon-question-sign"></span>
+														</td>
+														<td class="ng-binding"
+															ng-show="get402AlertDiff(st.err402Diff)=='yellow'">{{st.err402Diff
+															| number:2}} <span style="font-size: 20px; color: yellow"
+															class="glyphicon glyphicon-warning-sign"></span>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
 									</div>
 								</div>
-							</div>
-							<div class="col-sm-4">
-								<div class="panel panel-primary">
-									<div class="panel-header bg-primary text-center">413
-										ERROR(%)</div>
-									<div class="panel-body">
-										<table class="table table-striped">
-											<tbody>
-												<tr>
-													<td><small>Build</small></td>
-													<td>{{st.buildErr413 | number:2}}</td>
-												</tr>
-												<tr>
-													<td><small>Non Build</small></td>
-													<td>{{st.nonBuildErr413 | number:2}}</td>
-												</tr>
-												<tr>
-													<td><small>Diffrence</small></span></td>
+								<div class="col-sm-4">
+									<div class="panel panel-primary">
+										<div class="panel-header bg-primary text-center">413
+											ERROR(%)</div>
+										<div class="panel-body">
+											<table class="table table-striped">
+												<tbody>
+													<tr>
+														<td><small>Build</small></td>
+														<td>{{st.buildErr413 | number:2}}</td>
+													</tr>
+													<tr>
+														<td><small>Non Build</small></td>
+														<td>{{st.nonBuildErr413 | number:2}}</td>
+													</tr>
+													<tr>
+														<td><small>Diffrence</small></span></td>
 
-													<td class="ng-binding"
-														ng-show="get413AlertDiff(st.err413Diff)=='green'">{{st.err413Diff
-														| number:2}} <span style="font-size: 20px; color: green"
-														class="glyphicon glyphicon-ok-sign"></span>
-													</td>
-													<td class="ng-binding"
-														ng-show="get413AlertDiff(st.err413Diff)=='red'">{{st.err413Diff
-														| number:2}} <span style="font-size: 20px; color: red"
-														class="glyphicon glyphicon-question-sign"></span>
-													</td>
-													<td class="ng-binding"
-														ng-show="get413AlertDiff(st.err413Diff)=='yellow'">{{st.err413Diff
-														| number:2}} <span style="font-size: 20px; color: yellow"
-														class="glyphicon glyphicon-warning-sign"></span>
-													</td>
-												</tr>
-											</tbody>
-										</table>
+														<td class="ng-binding"
+															ng-show="get413AlertDiff(st.err413Diff)=='green'">{{st.err413Diff
+															| number:2}} <span style="font-size: 20px; color: green"
+															class="glyphicon glyphicon-ok-sign"></span>
+														</td>
+														<td class="ng-binding"
+															ng-show="get413AlertDiff(st.err413Diff)=='red'">{{st.err413Diff
+															| number:2}} <span style="font-size: 20px; color: red"
+															class="glyphicon glyphicon-question-sign"></span>
+														</td>
+														<td class="ng-binding"
+															ng-show="get413AlertDiff(st.err413Diff)=='yellow'">{{st.err413Diff
+															| number:2}} <span style="font-size: 20px; color: yellow"
+															class="glyphicon glyphicon-warning-sign"></span>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
 									</div>
 								</div>
-							</div>
-							<div class="col-sm-4">
-								<div class="panel panel-primary">
-									<div class="panel-header bg-primary text-center">INFRA(%)</div>
-									<div class="panel-body">
-										<table class="table table-striped">
-											<tbody>
-												<tr>
-													<td><small>Build</small></td>
-													<td>{{st.buildInfraError | number:2}}</td>
-												</tr>
-												<tr>
-													<td><small>Non Build</small></td>
-													<td>{{st.nonBuildInfraError | number:2}}</td>
-												</tr>
-												<tr>
-													<td><small>Diffrence</small></span></td>
+								<div class="col-sm-4">
+									<div class="panel panel-primary">
+										<div class="panel-header bg-primary text-center">INFRA(%)</div>
+										<div class="panel-body">
+											<table class="table table-striped">
+												<tbody>
+													<tr>
+														<td><small>Build</small></td>
+														<td>{{st.buildInfraError | number:2}}</td>
+													</tr>
+													<tr>
+														<td><small>Non Build</small></td>
+														<td>{{st.nonBuildInfraError | number:2}}</td>
+													</tr>
+													<tr>
+														<td><small>Diffrence</small></span></td>
 
-													<td class="ng-binding"
-														ng-show="getInfraAlertDiff(st.infraDiff)=='green'">{{st.infraDiff
-														| number:2}} <span style="font-size: 20px; color: green"
-														class="glyphicon glyphicon-ok-sign"></span>
-													</td>
-													<td class="ng-binding"
-														ng-show="getInfraAlertDiff(st.infraDiff)=='red'">{{st.infraDiff
-														| number:2}} <span style="font-size: 20px; color: red"
-														class="glyphicon glyphicon-question-sign"></span>
-													</td>
-													<td class="ng-binding"
-														ng-show="getInfraAlertDiff(st.infraDiff)=='yellow'">{{st.infraDiff
-														| number:2}} <span style="font-size: 20px; color: yellow"
-														class="glyphicon glyphicon-warning-sign"></span>
-													</td>
-												</tr>
-											</tbody>
-										</table>
+														<td class="ng-binding"
+															ng-show="getInfraAlertDiff(st.infraDiff)=='green'">{{st.infraDiff
+															| number:2}} <span style="font-size: 20px; color: green"
+															class="glyphicon glyphicon-ok-sign"></span>
+														</td>
+														<td class="ng-binding"
+															ng-show="getInfraAlertDiff(st.infraDiff)=='red'">{{st.infraDiff
+															| number:2}} <span style="font-size: 20px; color: red"
+															class="glyphicon glyphicon-question-sign"></span>
+														</td>
+														<td class="ng-binding"
+															ng-show="getInfraAlertDiff(st.infraDiff)=='yellow'">{{st.infraDiff
+															| number:2}} <span style="font-size: 20px; color: yellow"
+															class="glyphicon glyphicon-warning-sign"></span>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
 									</div>
 								</div>
-							</div>
-							<div class="col-sm-4">
-								<div class="panel panel-primary">
-									<div class="panel-header bg-primary text-center">LATENCY(SEC)</div>
-									<div class="panel-body">
-										<table class="table table-striped">
-											<tbody>
-												<tr>
-													<td><small>Build</small></td>
-													<td>{{st.buildLatency | number:2}}</td>
-												</tr>
-												<tr>
-													<td><small>Non Build</small></td>
-													<td>{{st.nonBuildLatency | number:2}}</td>
-												</tr>
-												<tr>
-													<td><small>Diffrence</small></span></td>
-													<td class="ng-binding"
-														ng-show="getLatencyAlertDiff(st.latencyDiff)=='green'">{{st.latencyDiff
-														| number:2}} <span style="font-size: 20px; color: green"
-														class="glyphicon glyphicon-ok-sign"></span>
-													</td>
-													<td class="ng-binding"
-														ng-show="getLatencyAlertDiff(st.latencyDiff)=='red'">{{st.latencyDiff
-														| number:2}} <span style="font-size: 20px; color: red"
-														class="glyphicon glyphicon-question-sign"></span>
-													</td>
-													<td class="ng-binding"
-														ng-show="getLatencyAlertDiff(st.latencyDiff)=='yellow'">{{st.latencyDiff
-														| number:2}} <span style="font-size: 20px; color: yellow"
-														class="glyphicon glyphicon-warning-sign"></span>
-													</td>
-												</tr>
-											</tbody>
-										</table>
+								<div class="col-sm-4">
+									<div class="panel panel-primary">
+										<div class="panel-header bg-primary text-center">LATENCY(SEC)</div>
+										<div class="panel-body">
+											<table class="table table-striped">
+												<tbody>
+													<tr>
+														<td><small>Build</small></td>
+														<td>{{st.buildLatency | number:2}}</td>
+													</tr>
+													<tr>
+														<td><small>Non Build</small></td>
+														<td>{{st.nonBuildLatency | number:2}}</td>
+													</tr>
+													<tr>
+														<td><small>Diffrence</small></span></td>
+														<td class="ng-binding"
+															ng-show="getLatencyAlertDiff(st.latencyDiff)=='green'">{{st.latencyDiff
+															| number:2}} <span style="font-size: 20px; color: green"
+															class="glyphicon glyphicon-ok-sign"></span>
+														</td>
+														<td class="ng-binding"
+															ng-show="getLatencyAlertDiff(st.latencyDiff)=='red'">{{st.latencyDiff
+															| number:2}} <span style="font-size: 20px; color: red"
+															class="glyphicon glyphicon-question-sign"></span>
+														</td>
+														<td class="ng-binding"
+															ng-show="getLatencyAlertDiff(st.latencyDiff)=='yellow'">{{st.latencyDiff
+															| number:2}} <span style="font-size: 20px; color: yellow"
+															class="glyphicon glyphicon-warning-sign"></span>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
 									</div>
 								</div>
-							</div>
 
-							<div class="col-sm-4">
-								<div class="panel panel-primary">
-									<div class="panel-header bg-primary text-center">INFRA
-										LATENCY(SEC)</div>
-									<div class="panel-body">
-										<table class="table table-striped">
-											<tbody>
-												<tr>
-													<td><small>Build</small></td>
-													<td>{{st.buildInfraLatency}}</td>
-												</tr>
-												<tr>
-													<td><small>Non Build</small></td>
-													<td>{{st.nonBuildInfraLatency}}</td>
-												</tr>
-												<tr>
-													<td><small>Diffrence</small></span></td>
+								<div class="col-sm-4">
+									<div class="panel panel-primary">
+										<div class="panel-header bg-primary text-center">INFRA
+											LATENCY(SEC)</div>
+										<div class="panel-body">
+											<table class="table table-striped">
+												<tbody>
+													<tr>
+														<td><small>Build</small></td>
+														<td>{{st.buildInfraLatency}}</td>
+													</tr>
+													<tr>
+														<td><small>Non Build</small></td>
+														<td>{{st.nonBuildInfraLatency}}</td>
+													</tr>
+													<tr>
+														<td><small>Diffrence</small></span></td>
 
-													<td class="ng-binding"
-														ng-show="getInfLatAlertDiff(st.infraLatencyDiff)=='green'">{{st.infraLatencyDiff
-														| number:2}} <span style="font-size: 20px; color: green"
-														class="glyphicon glyphicon-ok-sign"></span>
-													</td>
-													<td class="ng-binding"
-														ng-show="getInfLatAlertDiff(st.infraLatencyDiff)=='red'">{{st.infraLatencyDiff
-														| number:2}} <span style="font-size: 20px; color: red"
-														class="glyphicon glyphicon-question-sign"></span>
-													</td>
-													<td class="ng-binding"
-														ng-show="getInfLatAlertDiff(st.infraLatencyDiff)=='yellow'">{{st.infraLatencyDiff
-														| number:2}} <span style="font-size: 20px; color: yellow"
-														class="glyphicon glyphicon-warning-sign"></span>
-													</td>
-												</tr>
-											</tbody>
-										</table>
+														<td class="ng-binding"
+															ng-show="getInfLatAlertDiff(st.infraLatencyDiff)=='green'">{{st.infraLatencyDiff
+															| number:2}} <span style="font-size: 20px; color: green"
+															class="glyphicon glyphicon-ok-sign"></span>
+														</td>
+														<td class="ng-binding"
+															ng-show="getInfLatAlertDiff(st.infraLatencyDiff)=='red'">{{st.infraLatencyDiff
+															| number:2}} <span style="font-size: 20px; color: red"
+															class="glyphicon glyphicon-question-sign"></span>
+														</td>
+														<td class="ng-binding"
+															ng-show="getInfLatAlertDiff(st.infraLatencyDiff)=='yellow'">{{st.infraLatencyDiff
+															| number:2}} <span style="font-size: 20px; color: yellow"
+															class="glyphicon glyphicon-warning-sign"></span>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-					</div>
 
-					<!-- Modal footer -->
-					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary"
-							data-dismiss="modal" ng-click="myVar = !myVar">Close</button>
-					</div>
+						<!-- Modal footer -->
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary"
+								data-dismiss="modal" ng-click="myVar = !myVar">Close</button>
+						</div>
 
+					</div>
 				</div>
 			</div>
-		</div>
 
-	</div>
+		</div>
 	</div>
 
 	<script>
 		angular
-				.module("myApp", [])
+				.module("myApp", ['zingchart-angularjs'])
 				.controller(
 						'myController',
-						function($scope, $filter, $http) {
-							$scope.isLoading=true;
-							$scope.bodyClass='blue';
-							$scope.isMonitorEnabled=false;
+						function($scope, $filter, $http, $location) {
+							
+							$scope.myURL = "http://" + $location.host() + ":"
+									+ $location.port() + "/build/";
+							$scope.isLoading = true;
+							$scope.bodyClass = 'blue';
+							$scope.isMonitorEnabled = false;
+							$scope.isMRH = false;
 
 							// CREATE AN 'employees' OBJECT, WITH AN ARRAY OF DATA.
 							$http
-									.get(
-											'http://localhost:7777/build/comparestats')
+									.get($scope.myURL + 'comparestats')
 									.then(
 											function(response) {
-												$scope.isLoading=false;
-												$scope.bodyClass='normal';
+												$scope.isLoading = false;
+												$scope.bodyClass = 'normal';
 												$scope.buildEnv = response.data;
-												var temp = JSON.stringify($scope.buildEnv);
-												
-												$scope.ds=temp;
-												$scope.$watch('ds', function () {
-													if ($scope.ds.match("FNP")) {
-														$scope.isMonitorEnabled=false;
-													} else {
-														$scope.isMonitorEnabled=true;
-													}
-												});
+												var temp = JSON
+														.stringify($scope.buildEnv);
+
+												$scope.ds = temp;
+												$scope
+														.$watch(
+																'ds',
+																function() {
+																	if ($scope.ds
+																			.match("FNP")) {
+																		$scope.isMonitorEnabled = false;
+																	} 
+																	else if($scope.ds
+																			.match("MRH"))
+																	{
+																		$scope.isMonitorEnabled = false;
+																		$scope.isMRH = true;
+																	}
+																	else {
+																		$scope.isMonitorEnabled = true;
+																	}
+																});
 												$scope.envArray = Object
 														.keys($scope.buildEnv)
 														.map(
@@ -971,13 +703,18 @@ nav.navbar-findcond span.badge.new {
 												};
 												$scope.showStatsBreakUp = function(
 														stats) {
-													$scope.isStatLoading=true;
+													//alert("stats beakup");
+													$scope.isStatLoading = true;
 													$scope.myVar = false;
+													$scope.buildType=false;
+													$scope.criteria='';
+													$scope.myJson ='';
 													$scope.st = stats;
 													$scope.ds = '';
 													$http
 															.get(
-																	'http://localhost:7777/build/dailystats?buildip='
+																	$scope.myURL
+																			+ 'dailystats?buildip='
 																			+ stats.buildIps
 																			+ '&nonBuildIp='
 																			+ stats.nonBuildIps
@@ -986,17 +723,17 @@ nav.navbar-findcond span.badge.new {
 															.then(
 																	function(
 																			response) {
-																		$scope.isStatLoading=false;
+																		$scope.isStatLoading = false;
 																		$scope.ds = response.data;
 																	});
 												};
 
 												$scope.getAlert = function(
 														val1, val2) {
-													if ((val1 - val2) < 0
-															&& (val1 - val2) > -2) {
+													if ((val1 - val2) > 0
+															&& (val1 - val2) < 3) {
 														return "yellow";
-													} else if ((val1 - val2) <= -2) {
+													} else if ((val1 - val2) > 2) {
 														return "red"
 													} else {
 														return "green";
@@ -1005,9 +742,9 @@ nav.navbar-findcond span.badge.new {
 
 												$scope.getSuccessAlertDiff = function(
 														val) {
-													if (val<0 && val> - 5) {
+													if (val > 0 && val < 3) {
 														return "yellow"
-													} else if (val <= -5) {
+													} else if (val > 2) {
 														return "red";
 													} else {
 														return "green";
@@ -1016,9 +753,9 @@ nav.navbar-findcond span.badge.new {
 
 												$scope.get402AlertDiff = function(
 														val) {
-													if (val<0 && val> - 2) {
+													if (val > 0 && val < 3) {
 														return "yellow"
-													} else if (val <= -2) {
+													} else if (val > 2) {
 														return "red";
 													} else {
 														return "green";
@@ -1027,9 +764,9 @@ nav.navbar-findcond span.badge.new {
 
 												$scope.get413AlertDiff = function(
 														val) {
-													if (val<0 && val> - 2) {
+													if (val > 0 && val < 4) {
 														return "yellow"
-													} else if (val <= -2) {
+													} else if (val > 3) {
 														return "red";
 													} else {
 														return "green";
@@ -1038,9 +775,9 @@ nav.navbar-findcond span.badge.new {
 
 												$scope.getInfraAlertDiff = function(
 														val) {
-													if (val<0 && val> - 1) {
+													if (val > 0 && val < 2) {
 														return "yellow"
-													} else if (val <= -1) {
+													} else if (val >= 2) {
 														return "red";
 													} else {
 														return "green";
@@ -1049,9 +786,9 @@ nav.navbar-findcond span.badge.new {
 
 												$scope.getLatencyAlertDiff = function(
 														val) {
-													if (val<0 && val> - 5) {
+													if (val > 0 && val < 3) {
 														return "yellow"
-													} else if (val <= -5) {
+													} else if (val > 3) {
 														return "red";
 													} else {
 														return "green";
@@ -1060,16 +797,339 @@ nav.navbar-findcond span.badge.new {
 
 												$scope.getInfLatAlertDiff = function(
 														val) {
-													if (val<0 && val> - 5) {
+													if (val > 0 && val < 3) {
 														return "yellow"
-													} else if (val <= -5) {
+													} else if (val > 3) {
 														return "red";
 													} else {
 														return "green";
 													}
 												};
+										
 
 											});
+							$scope.getArrays = function(
+									arr, criteria) {
+								//alert(criteria);
+								
+								
+
+								$scope
+										.$watch(
+												'ds',
+												function() {
+													//alert("watch");
+													//alert(criteria);
+									
+													$scope.retArr = [];
+													$scope.retDates = [];
+													if (criteria
+															.match("success")) {
+														//alert("succ");
+														$scope.selmes="SUCCESS";
+														
+														angular
+																.forEach(
+																		arr,
+																		function(
+																				value,
+																				index) {
+																			$scope.succper=Math.round(((value.success/value.totalRequests)*100)*100)/100;
+																			$scope.retArr
+																					.push($scope.succper);
+																			$scope.retDates
+																					.push(value.timeStamp);
+																		});
+														$scope.myJson = {
+															type : 'line',
+															"plot": {
+																"line-color":"#33578e",
+															    "value-box": {
+															      //Displays all data values by default.
+															    }
+															  },
+															"scale-x" : {
+																"values" : $scope.retDates,
+															},
+															"scale-y" : {
+																values: '0:100:20',
+															},
+															series : [ {
+																values : $scope.retArr
+															} ]
+														};
+													} else if (criteria
+															.match("agent")) {
+														$scope.selmes="AGENT";
+														angular
+																.forEach(
+																		arr,
+																		function(
+																				value,
+																				index) {
+																			$scope.succper=Math.round(((value.agentErrors/value.totalRequests)*100)*100)/100;
+																			$scope.retArr
+																					.push($scope.succper);
+																			$scope.retDates
+																					.push(value.timeStamp);
+																		});
+														$scope.myJson = {
+																type : 'line',
+																"plot": {
+																	"line-color":"#33578e",
+																    "value-box": {
+																      //Displays all data values by default.
+																    }
+																  },
+																"scale-x" : {
+																	"values" : $scope.retDates,
+																},
+																"scale-y" : {
+																	values: '0:100:20',
+																},
+																series : [ {
+																	values : $scope.retArr
+																} ]
+															};
+													} else if (criteria
+															.match("site")) {
+														$scope.selmes="SITE";
+														angular
+																.forEach(
+																		arr,
+																		function(
+																				value,
+																				index) {
+																			$scope.succper=Math.round(((value.siteErrors/value.totalRequests)*100)*100)/100;
+																			$scope.retArr
+																					.push($scope.succper);
+																			$scope.retDates
+																					.push(value.timeStamp);
+																		});
+														$scope.myJson = {
+																type : 'line',
+																"plot": {
+																	"line-color":"#33578e",
+																    "value-box": {
+																      //Displays all data values by default.
+																    }
+																  },
+																"scale-x" : {
+																	"values" : $scope.retDates,
+																},
+																"scale-y" : {
+																	values: '0:100:20',
+																},
+																series : [ {
+																	values : $scope.retArr
+																} ]
+															};
+													} else if (criteria
+															.match("uar")) {
+														$scope.selmes="UAR";
+														angular
+																.forEach(
+																		arr,
+																		function(
+																				value,
+																				index) {
+																			$scope.succper=Math.round(((value.uarErrors/value.totalRequests)*100)*100)/100;
+																			$scope.retArr
+																					.push($scope.succper);
+																			$scope.retDates
+																					.push(value.timeStamp);
+																		});
+														$scope.myJson = {
+																type : 'line',
+																"plot": {
+																	"line-color":"#33578e",
+																    "value-box": {
+																      //Displays all data values by default.
+																    }
+																  },
+																"scale-x" : {
+																	"values" : $scope.retDates,
+																},
+																"scale-y" : {
+																	values: '0:100:20',
+																},
+																series : [ {
+																	values : $scope.retArr
+																} ]
+															};
+													} else if (criteria
+															.match("avgLatency")) {
+														$scope.selmes="LATENCY";
+														angular
+																.forEach(
+																		arr,
+																		function(
+																				value,
+																				index) {
+																			$scope.retArr
+																					.push(value.avgLatency);
+																			$scope.retDates
+																					.push(value.timeStamp);
+																		});
+														$scope.myJson = {
+																type : 'line',
+																"plot": {
+																	"line-color":"#33578e",
+																    "value-box": {
+																      //Displays all data values by default.
+																    }
+																  },
+																"scale-x" : {
+																	"values" : $scope.retDates,
+																},
+																series : [ {
+																	values : $scope.retArr
+																} ]
+															};
+													} else if (criteria
+															.match("infraErrors")) {
+														$scope.selmes="INFRA";
+														angular
+																.forEach(
+																		arr,
+																		function(
+																				value,
+																				index) {
+																			$scope.succper=Math.round(((value.infraErrors/value.totalRequests)*100)*100)/100;
+																			$scope.retArr
+																					.push($scope.succper);
+																			$scope.retDates
+																					.push(value.timeStamp);
+																		});
+														$scope.myJson = {
+																type : 'line',
+																"plot": {
+																	"line-color":"#33578e",
+																    "value-box": {
+																      //Displays all data values by default.
+																    }
+																  },
+																"scale-x" : {
+																	"values" : $scope.retDates,
+																},
+																"scale-y" : {
+																	values: '0:100:20',
+																},
+																series : [ {
+																	values : $scope.retArr
+																} ]
+															};
+													} else if (criteria
+															.match("402")) {
+														$scope.selmes="402";
+														angular
+																.forEach(
+																		arr,
+																		function(
+																				value,
+																				index) {
+																			$scope.succper=Math.round(((value.error402/value.totalRequests)*100)*100)/100;
+																			$scope.retArr
+																					.push($scope.succper);
+																			$scope.retDates
+																					.push(value.timeStamp);
+																		});
+														$scope.myJson = {
+																type : 'line',
+																"plot": {
+																	"line-color":"#33578e",
+																    "value-box": {
+																      //Displays all data values by default.
+																    }
+																  },
+																"scale-x" : {
+																	"values" : $scope.retDates,
+																},
+																"scale-y" : {
+																	values: '0:100:20',
+																},
+																series : [ {
+																	values : $scope.retArr
+																} ]
+															};
+													} else if (criteria
+															.match("413")) {
+														$scope.selmes="413";
+														angular
+																.forEach(
+																		arr,
+																		function(
+																				value,
+																				index) {
+																			$scope.succper=Math.round(((value.error413/value.totalRequests)*100)*100)/100;
+																			$scope.retArr
+																					.push($scope.succper);
+																			$scope.retDates
+																					.push(value.timeStamp);
+																		});
+														$scope.myJson = {
+																type : 'line',
+																"plot": {
+																	"line-color":"#33578e",
+																    "value-box": {
+																      //Displays all data values by default.
+																    }
+																  },
+																"scale-x" : {
+																	"values" : $scope.retDates,
+																},
+																"scale-y" : {
+																	values: '0:100:20',
+																},
+																series : [ {
+																	values : $scope.retArr
+																} ]
+															};
+													} else if (criteria
+															.match("avgInfraLatency")) {
+														$scope.selmes="INFRA LATENCY";
+														angular
+																.forEach(
+																		arr,
+																		function(
+																				value,
+																				index) {
+																			$scope.retArr
+																					.push(value.avgInfraLatency);
+																			$scope.retDates
+																					.push(value.timeStamp);
+																		});
+														$scope.myJson = {
+																type : 'line',
+																"plot": {
+																	"line-color":"#33578e",
+																    "value-box": {
+																      //Displays all data values by default.
+																    }
+																  },
+																"scale-x" : {
+																	"values" : $scope.retDates,
+																},
+																series : [ {
+																	values : $scope.retArr
+																} ]
+															};
+													}
+													else
+													{
+														$scope.myJson = {
+																type : 'line',
+																"scale-x" : {
+																	"values" : ["NA","NA"],
+																},
+																series : [ {
+																	values : [0,0]
+																} ]
+															};
+													}
+												});
+
+							};
 						});
 	</script>
 

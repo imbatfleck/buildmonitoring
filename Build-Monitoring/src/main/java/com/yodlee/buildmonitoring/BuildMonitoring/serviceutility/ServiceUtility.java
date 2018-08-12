@@ -12,7 +12,11 @@ public class ServiceUtility {
 	{
 		HashMap<String,BuildStats> classMap=new HashMap<>();
 		long buildTotalRequest = 0;
-		double buildTotalSuccess = 0.00; 
+		double buildTotalSuccess = 0.00;
+		long buildAgentErrors=0;
+		long buildSiteErrors=0;
+		long buildUARErrors=0;
+		
 		double buildTotalWeightedLatency = 0.00;
 		double buildTotalInfraWeightedLatency=0.00;
 		double buildTotalError402 = 0.00;
@@ -23,6 +27,10 @@ public class ServiceUtility {
 				classMap.put(bs.getClassName(), bs);
 				buildTotalRequest+=bs.getTotalRequests();
 				buildTotalSuccess+=bs.getSuccess();
+				buildAgentErrors+=bs.getAgentErrors();
+				buildSiteErrors+=bs.getSiteErrors();
+				buildUARErrors+=bs.getUarErrors();
+				
 				buildTotalWeightedLatency+=bs.getTotalRequests()*bs.getAvgLatency();
 				buildTotalInfraWeightedLatency+=bs.getTotalRequests()*bs.getAvgInfraLatency();
 				buildTotalError402+=bs.getError402();
@@ -54,6 +62,9 @@ public class ServiceUtility {
 			
 			
 			statsSummary.setTotalRequests(buildTotalRequest);
+			statsSummary.setAvgAgentError(buildAgentErrors);
+			statsSummary.setAvgSiteError(buildSiteErrors);
+			statsSummary.setAvgUARError(buildUARErrors);
 			statsSummary.setAvgSuccessPerc(avgSuccessPerc);
 			statsSummary.setAvgLatency(avgWeightedLatency);
 			statsSummary.setInfraAvgLatency(avgInfraWeightedLatency);

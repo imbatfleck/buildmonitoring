@@ -1,0 +1,15 @@
+'172.17.9.193'; ;CHANNEL;NonBuildIp
+'172.17.6.108'; ;CHANNEL;OldBuildIp
+'172.17.6.108'; ;CHANNEL;BuildIp
+'172.17.6.174','172.17.6.170'; ;YODLEE;NonBuildIp
+'172.17.9.40','172.17.7.230'; ;YODLEE;OldBuildIp
+'172.17.9.40','172.17.7.230'; ;YODLEE;BuildIp
+'172.17.7.234'; ;SDKEE;NonBuildIp
+'172.17.7.22'; ;SDKEE;OldBuildIp
+'172.17.7.22'; ;SDKEE;BuildIp
+'172.17.6.228'; ;YI_Channel;NonBuildIp
+'172.17.6.132'; ;YI_Channel;OldBuildIp
+'172.17.6.132'; ;YI_Channel;BuildIp
+'172.17.9.158'; ;LARGE_BACKEND;NonBuildIp
+'172.17.8.193'; ;LARGE_BACKEND;OldBuildIp
+'172.17.8.193'; ;LARGE_BACKEND;BuildIp

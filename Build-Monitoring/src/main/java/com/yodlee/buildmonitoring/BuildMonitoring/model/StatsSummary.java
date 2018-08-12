@@ -11,12 +11,34 @@ public class StatsSummary {
 	private double avgError402Perc;
 	private double avgInfraErrorPerc;
 	private double avgError413Perc;
+	private long avgAgentError;
+	private long avgSiteError;
+	private long avgUARError;
+	
 	private HashMap<String,BuildStats> classMap;
 	
 	
 	
 	
 	
+	public long getAvgAgentError() {
+		return avgAgentError;
+	}
+	public void setAvgAgentError(long avgAgentError) {
+		this.avgAgentError = avgAgentError;
+	}
+	public long getAvgSiteError() {
+		return avgSiteError;
+	}
+	public void setAvgSiteError(long avgSiteError) {
+		this.avgSiteError = avgSiteError;
+	}
+	public long getAvgUARError() {
+		return avgUARError;
+	}
+	public void setAvgUARError(long avgUARError) {
+		this.avgUARError = avgUARError;
+	}
 	public HashMap<String, BuildStats> getClassMap() {
 		return classMap;
 	}

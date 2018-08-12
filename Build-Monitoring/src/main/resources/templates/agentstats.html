@@ -6,6 +6,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/common.css">
+<link rel="stylesheet" href="/css/navbar.css">
+<link rel="stylesheet" href="/css/warning.css">
+<link rel="stylesheet" href="/css/togglebnb.css">
+<link rel="stylesheet" href="/css/loader.css">
+<link rel="stylesheet" href="/css/agenttable.css">
+
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script
@@ -20,399 +27,15 @@
 	src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript"
 	src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
+<script src="https://cdn.zingchart.com/zingchart.min.js"></script>
+<script src="https://cdn.zingchart.com/angular/zingchart-angularjs.js"></script>
 <style>
-@media screen and (min-width: 768px) {
-	.modal-dialog {
-		width: 700px; /* New width for default modal */
+	#resizable {
+		height: 400px;
+		width: 500px;
+		padding: 3px;
+		border: 2px solid #284a82;
 	}
-	.modal-sm {
-		width: 350px; /* New width for small modal */
-	}
-}
-
-@media screen and (min-width: 992px) {
-	.modal-lg {
-		width: 950px; /* New width for large modal */
-	}
-}
-
-.yellow {
-	color: #c1b50d
-}
-
-.red {
-	color: #a83b28
-}
-
-.green {
-	color: #3e7c48
-}
-/* Remove the navbar's default rounded borders and increase the bottom margin */
-.navbar {
-	margin-bottom: 50px;
-	border-radius: 0;
-}
-
-/* Remove the jumbotron's default bottom margin */
-.jumbotron {
-	margin-bottom: 0;
-}
-
-/* Add a gray background color and some padding to the footer */
-footer {
-	background-color: #f2f2f2;
-	padding: 25px;
-}
-
-.header {
-	margin: 10px;
-	border-bottom: 1px solid grey;
-}
-
-nav.navbar-findcond {
-  background: #5e66a3;
-  border-color: #ccc;
-  box-shadow: 0 0 2px 0 #ccc;
-}
-
-nav.navbar-findcond a {
-  color:#f8f7ff;
-}
-
-nav.navbar-findcond ul.navbar-nav a {
-  color: #f8f7ff;
-  border-style: solid;
-  border-width: 0 0 2px 0;
-  border-color: #fff;
-}
-
-nav.navbar-findcond ul.navbar-nav a:hover, nav.navbar-findcond ul.navbar-nav a:visited,
-nav.navbar-findcond ul.navbar-nav a:focus, nav.navbar-findcond ul.navbar-nav a:active
-{
-  background: #9299ce;
-}
-
-nav.navbar-findcond ul.navbar-nav a:hover {
-  border-color: #f15555;
-}
-
-nav.navbar-findcond li.divider {
-  background: #ccc;
-}
-
-nav.navbar-findcond button.navbar-toggle {
-  background: #f15555;
-  border-radius: 2px;
-}
-
-nav.navbar-findcond button.navbar-toggle:hover {
-  background: #999;
-}
-
-nav.navbar-findcond button.navbar-toggle>span.icon-bar {
-  background: #fff;
-}
-
-nav.navbar-findcond ul.dropdown-menu {
-  border: 0;
-  background: #fff;
-  border-radius: 4px;
-  margin: 4px 0;
-  box-shadow: 0 0 4px 0 #ccc;
-}
-
-nav.navbar-findcond ul.dropdown-menu>li>a {
-  color: #444;
-}
-
-nav.navbar-findcond ul.dropdown-menu>li>a:hover {
-  background: #f15555;
-  color: #fff;
-}
-
-nav.navbar-findcond span.badge {
-  background: #f15555;
-  font-weight: normal;
-  font-size: 11px;
-  margin: 0 4px;
-}
-
-nav.navbar-findcond span.badge.new {
-  background: rgba(255, 0, 0, 0.8);
-  color: #fff;
-}
-
-.switch input {
-	display: none;
-}
-
-.switch {
-	display: inline-block;
-	width: 60px;
-	height: 30px;
-	margin: 8px;
-	transform: translateY(50%);
-	position: relative;
-}
-
-.slider {
-	position: absolute;
-	top: 0;
-	bottom: 0;
-	left: 0;
-	right: 0;
-	border-radius: 30px;
-	box-shadow: 0 0 0 2px #777, 0 0 4px #777;
-	cursor: pointer;
-	border: 4px solid transparent;
-	overflow: hidden;
-	transition: .4s;
-}
-
-.slider:before {
-	position: absolute;
-	content: "";
-	width: 100%;
-	height: 100%;
-	background: #777;
-	border-radius: 30px;
-	transform: translateX(-30px);
-	transition: .4s;
-}
-
-input:checked+.slider:before {
-	transform: translateX(30px);
-	background: limeGreen;
-}
-
-input:checked+.slider {
-	box-shadow: 0 0 0 2px limeGreen, 0 0 2px limeGreen;
-}
-
-/* Slider for stats*/
-.onoffswitch {
-	position: relative;
-	width: 122px;
-	margin: 0 auto;
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-}
-
-.onoffswitch-checkbox {
-	display: none;
-}
-
-.onoffswitch-label {
-	display: block;
-	overflow: hidden;
-	cursor: pointer;
-	border: 2px solid #416BAD;
-	border-radius: 0px;
-}
-
-.onoffswitch-inner {
-	display: block;
-	width: 200%;
-	margin-left: -100%;
-	transition: margin 0.3s ease-in 0s;
-}
-
-.onoffswitch-inner:before, .onoffswitch-inner:after {
-	display: block;
-	float: left;
-	width: 50%;
-	height: 31px;
-	padding: 0;
-	line-height: 27px;
-	font-size: 17px;
-	color: white;
-	font-family: Trebuchet, Arial, sans-serif;
-	font-weight: bold;
-	box-sizing: border-box;
-	border: 2px solid transparent;
-	background-clip: padding-box;
-}
-
-.onoffswitch-inner:before {
-	content: "NON BUILD";
-	padding-left: 7px;
-	background-color: #FFFFFF;
-	color: #504D7D;
-}
-
-.onoffswitch-inner:after {
-	content: "BUILD";
-	padding-right: 7px;
-	background-color: #FFFFFF;
-	color: #36572D;
-	text-align: right;
-}
-
-.onoffswitch-switch {
-	display: block;
-	width: 11px;
-	margin: 0px;
-	background: #36572D;
-	position: absolute;
-	top: 0;
-	bottom: 0;
-	right: 111px;
-	transition: all 0.3s ease-in 0s;
-}
-
-.onoffswitch-checkbox:checked+.onoffswitch-label .onoffswitch-inner {
-	margin-left: 0;
-}
-
-.onoffswitch-checkbox:checked+.onoffswitch-label .onoffswitch-switch {
-	right: 0px;
-	background-color: #504D7D;
-}
-
-/*loader styles*/
-
-.loader,
-.loader:before,
-.loader:after {
-  background: #3d5b8c;
-  -webkit-animation: load1 1s infinite ease-in-out;
-  animation: load1 1s infinite ease-in-out;
-  width: 1em;
-  height: 4em;
-}
-.loader {
-  color: #3d5b8c;
-  text-indent: -9999em;
-  margin: 88px auto;
-  position: relative;
-  font-size: 11px;
-  -webkit-transform: translateZ(0);
-  -ms-transform: translateZ(0);
-  transform: translateZ(0);
-  -webkit-animation-delay: -0.16s;
-  animation-delay: -0.16s;
-}
-.loader:before,
-.loader:after {
-  position: absolute;
-  top: 0;
-  content: '';
-}
-.loader:before {
-  left: -1.5em;
-  -webkit-animation-delay: -0.32s;
-  animation-delay: -0.32s;
-}
-.loader:after {
-  left: 1.5em;
-}
-@-webkit-keyframes load1 {
-  0%,
-  80%,
-  100% {
-    box-shadow: 0 0;
-    height: 4em;
-  }
-  40% {
-    box-shadow: 0 -2em;
-    height: 5em;
-  }
-}
-@keyframes load1 {
-  0%,
-  80%,
-  100% {
-    box-shadow: 0 0;
-    height: 4em;
-  }
-  40% {
-    box-shadow: 0 -2em;
-    height: 5em;
-  }
-}
-
-.blue
-	{
-		background: rgba(0,0,0,.1);
-
-	}
-	.normal
-	{
-		background: rgba(0,0,0,.1);
-	}
-/*table style*/
-
-  .table-responsive>.fixed-column {
-  position: absolute;
-  display: inline-block;
-  width: auto;
-  border-right: 1px solid #ddd;
-  background-color: #fff;
-  /* bootstrap v3 fix for fixed column background color*/
-  border-radius: 2px;
-}
-
-@media ( min-width :768px) {
-  .table-responsive>.fixed-column {
-    display: none;
-  }
-}
-
-.headerstyle {
-  color: white;
-}
-
-table.table-bordered {
-  border: 1px solid #8995bc;
-  margin-top: 20px;
-}
-
-table.table-bordered>thead>tr>th {
-  border: 1px solid #8995bc;
-}
-
-table.table-bordered>tbody>tr>td {
-  border: 1px solid #8995bc;
-  font-size: 15px;
-}
-/*th, td { white-space: nowrap; }*/
-div.dataTables_wrapper {
-  margin: 0 auto;
-}
-
-.DTFC_LeftBodyLiner {
-  margin-top: -13px;
-}
-
-.DTFC_LeftBodyLiner>table>tbody>tr {
-  background-color: #f9fcf9;
-}
-
-.dataTables_wrapper>div:nth-child(2) {
-  overflow-x: scroll;
-}
-
-.dataTables_wrapper>div:nth-child(2)::-webkit-scrollbar {
-  width: 12px;
-}
-
-.dataTables_wrapper>div:nth-child(2)::-webkit-scrollbar-track {
-  -webkit-box-shadow: inset 0 0 6px #45597a;
-  border-radius: 10px;
-}
-
-.dataTables_wrapper>div:nth-child(2)::-webkit-scrollbar-thumb {
-  border-radius: 10px;
-  -webkit-box-shadow: inset 0 0 6px #45597a;
-}
-
-
-
-.glyphicon {
-  margin-left: 10px;
-  display: inline;
-}
 </style>
 
 </head>
@@ -453,682 +76,1405 @@ div.dataTables_wrapper {
 	<div class="container">
 		<div class="loader" ng-show="isLoading">Loading...</div>
 		<div ng-hide="isLoading">
-		<ul class="nav nav-tabs">
-			<li ng-repeat="x in buildData" ng-if="$index < 1"
-				ng-click="getAgentStats(x.agentStatList)" class="active"><a
-				data-toggle="tab" href="#{{x.alterEnv}}">{{x.environament}}</a></li>
-			<li ng-repeat="x in buildData" ng-if="$index > 0"
-				ng-click="getAgentStats(x.agentStatList)"><a data-toggle="tab"
-				href="#{{x.alterEnv}}">{{x.environament}}</a></li>
-		</ul>
+			<ul class="nav nav-tabs">
+				<li ng-repeat="x in buildData" ng-if="$index < 1"
+					ng-click="getAgentStats(x.agentStatList)" class="active"><a
+					data-toggle="tab" href="#{{x.alterEnv}}">{{x.environament}}</a></li>
+				<li ng-repeat="x in buildData" ng-if="$index > 0"
+					ng-click="getAgentStats(x.agentStatList)"><a data-toggle="tab"
+					href="#{{x.alterEnv}}">{{x.environament}}</a></li>
+			</ul>
 
-		<div class="tab-content">
-			<div ng-repeat="x in buildData" ng-if="$index < 1"
-				id="{{x.alterEnv}}" class="tab-pane fade in active">
-				<h3>{{x.environament}}</h3>
-				
-         <table class="table table-bordered example" style="width: 100%;">
-            <thead style="background-color: #56638c">
+			<div class="tab-content">
+				<div ng-repeat="x in buildData" ng-if="$index < 1"
+					id="{{x.alterEnv}}" class="tab-pane fade in active">
+					<h3>{{x.environament}}</h3>
 
-              <tr>
-                <th class="text-center headerstyle"><a href="#"
-                  style="text-decoration: none; color: white;"
-                  ng-click="sortType = 'className';sortReverse = !sortReverse">CLASS
-                    <span ng-show="sortType == 'className'  && !sortReverse"
-                    class="glyphicon glyphicon-circle-arrow-down"></span><span
-                    ng-show="sortType == 'className' && sortReverse"
-                    class="glyphicon glyphicon-circle-arrow-up"></span></th>
-                <th class="text-center headerstyle"><a href="#"
-                  style="text-decoration: none; color: white;"
-                  ng-click="sortType = 'buildTotalRequest';sortReverse = !sortReverse">TOTAL(B)<span
-                    ng-show="sortType == 'buildTotalRequest'  && !sortReverse"
-                    class="glyphicon glyphicon-circle-arrow-down"></span><span
-                    ng-show="sortType == 'buildTotalRequest' && sortReverse"
-                    class="glyphicon glyphicon-circle-arrow-up"></span></th>
-                <th class="text-center headerstyle"><a href="#"
-                  style="text-decoration: none; color: white;"
-                  ng-click="sortType = 'nonBuildTotalRequest';sortReverse = !sortReverse">TOTAL(NB)<span
-                    ng-show="sortType == 'nonBuildTotalRequest'  && !sortReverse"
-                    class="glyphicon glyphicon-circle-arrow-down text-center headerstyle"></span><span
-                    ng-show="sortType == 'nonBuildTotalRequest' && sortReverse"
-                    class="glyphicon glyphicon-circle-arrow-up"></span></th>
-                <th class="text-center headerstyle"><a href="#"
-                  style="text-decoration: none; color: white;"
-                  ng-click="sortType = 'oldBuildTotalRequest';sortReverse = !sortReverse">TOTAL(OB)<span
-                    ng-show="sortType == 'oldBuildTotalRequest'  && !sortReverse"
-                    class="glyphicon glyphicon-circle-arrow-down"></span><span
-                    ng-show="sortType == 'oldBuildTotalRequest' && sortReverse"
-                    class="glyphicon glyphicon-circle-arrow-up"></span></th>
-                <th class="text-center headerstyle"><a href="#"
-                  style="text-decoration: none; color: white;"
-                  ng-click="sortType = 'buildSuccessPer';sortReverse = !sortReverse">SUCCESS(B%)<span
-                    ng-show="sortType == 'buildSuccessPer'  && !sortReverse"
-                    class="glyphicon glyphicon-circle-arrow-down"></span><span
-                    ng-show="sortType == 'buildSuccessPer' && sortReverse"
-                    class="glyphicon glyphicon-circle-arrow-up"></span></th>
-                <th class="text-center headerstyle"><a href="#"
-                  style="text-decoration: none; color: white;"
-                  ng-click="sortType = 'nonBuildSuccessPer';sortReverse = !sortReverse">SUCCESS(NB%)<span
-                    ng-show="sortType == 'nonBuildSuccessPer'  && !sortReverse"
-                    class="glyphicon glyphicon-circle-arrow-down"></span><span
-                    ng-show="sortType == 'nonBuildSuccessPer' && sortReverse"
-                    class="glyphicon glyphicon-circle-arrow-up"></span></th>
-                <th class="text-center headerstyle"><a href="#"
-                  style="text-decoration: none; color: white;"
-                  ng-click="sortType = 'oldBuildSuccessPer';sortReverse = !sortReverse">SUCCESS(OB%)<span
-                    ng-show="sortType == 'oldBuildSuccessPer'  && !sortReverse"
-                    class="glyphicon glyphicon-circle-arrow-down"></span><span
-                    ng-show="sortType == 'oldBuildSuccessPer' && sortReverse"
-                    class="glyphicon glyphicon-circle-arrow-up"></span></th>
-                <th class="text-center headerstyle"><a href="#"
-                  style="text-decoration: none; color: white;"
-                  ng-click="sortType = 'successDiff';sortReverse = !sortReverse">SUCCESS|DIFF(B/NB)<span
-                    ng-show="sortType == 'successDiff'  && !sortReverse"
-                    class="glyphicon glyphicon-circle-arrow-down"></span><span
-                    ng-show="sortType == 'successDiff' && sortReverse"
-                    class="glyphicon glyphicon-circle-arrow-up"></span></th>
+					<ul class="nav nav-pills"
+						style="margin-left: 350px; font-size: 10px; font-weight: bold">
+						<li class="active"><a data-toggle="pill"
+							href=".SUCCESS{{x.alterEnv}}">SUCCESS</a></li>
+						<li><a data-toggle="pill" href=".ERR413{{x.alterEnv}}">AGENT</a></li>
+						<li><a data-toggle="pill" href=".ERR402{{x.alterEnv}}">UAR</a></li>
+						<li><a data-toggle="pill" href=".SITE{{x.alterEnv}}">SITE</a></li>
+						<li><a data-toggle="pill" href=".INFRAERR{{x.alterEnv}}">INFRA</a></li>	
+						<li><a data-toggle="pill" href=".LATENCY{{x.alterEnv}}">LATENCY</a></li>
+						<li><a data-toggle="pill" href=".INFRALAT{{x.alterEnv}}">INFRA'LAT</a></li>
+					</ul>
+					<div class="tab-content">
 
-                <th class="text-center headerstyle"><a href="#"
-                  style="text-decoration: none; color: white;"
-                  ng-click="sortType = 'buildLatency';sortReverse = !sortReverse">LATENCY(B)<span
-                    ng-show="sortType == 'buildLatency'  && !sortReverse"
-                    class="glyphicon glyphicon-circle-arrow-down"></span><span
-                    ng-show="sortType == 'buildLatency' && sortReverse"
-                    class="glyphicon glyphicon-circle-arrow-up"></span></th>
-                <th class="text-center headerstyle"><a href="#"
-                  style="text-decoration: none; color: white;"
-                  ng-click="sortType = 'nonBuildLatency';sortReverse = !sortReverse">LATENCY(NB)<span
-                    ng-show="sortType == 'nonBuildLatency'  && !sortReverse"
-                    class="glyphicon glyphicon-circle-arrow-down"></span><span
-                    ng-show="sortType == 'nonBuildLatency' && sortReverse"
-                    class="glyphicon glyphicon-circle-arrow-up"></span></th>
-                <th class="text-center headerstyle"><a href="#"
-                  style="text-decoration: none; color: white;"
-                  ng-click="sortType = 'oldBuildLatency';sortReverse = !sortReverse">LATENCY(OB)<span
-                    ng-show="sortType == 'oldBuildLatency'  && !sortReverse"
-                    class="glyphicon glyphicon-circle-arrow-down"></span><span
-                    ng-show="sortType == 'oldBuildLatency' && sortReverse"
-                    class="glyphicon glyphicon-circle-arrow-up"></span></th>
-                    
-                    <th class="text-center headerstyle"><a href="#"
-                  style="text-decoration: none; color: white;"
-                  ng-click="sortType = 'latencyDiff';sortReverse = !sortReverse">LATENCY'DIFF(B/NB)<span
-                    ng-show="sortType == 'latencyDiff'  && !sortReverse"
-                    class="glyphicon glyphicon-circle-arrow-down"></span><span
-                    ng-show="sortType == 'latencyDiff' && sortReverse"
-                    class="glyphicon glyphicon-circle-arrow-up"></span></th>
-                    
-                    <th class="text-center headerstyle"><a href="#"
-                  style="text-decoration: none; color: white;"
-                  ng-click="sortType = 'buildInfraLatency';sortReverse = !sortReverse">INFRA'LATENCY(B)<span
-                    ng-show="sortType == 'buildInfraLatency'  && !sortReverse"
-                    class="glyphicon glyphicon-circle-arrow-down"></span><span
-                    ng-show="sortType == 'buildInfraLatency' && sortReverse"
-                    class="glyphicon glyphicon-circle-arrow-up"></span></th>
-                    
-                    <th class="text-center headerstyle"><a href="#"
-                  style="text-decoration: none; color: white;"
-                  ng-click="sortType = 'nonBuildInfraLatency';sortReverse = !sortReverse">INFRA'LATENCY(NB)<span
-                    ng-show="sortType == 'nonBuildInfraLatency'  && !sortReverse"
-                    class="glyphicon glyphicon-circle-arrow-down"></span><span
-                    ng-show="sortType == 'nonBuildInfraLatency' && sortReverse"
-                    class="glyphicon glyphicon-circle-arrow-up"></span></th>
-                    
-                    <th class="text-center headerstyle"><a href="#"
-                  style="text-decoration: none; color: white;"
-                  ng-click="sortType = 'oldBuildInfraLatency';sortReverse = !sortReverse">INFRA'LATENCY(OB)<span
-                    ng-show="sortType == 'oldBuildInfraLatency'  && !sortReverse"
-                    class="glyphicon glyphicon-circle-arrow-down"></span><span
-                    ng-show="sortType == 'oldBuildInfraLatency' && sortReverse"
-                    class="glyphicon glyphicon-circle-arrow-up"></span></th>
-                    
-                    <th class="text-center headerstyle"><a href="#"
-                  style="text-decoration: none; color: white;"
-                  ng-click="sortType = 'infraLatencyDiff';sortReverse = !sortReverse">INFRA'LATENCY'DIFF(B/NB)<span
-                    ng-show="sortType == 'infraLatencyDiff'  && !sortReverse"
-                    class="glyphicon glyphicon-circle-arrow-down"></span><span
-                    ng-show="sortType == 'infraLatencyDiff' && sortReverse"
-                    class="glyphicon glyphicon-circle-arrow-up"></span></th>
-                    
-                    
-                    
-                    <th class="text-center headerstyle"><a href="#"
-                  style="text-decoration: none; color: white;"
-                  ng-click="sortType = 'buildErr413';sortReverse = !sortReverse">ERR'413(B)<span
-                    ng-show="sortType == 'buildErr413'  && !sortReverse"
-                    class="glyphicon glyphicon-circle-arrow-down"></span><span
-                    ng-show="sortType == 'buildErr413' && sortReverse"
-                    class="glyphicon glyphicon-circle-arrow-up"></span></th>
-                    
-                    <th class="text-center headerstyle"><a href="#"
-                  style="text-decoration: none; color: white;"
-                  ng-click="sortType = 'nonBuildErr413';sortReverse = !sortReverse">ERR'413(NB)<span
-                    ng-show="sortType == 'nonBuildErr413'  && !sortReverse"
-                    class="glyphicon glyphicon-circle-arrow-down"></span><span
-                    ng-show="sortType == 'nonBuildErr413' && sortReverse"
-                    class="glyphicon glyphicon-circle-arrow-up"></span></th>
-                    
-                    <th class="text-center headerstyle"><a href="#"
-                  style="text-decoration: none; color: white;"
-                  ng-click="sortType = 'oldBuildErr413';sortReverse = !sortReverse">ERR'413(OB)<span
-                    ng-show="sortType == 'oldBuildErr413'  && !sortReverse"
-                    class="glyphicon glyphicon-circle-arrow-down"></span><span
-                    ng-show="sortType == 'oldBuildErr413' && sortReverse"
-                    class="glyphicon glyphicon-circle-arrow-up"></span></th>
-                    
-                    <th class="text-center headerstyle"><a href="#"
-                  style="text-decoration: none; color: white;"
-                  ng-click="sortType = 'err413Diff';sortReverse = !sortReverse">ERR'413'DIFF(B/NB)<span
-                    ng-show="sortType == 'err413Diff'  && !sortReverse"
-                    class="glyphicon glyphicon-circle-arrow-down"></span><span
-                    ng-show="sortType == 'err413Diff' && sortReverse"
-                    class="glyphicon glyphicon-circle-arrow-up"></span></th>
-                    
-                     <th class="text-center headerstyle"><a href="#"
-                  style="text-decoration: none; color: white;"
-                  ng-click="sortType = 'buildInfraError';sortReverse = !sortReverse">INFRA(B)<span
-                    ng-show="sortType == 'buildInfraError'  && !sortReverse"
-                    class="glyphicon glyphicon-circle-arrow-down"></span><span
-                    ng-show="sortType == 'buildInfraError' && sortReverse"
-                    class="glyphicon glyphicon-circle-arrow-up"></span></th>
-                    
-                    <th class="text-center headerstyle"><a href="#"
-                  style="text-decoration: none; color: white;"
-                  ng-click="sortType = 'nonBuildInfraError';sortReverse = !sortReverse">INFRA(NB)<span
-                    ng-show="sortType == 'nonBuildInfraError'  && !sortReverse"
-                    class="glyphicon glyphicon-circle-arrow-down"></span><span
-                    ng-show="sortType == 'nonBuildInfraError' && sortReverse"
-                    class="glyphicon glyphicon-circle-arrow-up"></span></th>
-                    
-                    <th class="text-center headerstyle"><a href="#"
-                  style="text-decoration: none; color: white;"
-                  ng-click="sortType = 'oldBuildInfraError';sortReverse = !sortReverse">INFRA(OB)<span
-                    ng-show="sortType == 'oldBuildInfraError'  && !sortReverse"
-                    class="glyphicon glyphicon-circle-arrow-down"></span><span
-                    ng-show="sortType == 'oldBuildInfraError' && sortReverse"
-                    class="glyphicon glyphicon-circle-arrow-up"></span></th>
-                    
-                    <th class="text-center headerstyle"><a href="#"
-                  style="text-decoration: none; color: white;"
-                  ng-click="sortType = 'infraDiff';sortReverse = !sortReverse">INFRA'DIFF(B/NB)<span
-                    ng-show="sortType == 'infraDiff'  && !sortReverse"
-                    class="glyphicon glyphicon-circle-arrow-down"></span><span
-                    ng-show="sortType == 'infraDiff' && sortReverse"
-                    class="glyphicon glyphicon-circle-arrow-up"></span></th>
-                    
+						<div id="SUCCESS"
+							class="tab-pane fade in active SUCCESS{{x.alterEnv}}">
+							<table class="table table-bordered example" style="width: 100%;">
+								<thead style="background-color: #56638c; font-size: 10px;">
 
-              </tr>
-            </thead>
-                        <tbody>
+									<tr>
 
-              <tr
-                ng-repeat="y in x.agentStatList |  orderBy: sortType:!sortReverse">
-                <td><a data-toggle="modal" href="#myModal"
-                  style="text-decoration: none; color: #56638c;"
-                  ng-click="showAgentStatsBreakUp(x,y)"> <strong>{{y.className}}<strong>
-                        </a></td>
-                <td>{{y.buildTotalRequest}}</span></td>
-                <td>{{y.nonBuildTotalRequest}}</td>
-                <td>{{y.oldBuildTotalRequest}}</td>
-                <td>{{y.buildSuccessPer}}</td>
-                <td>{{y.nonBuildSuccessPer}}</td>
-                <td>{{y.oldBuildSuccessPer}}</td>
-                <td data-order="{{y.successDiff}}">{{y.successDiff | number
-                  :2}} <a href="#" style="text-decoration:none;"
-                  title="{{y.className}} | {{y.buildTotalRequest}}(B) / {{y.nonBuildTotalRequest}}(NB) / {{y.oldBuildTotalRequest}}(OB)"><span
-                    ng-class="getSuccDiffAlert(y.successDiff)"
-                    style="margin-left: 50px;"></span></a>
-                </td>
-                <td>{{y.buildLatency | number :2}}</td>
-                <td>{{y.nonBuildLatency | number :2}}</td>
-                <td>{{y.oldBuildLatency | number :2}}</td>
-                <td data-order="{{y.latencyDiff}}">{{y.latencyDiff | number
-                  :2}} <a href="#" style="text-decoration:none;"
-                  title="{{y.className}} | {{y.buildTotalRequest}}(B) / {{y.nonBuildTotalRequest}}(NB) / {{y.oldBuildTotalRequest}}(OB)"><span
-                    ng-class="getLatDiffAlert(y.latencyDiff)"
-                    style="margin-left: 50px;"></span></a>
-                </td>
-                
-                <td>{{y.buildInfraLatency | number :2}}</td>
-                <td>{{y.nonBuildInfraLatency | number :2}}</td>
-                <td>{{y.oldBuildInfraLatency | number :2}}</td>
-                <td data-order="{{y.infraLatencyDiff}}">{{y.infraLatencyDiff | number
-                  :2}} <a href="#" style="text-decoration:none;"
-                  title="{{y.className}} | {{y.buildTotalRequest}}(B) / {{y.nonBuildTotalRequest}}(NB) / {{y.oldBuildTotalRequest}}(OB)"><span
-                    ng-class="getInfraLatDiffAlert(y.infraLatencyDiff)"
-                    style="margin-left: 50px;"></span></a>
-                </td>
-                
-                <td>{{y.buildErr413 | number :2}}</td>
-                <td>{{y.nonBuildErr413 | number :2}}</td>
-                <td>{{y.oldBuildErr413 | number :2}}</td>
-                <td data-order="{{y.err413Diff}}">{{y.err413Diff | number
-                  :2}} <a href="#" style="text-decoration:none;"
-                  title="{{y.className}} | {{y.buildTotalRequest}}(B) / {{y.nonBuildTotalRequest}}(NB) / {{y.oldBuildTotalRequest}}(OB)"><span
-                    ng-class="get413DiffAlert(y.err413Diff)"
-                    style="margin-left: 50px;"></span></a>
-                </td>
-                
-                 <td>{{y.buildInfraError | number :2}}</td>
-                <td>{{y.nonBuildInfraError | number :2}}</td>
-                <td>{{y.oldBuildInfraError | number :2}}</td>
-                <td data-order="{{y.infraDiff}}">{{y.infraDiff | number
-                  :2}} <a href="#" style="text-decoration:none;"
-                  title="{{y.className}} | {{y.buildTotalRequest}}(B) / {{y.nonBuildTotalRequest}}(NB) / {{y.oldBuildTotalRequest}}(OB)"><span
-                    ng-class="getInfraDiffAlert(y.infraDiff)"
-                    style="margin-left: 50px;"></span></a>
-                </td>
-              
-              </tr>
-            </tbody>
-          </table>					</div>
-			<div ng-repeat="x in buildData" ng-if="$index > 0"
-				id="{{x.alterEnv}}" class="tab-pane fade">
-				<h3>{{x.environament}}</h3>
-				
-          <table class="table table-bordered example" style="width: 100%;">
-            <thead style="background-color: #56638c">
+										<th class="text-center headerstyle">CLASS</th>
+										<th class="text-center headerstyle">TOTAL(B)</th>
+										<th class="text-center headerstyle">TOTAL(NB)</th>
+										<th class="text-center headerstyle">TOTAL(OB)</th>
+										<th class="text-center headerstyle">SUCCESS(B%)</th>
+										<th class="text-center headerstyle">SUCCESS(NB%)</th>
+										<th class="text-center headerstyle">SUCCESS(OB%)</th>
+										<th class="text-center headerstyle">SUCCESS|DIFF(B/NB)</th>
 
-              <tr>
-                <th class="text-center headerstyle"><a href="#"
-                  style="text-decoration: none; color: white;"
-                  ng-click="sortType = 'className';sortReverse = !sortReverse">CLASS
-                    <span ng-show="sortType == 'className'  && !sortReverse"
-                    class="glyphicon glyphicon-circle-arrow-down"></span><span
-                    ng-show="sortType == 'className' && sortReverse"
-                    class="glyphicon glyphicon-circle-arrow-up"></span></th>
-                <th class="text-center headerstyle"><a href="#"
-                  style="text-decoration: none; color: white;"
-                  ng-click="sortType = 'buildTotalRequest';sortReverse = !sortReverse">TOTAL(B)<span
-                    ng-show="sortType == 'buildTotalRequest'  && !sortReverse"
-                    class="glyphicon glyphicon-circle-arrow-down"></span><span
-                    ng-show="sortType == 'buildTotalRequest' && sortReverse"
-                    class="glyphicon glyphicon-circle-arrow-up"></span></th>
-                <th class="text-center headerstyle"><a href="#"
-                  style="text-decoration: none; color: white;"
-                  ng-click="sortType = 'nonBuildTotalRequest';sortReverse = !sortReverse">TOTAL(NB)<span
-                    ng-show="sortType == 'nonBuildTotalRequest'  && !sortReverse"
-                    class="glyphicon glyphicon-circle-arrow-down text-center headerstyle"></span><span
-                    ng-show="sortType == 'nonBuildTotalRequest' && sortReverse"
-                    class="glyphicon glyphicon-circle-arrow-up"></span></th>
-                <th class="text-center headerstyle"><a href="#"
-                  style="text-decoration: none; color: white;"
-                  ng-click="sortType = 'oldBuildTotalRequest';sortReverse = !sortReverse">TOTAL(OB)<span
-                    ng-show="sortType == 'oldBuildTotalRequest'  && !sortReverse"
-                    class="glyphicon glyphicon-circle-arrow-down"></span><span
-                    ng-show="sortType == 'oldBuildTotalRequest' && sortReverse"
-                    class="glyphicon glyphicon-circle-arrow-up"></span></th>
-                <th class="text-center headerstyle"><a href="#"
-                  style="text-decoration: none; color: white;"
-                  ng-click="sortType = 'buildSuccessPer';sortReverse = !sortReverse">SUCCESS(B%)<span
-                    ng-show="sortType == 'buildSuccessPer'  && !sortReverse"
-                    class="glyphicon glyphicon-circle-arrow-down"></span><span
-                    ng-show="sortType == 'buildSuccessPer' && sortReverse"
-                    class="glyphicon glyphicon-circle-arrow-up"></span></th>
-                <th class="text-center headerstyle"><a href="#"
-                  style="text-decoration: none; color: white;"
-                  ng-click="sortType = 'nonBuildSuccessPer';sortReverse = !sortReverse">SUCCESS(NB%)<span
-                    ng-show="sortType == 'nonBuildSuccessPer'  && !sortReverse"
-                    class="glyphicon glyphicon-circle-arrow-down"></span><span
-                    ng-show="sortType == 'nonBuildSuccessPer' && sortReverse"
-                    class="glyphicon glyphicon-circle-arrow-up"></span></th>
-                <th class="text-center headerstyle"><a href="#"
-                  style="text-decoration: none; color: white;"
-                  ng-click="sortType = 'oldBuildSuccessPer';sortReverse = !sortReverse">SUCCESS(OB%)<span
-                    ng-show="sortType == 'oldBuildSuccessPer'  && !sortReverse"
-                    class="glyphicon glyphicon-circle-arrow-down"></span><span
-                    ng-show="sortType == 'oldBuildSuccessPer' && sortReverse"
-                    class="glyphicon glyphicon-circle-arrow-up"></span></th>
-                <th class="text-center headerstyle"><a href="#"
-                  style="text-decoration: none; color: white;"
-                  ng-click="sortType = 'successDiff';sortReverse = !sortReverse">SUCCESS|DIFF(B/NB)<span
-                    ng-show="sortType == 'successDiff'  && !sortReverse"
-                    class="glyphicon glyphicon-circle-arrow-down"></span><span
-                    ng-show="sortType == 'successDiff' && sortReverse"
-                    class="glyphicon glyphicon-circle-arrow-up"></span></th>
+										<!-- <th class="text-center headerstyle">LATENCY(B)</th>
+										<th class="text-center headerstyle">LATENCY(NB)</th>
+										<th class="text-center headerstyle">LATENCY(OB)</th>
 
-                <th class="text-center headerstyle"><a href="#"
-                  style="text-decoration: none; color: white;"
-                  ng-click="sortType = 'buildLatency';sortReverse = !sortReverse">LATENCY(B)<span
-                    ng-show="sortType == 'buildLatency'  && !sortReverse"
-                    class="glyphicon glyphicon-circle-arrow-down"></span><span
-                    ng-show="sortType == 'buildLatency' && sortReverse"
-                    class="glyphicon glyphicon-circle-arrow-up"></span></th>
-                <th class="text-center headerstyle"><a href="#"
-                  style="text-decoration: none; color: white;"
-                  ng-click="sortType = 'nonBuildLatency';sortReverse = !sortReverse">LATENCY(NB)<span
-                    ng-show="sortType == 'nonBuildLatency'  && !sortReverse"
-                    class="glyphicon glyphicon-circle-arrow-down"></span><span
-                    ng-show="sortType == 'nonBuildLatency' && sortReverse"
-                    class="glyphicon glyphicon-circle-arrow-up"></span></th>
-                <th class="text-center headerstyle"><a href="#"
-                  style="text-decoration: none; color: white;"
-                  ng-click="sortType = 'oldBuildLatency';sortReverse = !sortReverse">LATENCY(OB)<span
-                    ng-show="sortType == 'oldBuildLatency'  && !sortReverse"
-                    class="glyphicon glyphicon-circle-arrow-down"></span><span
-                    ng-show="sortType == 'oldBuildLatency' && sortReverse"
-                    class="glyphicon glyphicon-circle-arrow-up"></span></th>
-                    
-                    <th class="text-center headerstyle"><a href="#"
-                  style="text-decoration: none; color: white;"
-                  ng-click="sortType = 'latencyDiff';sortReverse = !sortReverse">LATENCY'DIFF(B/NB)<span
-                    ng-show="sortType == 'latencyDiff'  && !sortReverse"
-                    class="glyphicon glyphicon-circle-arrow-down"></span><span
-                    ng-show="sortType == 'latencyDiff' && sortReverse"
-                    class="glyphicon glyphicon-circle-arrow-up"></span></th>
-                    
-                    <th class="text-center headerstyle"><a href="#"
-                  style="text-decoration: none; color: white;"
-                  ng-click="sortType = 'buildInfraLatency';sortReverse = !sortReverse">INFRA'LATENCY(B)<span
-                    ng-show="sortType == 'buildInfraLatency'  && !sortReverse"
-                    class="glyphicon glyphicon-circle-arrow-down"></span><span
-                    ng-show="sortType == 'buildInfraLatency' && sortReverse"
-                    class="glyphicon glyphicon-circle-arrow-up"></span></th>
-                    
-                    <th class="text-center headerstyle"><a href="#"
-                  style="text-decoration: none; color: white;"
-                  ng-click="sortType = 'nonBuildInfraLatency';sortReverse = !sortReverse">INFRA'LATENCY(NB)<span
-                    ng-show="sortType == 'nonBuildInfraLatency'  && !sortReverse"
-                    class="glyphicon glyphicon-circle-arrow-down"></span><span
-                    ng-show="sortType == 'nonBuildInfraLatency' && sortReverse"
-                    class="glyphicon glyphicon-circle-arrow-up"></span></th>
-                    
-                    <th class="text-center headerstyle"><a href="#"
-                  style="text-decoration: none; color: white;"
-                  ng-click="sortType = 'oldBuildInfraLatency';sortReverse = !sortReverse">INFRA'LATENCY(OB)<span
-                    ng-show="sortType == 'oldBuildInfraLatency'  && !sortReverse"
-                    class="glyphicon glyphicon-circle-arrow-down"></span><span
-                    ng-show="sortType == 'oldBuildInfraLatency' && sortReverse"
-                    class="glyphicon glyphicon-circle-arrow-up"></span></th>
-                    
-                    <th class="text-center headerstyle"><a href="#"
-                  style="text-decoration: none; color: white;"
-                  ng-click="sortType = 'infraLatencyDiff';sortReverse = !sortReverse">INFRA'LATENCY'DIFF(B/NB)<span
-                    ng-show="sortType == 'infraLatencyDiff'  && !sortReverse"
-                    class="glyphicon glyphicon-circle-arrow-down"></span><span
-                    ng-show="sortType == 'infraLatencyDiff' && sortReverse"
-                    class="glyphicon glyphicon-circle-arrow-up"></span></th>
-                    
-                    
-                    
-                    <th class="text-center headerstyle"><a href="#"
-                  style="text-decoration: none; color: white;"
-                  ng-click="sortType = 'buildErr413';sortReverse = !sortReverse">ERR'413(B)<span
-                    ng-show="sortType == 'buildErr413'  && !sortReverse"
-                    class="glyphicon glyphicon-circle-arrow-down"></span><span
-                    ng-show="sortType == 'buildErr413' && sortReverse"
-                    class="glyphicon glyphicon-circle-arrow-up"></span></th>
-                    
-                    <th class="text-center headerstyle"><a href="#"
-                  style="text-decoration: none; color: white;"
-                  ng-click="sortType = 'nonBuildErr413';sortReverse = !sortReverse">ERR'413(NB)<span
-                    ng-show="sortType == 'nonBuildErr413'  && !sortReverse"
-                    class="glyphicon glyphicon-circle-arrow-down"></span><span
-                    ng-show="sortType == 'nonBuildErr413' && sortReverse"
-                    class="glyphicon glyphicon-circle-arrow-up"></span></th>
-                    
-                    <th class="text-center headerstyle"><a href="#"
-                  style="text-decoration: none; color: white;"
-                  ng-click="sortType = 'oldBuildErr413';sortReverse = !sortReverse">ERR'413(OB)<span
-                    ng-show="sortType == 'oldBuildErr413'  && !sortReverse"
-                    class="glyphicon glyphicon-circle-arrow-down"></span><span
-                    ng-show="sortType == 'oldBuildErr413' && sortReverse"
-                    class="glyphicon glyphicon-circle-arrow-up"></span></th>
-                    
-                    <th class="text-center headerstyle"><a href="#"
-                  style="text-decoration: none; color: white;"
-                  ng-click="sortType = 'err413Diff';sortReverse = !sortReverse">ERR'413'DIFF(B/NB)<span
-                    ng-show="sortType == 'err413Diff'  && !sortReverse"
-                    class="glyphicon glyphicon-circle-arrow-down"></span><span
-                    ng-show="sortType == 'err413Diff' && sortReverse"
-                    class="glyphicon glyphicon-circle-arrow-up"></span></th>
-                    
-                     <th class="text-center headerstyle"><a href="#"
-                  style="text-decoration: none; color: white;"
-                  ng-click="sortType = 'buildInfraError';sortReverse = !sortReverse">INFRA(B)<span
-                    ng-show="sortType == 'buildInfraError'  && !sortReverse"
-                    class="glyphicon glyphicon-circle-arrow-down"></span><span
-                    ng-show="sortType == 'buildInfraError' && sortReverse"
-                    class="glyphicon glyphicon-circle-arrow-up"></span></th>
-                    
-                    <th class="text-center headerstyle"><a href="#"
-                  style="text-decoration: none; color: white;"
-                  ng-click="sortType = 'nonBuildInfraError';sortReverse = !sortReverse">INFRA(NB)<span
-                    ng-show="sortType == 'nonBuildInfraError'  && !sortReverse"
-                    class="glyphicon glyphicon-circle-arrow-down"></span><span
-                    ng-show="sortType == 'nonBuildInfraError' && sortReverse"
-                    class="glyphicon glyphicon-circle-arrow-up"></span></th>
-                    
-                    <th class="text-center headerstyle"><a href="#"
-                  style="text-decoration: none; color: white;"
-                  ng-click="sortType = 'oldBuildInfraError';sortReverse = !sortReverse">INFRA(OB)<span
-                    ng-show="sortType == 'oldBuildInfraError'  && !sortReverse"
-                    class="glyphicon glyphicon-circle-arrow-down"></span><span
-                    ng-show="sortType == 'oldBuildInfraError' && sortReverse"
-                    class="glyphicon glyphicon-circle-arrow-up"></span></th>
-                    
-                    <th class="text-center headerstyle"><a href="#"
-                  style="text-decoration: none; color: white;"
-                  ng-click="sortType = 'infraDiff';sortReverse = !sortReverse">INFRA'DIFF(B/NB)<span
-                    ng-show="sortType == 'infraDiff'  && !sortReverse"
-                    class="glyphicon glyphicon-circle-arrow-down"></span><span
-                    ng-show="sortType == 'infraDiff' && sortReverse"
-                    class="glyphicon glyphicon-circle-arrow-up"></span></th>
-                    
+										<th class="text-center headerstyle">LATENCY'DIFF(B/NB)</th>
 
-              </tr>
-            </thead>
-                        <tbody>
+										<th class="text-center headerstyle">INFRA'LATENCY(B)</th>
 
-              <tr
-                ng-repeat="y in x.agentStatList |  orderBy: sortType:!sortReverse">
-                <td><a data-toggle="modal" href="#myModal"
-                  style="text-decoration: none; color: #56638c;"
-                  ng-click="showAgentStatsBreakUp(x,y)"> <strong>{{y.className}}<strong>
-                        </a></td>
-                <td>{{y.buildTotalRequest}}</span></td>
-                <td>{{y.nonBuildTotalRequest}}</td>
-                <td>{{y.oldBuildTotalRequest}}</td>
-                <td>{{y.buildSuccessPer}}</td>
-                <td>{{y.nonBuildSuccessPer}}</td>
-                <td>{{y.oldBuildSuccessPer}}</td>
-                <td data-order="{{y.successDiff}}">{{y.successDiff | number
-                  :2}} <a href="#" style="text-decoration:none;"
-                  title="{{y.className}} | {{y.buildTotalRequest}}(B) / {{y.nonBuildTotalRequest}}(NB) / {{y.oldBuildTotalRequest}}(OB)"><span
-                    ng-class="getSuccDiffAlert(y.successDiff)"
-                    style="margin-left: 50px;"></span></a>
-                </td>
-                <td>{{y.buildLatency | number :2}}</td>
-                <td>{{y.nonBuildLatency | number :2}}</td>
-                <td>{{y.oldBuildLatency | number :2}}</td>
-                <td data-order="{{y.latencyDiff}}">{{y.latencyDiff | number
-                  :2}} <a href="#" style="text-decoration:none;"
-                  title="{{y.className}} | {{y.buildTotalRequest}}(B) / {{y.nonBuildTotalRequest}}(NB) / {{y.oldBuildTotalRequest}}(OB)"><span
-                    ng-class="getLatDiffAlert(y.latencyDiff)"
-                    style="margin-left: 50px;"></span></a>
-                </td>
-                
-                <td>{{y.buildInfraLatency | number :2}}</td>
-                <td>{{y.nonBuildInfraLatency | number :2}}</td>
-                <td>{{y.oldBuildInfraLatency | number :2}}</td>
-                <td data-order="{{y.infraLatencyDiff}}">{{y.infraLatencyDiff | number
-                  :2}} <a href="#" style="text-decoration:none;"
-                  title="{{y.className}} | {{y.buildTotalRequest}}(B) / {{y.nonBuildTotalRequest}}(NB) / {{y.oldBuildTotalRequest}}(OB)"><span
-                    ng-class="getInfraLatDiffAlert(y.infraLatencyDiff)"
-                    style="margin-left: 50px;"></span></a>
-                </td>
-                
-                <td>{{y.buildErr413 | number :2}}</td>
-                <td>{{y.nonBuildErr413 | number :2}}</td>
-                <td>{{y.oldBuildErr413 | number :2}}</td>
-                <td data-order="{{y.err413Diff}}">{{y.err413Diff | number
-                  :2}} <a href="#" style="text-decoration:none;"
-                  title="{{y.className}} | {{y.buildTotalRequest}}(B) / {{y.nonBuildTotalRequest}}(NB) / {{y.oldBuildTotalRequest}}(OB)"><span
-                    ng-class="get413DiffAlert(y.err413Diff)"
-                    style="margin-left: 50px;"></span></a>
-                </td>
-                
-                 <td>{{y.buildInfraError | number :2}}</td>
-                <td>{{y.nonBuildInfraError | number :2}}</td>
-                <td>{{y.oldBuildInfraError | number :2}}</td>
-                <td data-order="{{y.infraDiff}}">{{y.infraDiff | number
-                  :2}} <a href="#" style="text-decoration:none;"
-                  title="{{y.className}} | {{y.buildTotalRequest}}(B) / {{y.nonBuildTotalRequest}}(NB) / {{y.oldBuildTotalRequest}}(OB)"><span
-                    ng-class="getInfraDiffAlert(y.infraDiff)"
-                    style="margin-left: 50px;"></span></a>
-                </td>
-              
-              </tr>
-            </tbody>
-          </table>			</div>
-		</div>
-		<div class="modal fade" id="myModal" role="dialog">
-			<div class="modal-dialog">
+										<th class="text-center headerstyle">INFRA'LATENCY(NB)</th>
 
-				<!-- Modal content-->
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal">&times;</button>
-						<h4 class="modal-title text-center">{{className}}</h4>
-					</div>
-					<div class="modal-body">
-						<div class="onoffswitch">
-							<input type="checkbox" name="onoffswitch" ng-model="buildTypeStat"
-								class="onoffswitch-checkbox" id="myonoffswitch"> <label
-								class="onoffswitch-label" for="myonoffswitch"> <span
-								class="onoffswitch-inner"></span> <span
-								class="onoffswitch-switch"></span>
-							</label>
+										<th class="text-center headerstyle">INFRA'LATENCY(OB)</th>
+
+										<th class="text-center headerstyle">INFRA'LATENCY'DIFF(B/NB)</th>
+
+
+
+										<th class="text-center headerstyle">ERR'413(B)</th>
+
+										<th class="text-center headerstyle">ERR'413(NB)</th>
+
+										<th class="text-center headerstyle">ERR'413(OB)</th>
+
+										<th class="text-center headerstyle">ERR'413'DIFF(B/NB)</th>
+
+										<th class="text-center headerstyle">INFRA(B)</th>
+
+										<th class="text-center headerstyle">INFRA(NB)</th>
+
+										<th class="text-center headerstyle">INFRA(OB)</th>
+
+										<th class="text-center headerstyle">INFRA'DIFF(B/NB)</th>
+
+ -->
+									</tr>
+								</thead>
+								<tbody>
+
+									<tr
+										ng-repeat="y in x.agentStatList |  orderBy: sortType:!sortReverse">
+										<td><a data-toggle="modal" href="#myModal"
+											style="text-decoration: none; color: #56638c;"
+											ng-click="showAgentStatsBreakUp(x,y)"> <strong>{{y.className}}<strong></a></td>
+										<td>{{y.buildTotalRequest}}</span></td>
+										<td>{{y.nonBuildTotalRequest}}</td>
+										<td>{{y.oldBuildTotalRequest}}</td>
+										<td>{{y.buildSuccessPer}}</td>
+										<td>{{y.nonBuildSuccessPer}}</td>
+										<td>{{y.oldBuildSuccessPer}}</td>
+										<td data-order="{{y.successDiff}}">{{y.successDiff |
+											number :2}} <a href="#" style="text-decoration: none;"
+											title="{{y.className}} | {{y.buildTotalRequest}}(B) / {{y.nonBuildTotalRequest}}(NB) / {{y.oldBuildTotalRequest}}(OB)"><span
+												ng-class="getSuccDiffAlert(y.successDiff)"
+												style="margin-left: 50px;"></span></a>
+										</td>
+										<!-- <td>{{y.buildLatency | number :2}}</td>
+										<td>{{y.nonBuildLatency | number :2}}</td>
+										<td>{{y.oldBuildLatency | number :2}}</td>
+										<td data-order="{{y.latencyDiff}}">{{y.latencyDiff |
+											number :2}} <a href="#" style="text-decoration: none;"
+											title="{{y.className}} | {{y.buildTotalRequest}}(B) / {{y.nonBuildTotalRequest}}(NB) / {{y.oldBuildTotalRequest}}(OB)"><span
+												ng-class="getLatDiffAlert(y.latencyDiff)"
+												style="margin-left: 50px;"></span></a>
+										</td>
+
+										<td>{{y.buildInfraLatency | number :2}}</td>
+										<td>{{y.nonBuildInfraLatency | number :2}}</td>
+										<td>{{y.oldBuildInfraLatency | number :2}}</td>
+										<td data-order="{{y.infraLatencyDiff}}">{{y.infraLatencyDiff
+											| number :2}} <a href="#" style="text-decoration: none;"
+											title="{{y.className}} | {{y.buildTotalRequest}}(B) / {{y.nonBuildTotalRequest}}(NB) / {{y.oldBuildTotalRequest}}(OB)"><span
+												ng-class="getInfraLatDiffAlert(y.infraLatencyDiff)"
+												style="margin-left: 50px;"></span></a>
+										</td>
+
+										<td>{{y.buildErr413 | number :2}}</td>
+										<td>{{y.nonBuildErr413 | number :2}}</td>
+										<td>{{y.oldBuildErr413 | number :2}}</td>
+										<td data-order="{{y.err413Diff}}">{{y.err413Diff | number
+											:2}} <a href="#" style="text-decoration: none;"
+											title="{{y.className}} | {{y.buildTotalRequest}}(B) / {{y.nonBuildTotalRequest}}(NB) / {{y.oldBuildTotalRequest}}(OB)"><span
+												ng-class="get413DiffAlert(y.err413Diff)"
+												style="margin-left: 50px;"></span></a>
+										</td>
+
+										<td>{{y.buildInfraError | number :2}}</td>
+										<td>{{y.nonBuildInfraError | number :2}}</td>
+										<td>{{y.oldBuildInfraError | number :2}}</td>
+										<td data-order="{{y.infraDiff}}">{{y.infraDiff | number
+											:2}} <a href="#" style="text-decoration: none;"
+											title="{{y.className}} | {{y.buildTotalRequest}}(B) / {{y.nonBuildTotalRequest}}(NB) / {{y.oldBuildTotalRequest}}(OB)"><span
+												ng-class="getInfraDiffAlert(y.infraDiff)"
+												style="margin-left: 50px;"></span></a>
+										</td>
+ -->
+									</tr>
+								</tbody>
+							</table>
 						</div>
-						<br />
-						<div class="row" ng-hide="buildTypeStat">
-							<div class="col-sm-12">
-								<div class="panel panel-primary">
-									<div class="panel-header bg-primary text-center">Last 7
-										days stats</div>
-									<div class="panel-body">
-										<div class="loader" ng-show="isStatLoading">Loading...</div>
-										<div class="panel-group" ng-repeat="y in ds" ng-hide="isStatLoading">
-											<div class="panel panel-default" ng-if=y[0].buildIP>
-												<div class="panel-heading">
-													<h4 class="panel-title">
-														<a data-toggle="collapse"
-															href="#{{y[0].gathererIp.replace('.','').replace('.','').replace('.','')}}">{{y[0].gathererIp}}
-															/ <strong class="text-primary">Build</strong>
-														</a>
+						<div id="LATENCY" class="tab-pane fade LATENCY{{x.alterEnv}}">
+							<table class="table table-bordered example" style="width: 100%;">
+								<thead style="background-color: #56638c; font-size: 10px;">
 
-													</h4>
-												</div>
-												<div
-													id="{{y[0].gathererIp.replace('.','').replace('.','').replace('.','')}}"
-													class="panel-collapse collapse table-responsive">
-													<table class="table table-bordered">
-														<thead>
-															<tr>
-																<th>Date</th>
-																<th>Total</th>
-																<th>Success</th>
-																<th>Agent</th>
-																<th>Site</th>
-															</tr>
-														</thead>
-														<tbody>
-															<tr ng-repeat="x in y">
-																<td>{{x.timeStamp}}</td>
-																<td>{{x.totalRequests}}</td>
-																<td>{{x.success}}</td>
-																<td>{{x.agentErrors}}</td>
-																<td>{{x.siteErrors}}</td>
-															</tr>
-														</tbody>
-													</table>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
+									<tr>
+
+										<th class="text-center headerstyle">CLASS</th>
+										<th class="text-center headerstyle">TOTAL(B)</th>
+										<th class="text-center headerstyle">TOTAL(NB)</th>
+										<th class="text-center headerstyle">TOTAL(OB)</th>
+										<th class="text-center headerstyle">SUCCESS(B%)</th>
+										<th class="text-center headerstyle">SUCCESS(NB%)</th>
+										<th class="text-center headerstyle">SUCCESS(OB%)</th>
+										<th class="text-center headerstyle">LATENCY'DIFF(B/NB)</th>
+										<th class="text-center headerstyle">LATENCY(B)</th>
+										<th class="text-center headerstyle">LATENCY(NB)</th>
+										<th class="text-center headerstyle">LATENCY(OB)</th>
+
+
+
+										<!-- <th class="text-center headerstyle">INFRA'LATENCY(B)</th>
+
+										<th class="text-center headerstyle">INFRA'LATENCY(NB)</th>
+
+										<th class="text-center headerstyle">INFRA'LATENCY(OB)</th>
+
+										<th class="text-center headerstyle">INFRA'LATENCY'DIFF(B/NB)</th>
+
+
+
+										<th class="text-center headerstyle">ERR'413(B)</th>
+
+										<th class="text-center headerstyle">ERR'413(NB)</th>
+
+										<th class="text-center headerstyle">ERR'413(OB)</th>
+
+										<th class="text-center headerstyle">ERR'413'DIFF(B/NB)</th>
+
+										<th class="text-center headerstyle">INFRA(B)</th>
+
+										<th class="text-center headerstyle">INFRA(NB)</th>
+
+										<th class="text-center headerstyle">INFRA(OB)</th>
+
+										<th class="text-center headerstyle">INFRA'DIFF(B/NB)</th>
+ -->
+
+									</tr>
+								</thead>
+								<tbody>
+
+									<tr
+										ng-repeat="y in x.agentStatList |  orderBy: sortType:!sortReverse">
+										<td><a data-toggle="modal" href="#myModal"
+											style="text-decoration: none; color: #56638c;"
+											ng-click="showAgentStatsBreakUp(x,y)"> <strong>{{y.className}}<strong></a></td>
+										<td>{{y.buildTotalRequest}}</span></td>
+										<td>{{y.nonBuildTotalRequest}}</td>
+										<td>{{y.oldBuildTotalRequest}}</td>
+										<td>{{y.buildSuccessPer}}</td>
+										<td>{{y.nonBuildSuccessPer}}</td>
+										<td>{{y.oldBuildSuccessPer}}</td>
+										<td data-order="{{y.latencyDiff}}">{{y.latencyDiff |
+											number :2}} <a href="#" style="text-decoration: none;"
+											title="{{y.className}} | {{y.buildTotalRequest}}(B) / {{y.nonBuildTotalRequest}}(NB) / {{y.oldBuildTotalRequest}}(OB)"><span
+												ng-class="getLatDiffAlert(y.latencyDiff)"
+												style="margin-left: 50px;"></span></a>
+										</td>
+										<td>{{y.buildLatency | number :2}}</td>
+										<td>{{y.nonBuildLatency | number :2}}</td>
+										<td>{{y.oldBuildLatency | number :2}}</td>
+
+									</tr>
+								</tbody>
+							</table>
 						</div>
-						<div class="row" ng-show="buildTypeStat">
-							<div class="col-sm-12">
-								<div class="panel panel-primary">
-									<div class="panel-header bg-primary text-center">Last 7
-										days stats</div>
-									<div class="panel-body">
-										<div class="loader" ng-show="isStatLoading">Loading...</div>
-										<div class="panel-group" ng-repeat="y in ds" ng-hide="isStatLoading">
-											<div class="panel panel-default" ng-if=!y[0].buildIP>
-												<div class="panel-heading">
-													<h4 class="panel-title">
-														<a data-toggle="collapse"
-															href="#{{y[0].gathererIp.replace('.','').replace('.','').replace('.','')}}">{{y[0].gathererIp}}
-															/ <strong class="text-primary">Non Build</strong>
-														</a>
+						<div id="INFRALATENCY"
+							class="tab-pane fade INFRALAT{{x.alterEnv}}">
+							<table class="table table-bordered example" style="width: 100%;">
+								<thead style="background-color: #56638c; font-size: 10px;">
 
-													</h4>
-												</div>
-												<div
-													id="{{y[0].gathererIp.replace('.','').replace('.','').replace('.','')}}"
-													class="panel-collapse collapse table-responsive">
-													<table class="table table-bordered">
-														<thead>
-															<tr>
-																<th>Date</th>
-																<th>Total</th>
-																<th>Success</th>
-																<th>Agent</th>
-																<th>Site</th>
-															</tr>
-														</thead>
-														<tbody>
-															<tr ng-repeat="x in y">
-																<td>{{x.timeStamp}}</td>
-																<td>{{x.totalRequests}}</td>
-																<td>{{x.success}}</td>
-																<td>{{x.agentErrors}}</td>
-																<td>{{x.siteErrors}}</td>
-															</tr>
-														</tbody>
-													</table>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
+									<tr>
+
+										<th class="text-center headerstyle">CLASS</th>
+										<th class="text-center headerstyle">TOTAL(B)</th>
+										<th class="text-center headerstyle">TOTAL(NB)</th>
+										<th class="text-center headerstyle">TOTAL(OB)</th>
+										<th class="text-center headerstyle">SUCCESS(B%)</th>
+										<th class="text-center headerstyle">SUCCESS(NB%)</th>
+										<th class="text-center headerstyle">SUCCESS(OB%)</th>
+										<th class="text-center headerstyle">INFRA'LATENCY'DIFF(B/NB)</th>
+										<th class="text-center headerstyle">INFRA'LATENCY(B)</th>
+										<th class="text-center headerstyle">INFRA'LATENCY(NB)</th>
+										<th class="text-center headerstyle">INFRA'LATENCY(OB)</th>
+
+
+
+										<!-- <th class="text-center headerstyle">INFRA'LATENCY(B)</th>
+
+										<th class="text-center headerstyle">INFRA'LATENCY(NB)</th>
+
+										<th class="text-center headerstyle">INFRA'LATENCY(OB)</th>
+
+										<th class="text-center headerstyle">INFRA'LATENCY'DIFF(B/NB)</th>
+
+
+
+										<th class="text-center headerstyle">ERR'413(B)</th>
+
+										<th class="text-center headerstyle">ERR'413(NB)</th>
+
+										<th class="text-center headerstyle">ERR'413(OB)</th>
+
+										<th class="text-center headerstyle">ERR'413'DIFF(B/NB)</th>
+
+										<th class="text-center headerstyle">INFRA(B)</th>
+
+										<th class="text-center headerstyle">INFRA(NB)</th>
+
+										<th class="text-center headerstyle">INFRA(OB)</th>
+
+										<th class="text-center headerstyle">INFRA'DIFF(B/NB)</th>
+ -->
+
+									</tr>
+								</thead>
+								<tbody>
+
+									<tr
+										ng-repeat="y in x.agentStatList |  orderBy: sortType:!sortReverse">
+										<td><a data-toggle="modal" href="#myModal"
+											style="text-decoration: none; color: #56638c;"
+											ng-click="showAgentStatsBreakUp(x,y)"> <strong>{{y.className}}<strong></a></td>
+										<td>{{y.buildTotalRequest}}</span></td>
+										<td>{{y.nonBuildTotalRequest}}</td>
+										<td>{{y.oldBuildTotalRequest}}</td>
+										<td>{{y.buildSuccessPer}}</td>
+										<td>{{y.nonBuildSuccessPer}}</td>
+										<td>{{y.oldBuildSuccessPer}}</td>
+										<td data-order="{{y.infraLatencyDiff}}">{{y.infraLatencyDiff
+											| number :2}} <a href="#" style="text-decoration: none;"
+											title="{{y.className}} | {{y.buildTotalRequest}}(B) / {{y.nonBuildTotalRequest}}(NB) / {{y.oldBuildTotalRequest}}(OB)"><span
+												ng-class="getInfraLatDiffAlert(y.infraLatencyDiff)"
+												style="margin-left: 50px;"></span></a>
+										</td>
+										<td>{{y.buildInfraLatency | number :2}}</td>
+										<td>{{y.nonBuildInfraLatency | number :2}}</td>
+										<td>{{y.oldBuildInfraLatency | number :2}}</td>
+
+
+									</tr>
+								</tbody>
+							</table>
 						</div>
+						<div id="INFRAERR" class="tab-pane fade INFRAERR{{x.alterEnv}}">
+							<table class="table table-bordered example" style="width: 100%;">
+								<thead style="background-color: #56638c; font-size: 10px;">
 
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+									<tr>
+
+										<th class="text-center headerstyle">CLASS</th>
+										<th class="text-center headerstyle">TOTAL(B)</th>
+										<th class="text-center headerstyle">TOTAL(NB)</th>
+										<th class="text-center headerstyle">TOTAL(OB)</th>
+										<th class="text-center headerstyle">SUCCESS(B%)</th>
+										<th class="text-center headerstyle">SUCCESS(NB%)</th>
+										<th class="text-center headerstyle">SUCCESS(OB%)</th>
+										<th class="text-center headerstyle">LATENCY'DIFF(B/NB)</th>
+										<th class="text-center headerstyle">LATENCY(B)</th>
+										<th class="text-center headerstyle">LATENCY(NB)</th>
+										<th class="text-center headerstyle">LATENCY(OB)</th>
+
+
+
+										<!-- <th class="text-center headerstyle">INFRA'LATENCY(B)</th>
+
+										<th class="text-center headerstyle">INFRA'LATENCY(NB)</th>
+
+										<th class="text-center headerstyle">INFRA'LATENCY(OB)</th>
+
+										<th class="text-center headerstyle">INFRA'LATENCY'DIFF(B/NB)</th>
+
+
+
+										<th class="text-center headerstyle">ERR'413(B)</th>
+
+										<th class="text-center headerstyle">ERR'413(NB)</th>
+
+										<th class="text-center headerstyle">ERR'413(OB)</th>
+
+										<th class="text-center headerstyle">ERR'413'DIFF(B/NB)</th>
+
+										<th class="text-center headerstyle">INFRA(B)</th>
+
+										<th class="text-center headerstyle">INFRA(NB)</th>
+
+										<th class="text-center headerstyle">INFRA(OB)</th>
+
+										<th class="text-center headerstyle">INFRA'DIFF(B/NB)</th>
+ -->
+
+									</tr>
+								</thead>
+								<tbody>
+
+									<tr
+										ng-repeat="y in x.agentStatList |  orderBy: sortType:!sortReverse">
+										<td><a data-toggle="modal" href="#myModal"
+											style="text-decoration: none; color: #56638c;"
+											ng-click="showAgentStatsBreakUp(x,y)"> <strong>{{y.className}}<strong></a></td>
+										<td>{{y.buildTotalRequest}}</span></td>
+										<td>{{y.nonBuildTotalRequest}}</td>
+										<td>{{y.oldBuildTotalRequest}}</td>
+										<td>{{y.buildSuccessPer}}</td>
+										<td>{{y.nonBuildSuccessPer}}</td>
+										<td>{{y.oldBuildSuccessPer}}</td>
+										<td data-order="{{y.latencyDiff}}">{{y.latencyDiff |
+											number :2}} <a href="#" style="text-decoration: none;"
+											title="{{y.className}} | {{y.buildTotalRequest}}(B) / {{y.nonBuildTotalRequest}}(NB) / {{y.oldBuildTotalRequest}}(OB)"><span
+												ng-class="getLatDiffAlert(y.latencyDiff)"
+												style="margin-left: 50px;"></span></a>
+										</td>
+										<td>{{y.buildLatency | number :2}}</td>
+										<td>{{y.nonBuildLatency | number :2}}</td>
+										<td>{{y.oldBuildLatency | number :2}}</td>
+
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div id="ERR413" class="tab-pane fade ERR413{{x.alterEnv}}">
+							<table class="table table-bordered example" style="width: 100%;">
+								<thead style="background-color: #56638c; font-size: 10px;">
+
+									<tr>
+
+										<th class="text-center headerstyle">CLASS</th>
+										<th class="text-center headerstyle">TOTAL(B)</th>
+										<th class="text-center headerstyle">TOTAL(NB)</th>
+										<th class="text-center headerstyle">TOTAL(OB)</th>
+										<th class="text-center headerstyle">SUCCESS(B%)</th>
+										<th class="text-center headerstyle">SUCCESS(NB%)</th>
+										<th class="text-center headerstyle">SUCCESS(OB%)</th>
+										<th class="text-center headerstyle">LATENCY'DIFF(B/NB)</th>
+										<th class="text-center headerstyle">LATENCY(B)</th>
+										<th class="text-center headerstyle">LATENCY(NB)</th>
+										<th class="text-center headerstyle">LATENCY(OB)</th>
+
+
+
+										<!-- <th class="text-center headerstyle">INFRA'LATENCY(B)</th>
+
+										<th class="text-center headerstyle">INFRA'LATENCY(NB)</th>
+
+										<th class="text-center headerstyle">INFRA'LATENCY(OB)</th>
+
+										<th class="text-center headerstyle">INFRA'LATENCY'DIFF(B/NB)</th>
+
+
+
+										<th class="text-center headerstyle">ERR'413(B)</th>
+
+										<th class="text-center headerstyle">ERR'413(NB)</th>
+
+										<th class="text-center headerstyle">ERR'413(OB)</th>
+
+										<th class="text-center headerstyle">ERR'413'DIFF(B/NB)</th>
+
+										<th class="text-center headerstyle">INFRA(B)</th>
+
+										<th class="text-center headerstyle">INFRA(NB)</th>
+
+										<th class="text-center headerstyle">INFRA(OB)</th>
+
+										<th class="text-center headerstyle">INFRA'DIFF(B/NB)</th>
+ -->
+
+									</tr>
+								</thead>
+								<tbody>
+
+									<tr
+										ng-repeat="y in x.agentStatList |  orderBy: sortType:!sortReverse">
+										<td><a data-toggle="modal" href="#myModal"
+											style="text-decoration: none; color: #56638c;"
+											ng-click="showAgentStatsBreakUp(x,y)"> <strong>{{y.className}}<strong></a></td>
+										<td>{{y.buildTotalRequest}}</span></td>
+										<td>{{y.nonBuildTotalRequest}}</td>
+										<td>{{y.oldBuildTotalRequest}}</td>
+										<td>{{y.buildSuccessPer}}</td>
+										<td>{{y.nonBuildSuccessPer}}</td>
+										<td>{{y.oldBuildSuccessPer}}</td>
+										<td data-order="{{y.latencyDiff}}">{{y.latencyDiff |
+											number :2}} <a href="#" style="text-decoration: none;"
+											title="{{y.className}} | {{y.buildTotalRequest}}(B) / {{y.nonBuildTotalRequest}}(NB) / {{y.oldBuildTotalRequest}}(OB)"><span
+												ng-class="getLatDiffAlert(y.latencyDiff)"
+												style="margin-left: 50px;"></span></a>
+										</td>
+										<td>{{y.buildLatency | number :2}}</td>
+										<td>{{y.nonBuildLatency | number :2}}</td>
+										<td>{{y.oldBuildLatency | number :2}}</td>
+
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div id="ERR402" class="tab-pane fade ERR402{{x.alterEnv}}">
+							<table class="table table-bordered example" style="width: 100%;">
+								<thead style="background-color: #56638c; font-size: 10px;">
+
+									<tr>
+
+										<th class="text-center headerstyle">CLASS</th>
+										<th class="text-center headerstyle">TOTAL(B)</th>
+										<th class="text-center headerstyle">TOTAL(NB)</th>
+										<th class="text-center headerstyle">TOTAL(OB)</th>
+										<th class="text-center headerstyle">SUCCESS(B%)</th>
+										<th class="text-center headerstyle">SUCCESS(NB%)</th>
+										<th class="text-center headerstyle">SUCCESS(OB%)</th>
+										<th class="text-center headerstyle">LATENCY'DIFF(B/NB)</th>
+										<th class="text-center headerstyle">LATENCY(B)</th>
+										<th class="text-center headerstyle">LATENCY(NB)</th>
+										<th class="text-center headerstyle">LATENCY(OB)</th>
+
+
+
+										<!-- <th class="text-center headerstyle">INFRA'LATENCY(B)</th>
+
+										<th class="text-center headerstyle">INFRA'LATENCY(NB)</th>
+
+										<th class="text-center headerstyle">INFRA'LATENCY(OB)</th>
+
+										<th class="text-center headerstyle">INFRA'LATENCY'DIFF(B/NB)</th>
+
+
+
+										<th class="text-center headerstyle">ERR'413(B)</th>
+
+										<th class="text-center headerstyle">ERR'413(NB)</th>
+
+										<th class="text-center headerstyle">ERR'413(OB)</th>
+
+										<th class="text-center headerstyle">ERR'413'DIFF(B/NB)</th>
+
+										<th class="text-center headerstyle">INFRA(B)</th>
+
+										<th class="text-center headerstyle">INFRA(NB)</th>
+
+										<th class="text-center headerstyle">INFRA(OB)</th>
+
+										<th class="text-center headerstyle">INFRA'DIFF(B/NB)</th>
+ -->
+
+									</tr>
+								</thead>
+								<tbody>
+
+									<tr
+										ng-repeat="y in x.agentStatList |  orderBy: sortType:!sortReverse">
+										<td><a data-toggle="modal" href="#myModal"
+											style="text-decoration: none; color: #56638c;"
+											ng-click="showAgentStatsBreakUp(x,y)"> <strong>{{y.className}}<strong></a></td>
+										<td>{{y.buildTotalRequest}}</span></td>
+										<td>{{y.nonBuildTotalRequest}}</td>
+										<td>{{y.oldBuildTotalRequest}}</td>
+										<td>{{y.buildSuccessPer}}</td>
+										<td>{{y.nonBuildSuccessPer}}</td>
+										<td>{{y.oldBuildSuccessPer}}</td>
+										<td data-order="{{y.latencyDiff}}">{{y.latencyDiff |
+											number :2}} <a href="#" style="text-decoration: none;"
+											title="{{y.className}} | {{y.buildTotalRequest}}(B) / {{y.nonBuildTotalRequest}}(NB) / {{y.oldBuildTotalRequest}}(OB)"><span
+												ng-class="getLatDiffAlert(y.latencyDiff)"
+												style="margin-left: 50px;"></span></a>
+										</td>
+										<td>{{y.buildLatency | number :2}}</td>
+										<td>{{y.nonBuildLatency | number :2}}</td>
+										<td>{{y.oldBuildLatency | number :2}}</td>
+
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div id="SITE" class="tab-pane fade SITE{{x.alterEnv}}">
+							<table class="table table-bordered example" style="width: 100%;">
+								<thead style="background-color: #56638c; font-size: 10px;">
+
+									<tr>
+
+										<th class="text-center headerstyle">CLASS</th>
+										<th class="text-center headerstyle">TOTAL(B)</th>
+										<th class="text-center headerstyle">TOTAL(NB)</th>
+										<th class="text-center headerstyle">TOTAL(OB)</th>
+										<th class="text-center headerstyle">SUCCESS(B%)</th>
+										<th class="text-center headerstyle">SUCCESS(NB%)</th>
+										<th class="text-center headerstyle">SUCCESS(OB%)</th>
+										<th class="text-center headerstyle">LATENCY'DIFF(B/NB)</th>
+										<th class="text-center headerstyle">LATENCY(B)</th>
+										<th class="text-center headerstyle">LATENCY(NB)</th>
+										<th class="text-center headerstyle">LATENCY(OB)</th>
+
+
+
+										<!-- <th class="text-center headerstyle">INFRA'LATENCY(B)</th>
+
+										<th class="text-center headerstyle">INFRA'LATENCY(NB)</th>
+
+										<th class="text-center headerstyle">INFRA'LATENCY(OB)</th>
+
+										<th class="text-center headerstyle">INFRA'LATENCY'DIFF(B/NB)</th>
+
+
+
+										<th class="text-center headerstyle">ERR'413(B)</th>
+
+										<th class="text-center headerstyle">ERR'413(NB)</th>
+
+										<th class="text-center headerstyle">ERR'413(OB)</th>
+
+										<th class="text-center headerstyle">ERR'413'DIFF(B/NB)</th>
+
+										<th class="text-center headerstyle">INFRA(B)</th>
+
+										<th class="text-center headerstyle">INFRA(NB)</th>
+
+										<th class="text-center headerstyle">INFRA(OB)</th>
+
+										<th class="text-center headerstyle">INFRA'DIFF(B/NB)</th>
+ -->
+
+									</tr>
+								</thead>
+								<tbody>
+
+									<tr
+										ng-repeat="y in x.agentStatList |  orderBy: sortType:!sortReverse">
+										<td><a data-toggle="modal" href="#myModal"
+											style="text-decoration: none; color: #56638c;"
+											ng-click="showAgentStatsBreakUp(x,y)"> <strong>{{y.className}}<strong></a></td>
+										<td>{{y.buildTotalRequest}}</span></td>
+										<td>{{y.nonBuildTotalRequest}}</td>
+										<td>{{y.oldBuildTotalRequest}}</td>
+										<td>{{y.buildSuccessPer}}</td>
+										<td>{{y.nonBuildSuccessPer}}</td>
+										<td>{{y.oldBuildSuccessPer}}</td>
+										<td data-order="{{y.latencyDiff}}">{{y.latencyDiff |
+											number :2}} <a href="#" style="text-decoration: none;"
+											title="{{y.className}} | {{y.buildTotalRequest}}(B) / {{y.nonBuildTotalRequest}}(NB) / {{y.oldBuildTotalRequest}}(OB)"><span
+												ng-class="getLatDiffAlert(y.latencyDiff)"
+												style="margin-left: 50px;"></span></a>
+										</td>
+										<td>{{y.buildLatency | number :2}}</td>
+										<td>{{y.nonBuildLatency | number :2}}</td>
+										<td>{{y.oldBuildLatency | number :2}}</td>
+
+									</tr>
+								</tbody>
+							</table>
+						</div>
 					</div>
 				</div>
+				<div ng-repeat="x in buildData" ng-if="$index > 0"
+					id="{{x.alterEnv}}" class="tab-pane fade">
+					<h3>{{x.environament}}</h3>
 
+					<ul class="nav nav-pills"
+						style="margin-left: 350px; font-size: 10px; font-weight: bold">
+						<li class="active"><a data-toggle="pill"
+							href=".SUCCESS{{x.alterEnv}}">SUCCESS</a></li>
+						<li><a data-toggle="pill" href=".ERR413{{x.alterEnv}}">AGENT</a></li>
+						<li><a data-toggle="pill" href=".ERR402{{x.alterEnv}}">UAR</a></li>
+						<li><a data-toggle="pill" href=".SITE{{x.alterEnv}}">SITE</a></li>
+						<li><a data-toggle="pill" href=".INFRAERR{{x.alterEnv}}">INFRA</a></li>	
+						<li><a data-toggle="pill" href=".LATENCY{{x.alterEnv}}">LATENCY</a></li>
+						<li><a data-toggle="pill" href=".INFRALAT{{x.alterEnv}}">INFRA'LAT</a></li>
+							
+					</ul>
+					<div class="tab-content">
+
+						<div id="SUCCESS"
+							class="tab-pane fade in active SUCCESS{{x.alterEnv}}">
+							<table class="table table-bordered example" style="width: 100%;">
+								<thead style="background-color: #56638c; font-size: 10px;">
+
+									<tr>
+
+										<th class="text-center headerstyle">CLASS</th>
+										<th class="text-center headerstyle">TOTAL(B)</th>
+										<th class="text-center headerstyle">TOTAL(NB)</th>
+										<th class="text-center headerstyle">TOTAL(OB)</th>
+										<th class="text-center headerstyle">SUCCESS(B%)</th>
+										<th class="text-center headerstyle">SUCCESS(NB%)</th>
+										<th class="text-center headerstyle">SUCCESS(OB%)</th>
+										<th class="text-center headerstyle">SUCCESS|DIFF(B/NB)</th>
+
+										<!-- <th class="text-center headerstyle">LATENCY(B)</th>
+										<th class="text-center headerstyle">LATENCY(NB)</th>
+										<th class="text-center headerstyle">LATENCY(OB)</th>
+
+										<th class="text-center headerstyle">LATENCY'DIFF(B/NB)</th>
+
+										<th class="text-center headerstyle">INFRA'LATENCY(B)</th>
+
+										<th class="text-center headerstyle">INFRA'LATENCY(NB)</th>
+
+										<th class="text-center headerstyle">INFRA'LATENCY(OB)</th>
+
+										<th class="text-center headerstyle">INFRA'LATENCY'DIFF(B/NB)</th>
+
+
+
+										<th class="text-center headerstyle">ERR'413(B)</th>
+
+										<th class="text-center headerstyle">ERR'413(NB)</th>
+
+										<th class="text-center headerstyle">ERR'413(OB)</th>
+
+										<th class="text-center headerstyle">ERR'413'DIFF(B/NB)</th>
+
+										<th class="text-center headerstyle">INFRA(B)</th>
+
+										<th class="text-center headerstyle">INFRA(NB)</th>
+
+										<th class="text-center headerstyle">INFRA(OB)</th>
+
+										<th class="text-center headerstyle">INFRA'DIFF(B/NB)</th>
+
+ -->
+									</tr>
+								</thead>
+								<tbody>
+
+									<tr
+										ng-repeat="y in x.agentStatList |  orderBy: sortType:!sortReverse">
+										<td><a data-toggle="modal" href="#myModal"
+											style="text-decoration: none; color: #56638c;"
+											ng-click="showAgentStatsBreakUp(x,y)"> <strong>{{y.className}}<strong></a></td>
+										<td>{{y.buildTotalRequest}}</span></td>
+										<td>{{y.nonBuildTotalRequest}}</td>
+										<td>{{y.oldBuildTotalRequest}}</td>
+										<td>{{y.buildSuccessPer}}</td>
+										<td>{{y.nonBuildSuccessPer}}</td>
+										<td>{{y.oldBuildSuccessPer}}</td>
+										<td data-order="{{y.successDiff}}">{{y.successDiff |
+											number :2}} <a href="#" style="text-decoration: none;"
+											title="{{y.className}} | {{y.buildTotalRequest}}(B) / {{y.nonBuildTotalRequest}}(NB) / {{y.oldBuildTotalRequest}}(OB)"><span
+												ng-class="getSuccDiffAlert(y.successDiff)"
+												style="margin-left: 50px;"></span></a>
+										</td>
+										<!-- <td>{{y.buildLatency | number :2}}</td>
+										<td>{{y.nonBuildLatency | number :2}}</td>
+										<td>{{y.oldBuildLatency | number :2}}</td>
+										<td data-order="{{y.latencyDiff}}">{{y.latencyDiff |
+											number :2}} <a href="#" style="text-decoration: none;"
+											title="{{y.className}} | {{y.buildTotalRequest}}(B) / {{y.nonBuildTotalRequest}}(NB) / {{y.oldBuildTotalRequest}}(OB)"><span
+												ng-class="getLatDiffAlert(y.latencyDiff)"
+												style="margin-left: 50px;"></span></a>
+										</td>
+
+										<td>{{y.buildInfraLatency | number :2}}</td>
+										<td>{{y.nonBuildInfraLatency | number :2}}</td>
+										<td>{{y.oldBuildInfraLatency | number :2}}</td>
+										<td data-order="{{y.infraLatencyDiff}}">{{y.infraLatencyDiff
+											| number :2}} <a href="#" style="text-decoration: none;"
+											title="{{y.className}} | {{y.buildTotalRequest}}(B) / {{y.nonBuildTotalRequest}}(NB) / {{y.oldBuildTotalRequest}}(OB)"><span
+												ng-class="getInfraLatDiffAlert(y.infraLatencyDiff)"
+												style="margin-left: 50px;"></span></a>
+										</td>
+
+										<td>{{y.buildErr413 | number :2}}</td>
+										<td>{{y.nonBuildErr413 | number :2}}</td>
+										<td>{{y.oldBuildErr413 | number :2}}</td>
+										<td data-order="{{y.err413Diff}}">{{y.err413Diff | number
+											:2}} <a href="#" style="text-decoration: none;"
+											title="{{y.className}} | {{y.buildTotalRequest}}(B) / {{y.nonBuildTotalRequest}}(NB) / {{y.oldBuildTotalRequest}}(OB)"><span
+												ng-class="get413DiffAlert(y.err413Diff)"
+												style="margin-left: 50px;"></span></a>
+										</td>
+
+										<td>{{y.buildInfraError | number :2}}</td>
+										<td>{{y.nonBuildInfraError | number :2}}</td>
+										<td>{{y.oldBuildInfraError | number :2}}</td>
+										<td data-order="{{y.infraDiff}}">{{y.infraDiff | number
+											:2}} <a href="#" style="text-decoration: none;"
+											title="{{y.className}} | {{y.buildTotalRequest}}(B) / {{y.nonBuildTotalRequest}}(NB) / {{y.oldBuildTotalRequest}}(OB)"><span
+												ng-class="getInfraDiffAlert(y.infraDiff)"
+												style="margin-left: 50px;"></span></a>
+										</td>
+ -->
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div id="LATENCY" class="tab-pane fade LATENCY{{x.alterEnv}}">
+							<table class="table table-bordered example" style="width: 100%;">
+								<thead style="background-color: #56638c; font-size: 10px;">
+
+									<tr>
+
+										<th class="text-center headerstyle">CLASS</th>
+										<th class="text-center headerstyle">TOTAL(B)</th>
+										<th class="text-center headerstyle">TOTAL(NB)</th>
+										<th class="text-center headerstyle">TOTAL(OB)</th>
+										<th class="text-center headerstyle">SUCCESS(B%)</th>
+										<th class="text-center headerstyle">SUCCESS(NB%)</th>
+										<th class="text-center headerstyle">SUCCESS(OB%)</th>
+										<th class="text-center headerstyle">LATENCY'DIFF(B/NB)</th>
+										<th class="text-center headerstyle">LATENCY(B)</th>
+										<th class="text-center headerstyle">LATENCY(NB)</th>
+										<th class="text-center headerstyle">LATENCY(OB)</th>
+
+
+
+										<!-- <th class="text-center headerstyle">INFRA'LATENCY(B)</th>
+
+										<th class="text-center headerstyle">INFRA'LATENCY(NB)</th>
+
+										<th class="text-center headerstyle">INFRA'LATENCY(OB)</th>
+
+										<th class="text-center headerstyle">INFRA'LATENCY'DIFF(B/NB)</th>
+
+
+
+										<th class="text-center headerstyle">ERR'413(B)</th>
+
+										<th class="text-center headerstyle">ERR'413(NB)</th>
+
+										<th class="text-center headerstyle">ERR'413(OB)</th>
+
+										<th class="text-center headerstyle">ERR'413'DIFF(B/NB)</th>
+
+										<th class="text-center headerstyle">INFRA(B)</th>
+
+										<th class="text-center headerstyle">INFRA(NB)</th>
+
+										<th class="text-center headerstyle">INFRA(OB)</th>
+
+										<th class="text-center headerstyle">INFRA'DIFF(B/NB)</th>
+ -->
+
+									</tr>
+								</thead>
+								<tbody>
+
+									<tr
+										ng-repeat="y in x.agentStatList |  orderBy: sortType:!sortReverse">
+										<td><a data-toggle="modal" href="#myModal"
+											style="text-decoration: none; color: #56638c;"
+											ng-click="showAgentStatsBreakUp(x,y)"> <strong>{{y.className}}<strong></a></td>
+										<td>{{y.buildTotalRequest}}</span></td>
+										<td>{{y.nonBuildTotalRequest}}</td>
+										<td>{{y.oldBuildTotalRequest}}</td>
+										<td>{{y.buildSuccessPer}}</td>
+										<td>{{y.nonBuildSuccessPer}}</td>
+										<td>{{y.oldBuildSuccessPer}}</td>
+										<td data-order="{{y.latencyDiff}}">{{y.latencyDiff |
+											number :2}} <a href="#" style="text-decoration: none;"
+											title="{{y.className}} | {{y.buildTotalRequest}}(B) / {{y.nonBuildTotalRequest}}(NB) / {{y.oldBuildTotalRequest}}(OB)"><span
+												ng-class="getLatDiffAlert(y.latencyDiff)"
+												style="margin-left: 50px;"></span></a>
+										</td>
+										<td>{{y.buildLatency | number :2}}</td>
+										<td>{{y.nonBuildLatency | number :2}}</td>
+										<td>{{y.oldBuildLatency | number :2}}</td>
+
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div id="INFRALATENCY"
+							class="tab-pane fade INFRALAT{{x.alterEnv}}">
+							<table class="table table-bordered example" style="width: 100%;">
+								<thead style="background-color: #56638c; font-size: 10px;">
+
+									<tr>
+
+										<th class="text-center headerstyle">CLASS</th>
+										<th class="text-center headerstyle">TOTAL(B)</th>
+										<th class="text-center headerstyle">TOTAL(NB)</th>
+										<th class="text-center headerstyle">TOTAL(OB)</th>
+										<th class="text-center headerstyle">SUCCESS(B%)</th>
+										<th class="text-center headerstyle">SUCCESS(NB%)</th>
+										<th class="text-center headerstyle">SUCCESS(OB%)</th>
+										<th class="text-center headerstyle">INFRA'LATENCY'DIFF(B/NB)</th>
+										<th class="text-center headerstyle">INFRA'LATENCY(B)</th>
+										<th class="text-center headerstyle">INFRA'LATENCY(NB)</th>
+										<th class="text-center headerstyle">INFRA'LATENCY(OB)</th>
+
+
+
+										<!-- <th class="text-center headerstyle">INFRA'LATENCY(B)</th>
+
+										<th class="text-center headerstyle">INFRA'LATENCY(NB)</th>
+
+										<th class="text-center headerstyle">INFRA'LATENCY(OB)</th>
+
+										<th class="text-center headerstyle">INFRA'LATENCY'DIFF(B/NB)</th>
+
+
+
+										<th class="text-center headerstyle">ERR'413(B)</th>
+
+										<th class="text-center headerstyle">ERR'413(NB)</th>
+
+										<th class="text-center headerstyle">ERR'413(OB)</th>
+
+										<th class="text-center headerstyle">ERR'413'DIFF(B/NB)</th>
+
+										<th class="text-center headerstyle">INFRA(B)</th>
+
+										<th class="text-center headerstyle">INFRA(NB)</th>
+
+										<th class="text-center headerstyle">INFRA(OB)</th>
+
+										<th class="text-center headerstyle">INFRA'DIFF(B/NB)</th>
+ -->
+
+									</tr>
+								</thead>
+								<tbody>
+
+									<tr
+										ng-repeat="y in x.agentStatList |  orderBy: sortType:!sortReverse">
+										<td><a data-toggle="modal" href="#myModal"
+											style="text-decoration: none; color: #56638c;"
+											ng-click="showAgentStatsBreakUp(x,y)"> <strong>{{y.className}}<strong></a></td>
+										<td>{{y.buildTotalRequest}}</span></td>
+										<td>{{y.nonBuildTotalRequest}}</td>
+										<td>{{y.oldBuildTotalRequest}}</td>
+										<td>{{y.buildSuccessPer}}</td>
+										<td>{{y.nonBuildSuccessPer}}</td>
+										<td>{{y.oldBuildSuccessPer}}</td>
+										<td data-order="{{y.infraLatencyDiff}}">{{y.infraLatencyDiff
+											| number :2}} <a href="#" style="text-decoration: none;"
+											title="{{y.className}} | {{y.buildTotalRequest}}(B) / {{y.nonBuildTotalRequest}}(NB) / {{y.oldBuildTotalRequest}}(OB)"><span
+												ng-class="getInfraLatDiffAlert(y.infraLatencyDiff)"
+												style="margin-left: 50px;"></span></a>
+										</td>
+										<td>{{y.buildInfraLatency | number :2}}</td>
+										<td>{{y.nonBuildInfraLatency | number :2}}</td>
+										<td>{{y.oldBuildInfraLatency | number :2}}</td>
+
+
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div id="INFRAERR" class="tab-pane fade INFRAERR{{x.alterEnv}}">
+							<table class="table table-bordered example" style="width: 100%;">
+								<thead style="background-color: #56638c; font-size: 10px;">
+
+									<tr>
+
+										<th class="text-center headerstyle">CLASS</th>
+										<th class="text-center headerstyle">TOTAL(B)</th>
+										<th class="text-center headerstyle">TOTAL(NB)</th>
+										<th class="text-center headerstyle">TOTAL(OB)</th>
+										<th class="text-center headerstyle">SUCCESS(B%)</th>
+										<th class="text-center headerstyle">SUCCESS(NB%)</th>
+										<th class="text-center headerstyle">SUCCESS(OB%)</th>
+										<th class="text-center headerstyle">LATENCY'DIFF(B/NB)</th>
+										<th class="text-center headerstyle">LATENCY(B)</th>
+										<th class="text-center headerstyle">LATENCY(NB)</th>
+										<th class="text-center headerstyle">LATENCY(OB)</th>
+
+
+
+										<!-- <th class="text-center headerstyle">INFRA'LATENCY(B)</th>
+
+										<th class="text-center headerstyle">INFRA'LATENCY(NB)</th>
+
+										<th class="text-center headerstyle">INFRA'LATENCY(OB)</th>
+
+										<th class="text-center headerstyle">INFRA'LATENCY'DIFF(B/NB)</th>
+
+
+
+										<th class="text-center headerstyle">ERR'413(B)</th>
+
+										<th class="text-center headerstyle">ERR'413(NB)</th>
+
+										<th class="text-center headerstyle">ERR'413(OB)</th>
+
+										<th class="text-center headerstyle">ERR'413'DIFF(B/NB)</th>
+
+										<th class="text-center headerstyle">INFRA(B)</th>
+
+										<th class="text-center headerstyle">INFRA(NB)</th>
+
+										<th class="text-center headerstyle">INFRA(OB)</th>
+
+										<th class="text-center headerstyle">INFRA'DIFF(B/NB)</th>
+ -->
+
+									</tr>
+								</thead>
+								<tbody>
+
+									<tr
+										ng-repeat="y in x.agentStatList |  orderBy: sortType:!sortReverse">
+										<td><a data-toggle="modal" href="#myModal"
+											style="text-decoration: none; color: #56638c;"
+											ng-click="showAgentStatsBreakUp(x,y)"> <strong>{{y.className}}<strong></a></td>
+										<td>{{y.buildTotalRequest}}</span></td>
+										<td>{{y.nonBuildTotalRequest}}</td>
+										<td>{{y.oldBuildTotalRequest}}</td>
+										<td>{{y.buildSuccessPer}}</td>
+										<td>{{y.nonBuildSuccessPer}}</td>
+										<td>{{y.oldBuildSuccessPer}}</td>
+										<td data-order="{{y.latencyDiff}}">{{y.latencyDiff |
+											number :2}} <a href="#" style="text-decoration: none;"
+											title="{{y.className}} | {{y.buildTotalRequest}}(B) / {{y.nonBuildTotalRequest}}(NB) / {{y.oldBuildTotalRequest}}(OB)"><span
+												ng-class="getLatDiffAlert(y.latencyDiff)"
+												style="margin-left: 50px;"></span></a>
+										</td>
+										<td>{{y.buildLatency | number :2}}</td>
+										<td>{{y.nonBuildLatency | number :2}}</td>
+										<td>{{y.oldBuildLatency | number :2}}</td>
+
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div id="ERR413" class="tab-pane fade ERR413{{x.alterEnv}}">
+							<table class="table table-bordered example" style="width: 100%;">
+								<thead style="background-color: #56638c; font-size: 10px;">
+
+									<tr>
+
+										<th class="text-center headerstyle">CLASS</th>
+										<th class="text-center headerstyle">TOTAL(B)</th>
+										<th class="text-center headerstyle">TOTAL(NB)</th>
+										<th class="text-center headerstyle">TOTAL(OB)</th>
+										<th class="text-center headerstyle">SUCCESS(B%)</th>
+										<th class="text-center headerstyle">SUCCESS(NB%)</th>
+										<th class="text-center headerstyle">SUCCESS(OB%)</th>
+										<th class="text-center headerstyle">LATENCY'DIFF(B/NB)</th>
+										<th class="text-center headerstyle">LATENCY(B)</th>
+										<th class="text-center headerstyle">LATENCY(NB)</th>
+										<th class="text-center headerstyle">LATENCY(OB)</th>
+
+
+
+										<!-- <th class="text-center headerstyle">INFRA'LATENCY(B)</th>
+
+										<th class="text-center headerstyle">INFRA'LATENCY(NB)</th>
+
+										<th class="text-center headerstyle">INFRA'LATENCY(OB)</th>
+
+										<th class="text-center headerstyle">INFRA'LATENCY'DIFF(B/NB)</th>
+
+
+
+										<th class="text-center headerstyle">ERR'413(B)</th>
+
+										<th class="text-center headerstyle">ERR'413(NB)</th>
+
+										<th class="text-center headerstyle">ERR'413(OB)</th>
+
+										<th class="text-center headerstyle">ERR'413'DIFF(B/NB)</th>
+
+										<th class="text-center headerstyle">INFRA(B)</th>
+
+										<th class="text-center headerstyle">INFRA(NB)</th>
+
+										<th class="text-center headerstyle">INFRA(OB)</th>
+
+										<th class="text-center headerstyle">INFRA'DIFF(B/NB)</th>
+ -->
+
+									</tr>
+								</thead>
+								<tbody>
+
+									<tr
+										ng-repeat="y in x.agentStatList |  orderBy: sortType:!sortReverse">
+										<td><a data-toggle="modal" href="#myModal"
+											style="text-decoration: none; color: #56638c;"
+											ng-click="showAgentStatsBreakUp(x,y)"> <strong>{{y.className}}<strong></a></td>
+										<td>{{y.buildTotalRequest}}</span></td>
+										<td>{{y.nonBuildTotalRequest}}</td>
+										<td>{{y.oldBuildTotalRequest}}</td>
+										<td>{{y.buildSuccessPer}}</td>
+										<td>{{y.nonBuildSuccessPer}}</td>
+										<td>{{y.oldBuildSuccessPer}}</td>
+										<td data-order="{{y.latencyDiff}}">{{y.latencyDiff |
+											number :2}} <a href="#" style="text-decoration: none;"
+											title="{{y.className}} | {{y.buildTotalRequest}}(B) / {{y.nonBuildTotalRequest}}(NB) / {{y.oldBuildTotalRequest}}(OB)"><span
+												ng-class="getLatDiffAlert(y.latencyDiff)"
+												style="margin-left: 50px;"></span></a>
+										</td>
+										<td>{{y.buildLatency | number :2}}</td>
+										<td>{{y.nonBuildLatency | number :2}}</td>
+										<td>{{y.oldBuildLatency | number :2}}</td>
+
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div id="ERR402" class="tab-pane fade ERR402{{x.alterEnv}}">
+							<table class="table table-bordered example" style="width: 100%;">
+								<thead style="background-color: #56638c; font-size: 10px;">
+
+									<tr>
+
+										<th class="text-center headerstyle">CLASS</th>
+										<th class="text-center headerstyle">TOTAL(B)</th>
+										<th class="text-center headerstyle">TOTAL(NB)</th>
+										<th class="text-center headerstyle">TOTAL(OB)</th>
+										<th class="text-center headerstyle">SUCCESS(B%)</th>
+										<th class="text-center headerstyle">SUCCESS(NB%)</th>
+										<th class="text-center headerstyle">SUCCESS(OB%)</th>
+										<th class="text-center headerstyle">LATENCY'DIFF(B/NB)</th>
+										<th class="text-center headerstyle">LATENCY(B)</th>
+										<th class="text-center headerstyle">LATENCY(NB)</th>
+										<th class="text-center headerstyle">LATENCY(OB)</th>
+
+
+
+										<!-- <th class="text-center headerstyle">INFRA'LATENCY(B)</th>
+
+										<th class="text-center headerstyle">INFRA'LATENCY(NB)</th>
+
+										<th class="text-center headerstyle">INFRA'LATENCY(OB)</th>
+
+										<th class="text-center headerstyle">INFRA'LATENCY'DIFF(B/NB)</th>
+
+
+
+										<th class="text-center headerstyle">ERR'413(B)</th>
+
+										<th class="text-center headerstyle">ERR'413(NB)</th>
+
+										<th class="text-center headerstyle">ERR'413(OB)</th>
+
+										<th class="text-center headerstyle">ERR'413'DIFF(B/NB)</th>
+
+										<th class="text-center headerstyle">INFRA(B)</th>
+
+										<th class="text-center headerstyle">INFRA(NB)</th>
+
+										<th class="text-center headerstyle">INFRA(OB)</th>
+
+										<th class="text-center headerstyle">INFRA'DIFF(B/NB)</th>
+ -->
+
+									</tr>
+								</thead>
+								<tbody>
+
+									<tr
+										ng-repeat="y in x.agentStatList |  orderBy: sortType:!sortReverse">
+										<td><a data-toggle="modal" href="#myModal"
+											style="text-decoration: none; color: #56638c;"
+											ng-click="showAgentStatsBreakUp(x,y)"> <strong>{{y.className}}<strong></a></td>
+										<td>{{y.buildTotalRequest}}</span></td>
+										<td>{{y.nonBuildTotalRequest}}</td>
+										<td>{{y.oldBuildTotalRequest}}</td>
+										<td>{{y.buildSuccessPer}}</td>
+										<td>{{y.nonBuildSuccessPer}}</td>
+										<td>{{y.oldBuildSuccessPer}}</td>
+										<td data-order="{{y.latencyDiff}}">{{y.latencyDiff |
+											number :2}} <a href="#" style="text-decoration: none;"
+											title="{{y.className}} | {{y.buildTotalRequest}}(B) / {{y.nonBuildTotalRequest}}(NB) / {{y.oldBuildTotalRequest}}(OB)"><span
+												ng-class="getLatDiffAlert(y.latencyDiff)"
+												style="margin-left: 50px;"></span></a>
+										</td>
+										<td>{{y.buildLatency | number :2}}</td>
+										<td>{{y.nonBuildLatency | number :2}}</td>
+										<td>{{y.oldBuildLatency | number :2}}</td>
+
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div id="SITE" class="tab-pane fade SITE{{x.alterEnv}}">
+							<table class="table table-bordered example" style="width: 100%;">
+								<thead style="background-color: #56638c; font-size: 10px;">
+
+									<tr>
+
+										<th class="text-center headerstyle">CLASS</th>
+										<th class="text-center headerstyle">TOTAL(B)</th>
+										<th class="text-center headerstyle">TOTAL(NB)</th>
+										<th class="text-center headerstyle">TOTAL(OB)</th>
+										<th class="text-center headerstyle">SUCCESS(B%)</th>
+										<th class="text-center headerstyle">SUCCESS(NB%)</th>
+										<th class="text-center headerstyle">SUCCESS(OB%)</th>
+										<th class="text-center headerstyle">LATENCY'DIFF(B/NB)</th>
+										<th class="text-center headerstyle">LATENCY(B)</th>
+										<th class="text-center headerstyle">LATENCY(NB)</th>
+										<th class="text-center headerstyle">LATENCY(OB)</th>
+
+
+
+										<!-- <th class="text-center headerstyle">INFRA'LATENCY(B)</th>
+
+										<th class="text-center headerstyle">INFRA'LATENCY(NB)</th>
+
+										<th class="text-center headerstyle">INFRA'LATENCY(OB)</th>
+
+										<th class="text-center headerstyle">INFRA'LATENCY'DIFF(B/NB)</th>
+
+
+
+										<th class="text-center headerstyle">ERR'413(B)</th>
+
+										<th class="text-center headerstyle">ERR'413(NB)</th>
+
+										<th class="text-center headerstyle">ERR'413(OB)</th>
+
+										<th class="text-center headerstyle">ERR'413'DIFF(B/NB)</th>
+
+										<th class="text-center headerstyle">INFRA(B)</th>
+
+										<th class="text-center headerstyle">INFRA(NB)</th>
+
+										<th class="text-center headerstyle">INFRA(OB)</th>
+
+										<th class="text-center headerstyle">INFRA'DIFF(B/NB)</th>
+ -->
+
+									</tr>
+								</thead>
+								<tbody>
+
+									<tr
+										ng-repeat="y in x.agentStatList |  orderBy: sortType:!sortReverse">
+										<td><a data-toggle="modal" href="#myModal"
+											style="text-decoration: none; color: #56638c;"
+											ng-click="showAgentStatsBreakUp(x,y)"> <strong>{{y.className}}<strong></a></td>
+										<td>{{y.buildTotalRequest}}</span></td>
+										<td>{{y.nonBuildTotalRequest}}</td>
+										<td>{{y.oldBuildTotalRequest}}</td>
+										<td>{{y.buildSuccessPer}}</td>
+										<td>{{y.nonBuildSuccessPer}}</td>
+										<td>{{y.oldBuildSuccessPer}}</td>
+										<td data-order="{{y.latencyDiff}}">{{y.latencyDiff |
+											number :2}} <a href="#" style="text-decoration: none;"
+											title="{{y.className}} | {{y.buildTotalRequest}}(B) / {{y.nonBuildTotalRequest}}(NB) / {{y.oldBuildTotalRequest}}(OB)"><span
+												ng-class="getLatDiffAlert(y.latencyDiff)"
+												style="margin-left: 50px;"></span></a>
+										</td>
+										<td>{{y.buildLatency | number :2}}</td>
+										<td>{{y.nonBuildLatency | number :2}}</td>
+										<td>{{y.oldBuildLatency | number :2}}</td>
+
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal fade" id="myModal" role="dialog">
+				<div class="modal-dialog">
+
+					<!-- Modal content-->
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+							<h4 class="modal-title text-center">{{className}}</h4>
+						</div>
+						<div class="modal-body">
+							<div class="onoffswitch">
+								<input type="checkbox" name="onoffswitch"
+									ng-model="buildTypeStat" class="onoffswitch-checkbox"
+									id="myonoffswitch"> <label class="onoffswitch-label"
+									for="myonoffswitch"> <span class="onoffswitch-inner"></span>
+									<span class="onoffswitch-switch"></span>
+								</label>
+							</div>
+							<br />
+							<div class="row" ng-hide="buildTypeStat">
+								<div class="col-sm-12">
+										<div class="panel panel-primary">
+										<div class="panel-header bg-primary text-center">Last 7
+											days stats</div>
+										<div class="panel-body">
+											<div class="loader" ng-show="isStatLoading">Loading...</div>
+											<div class="panel-group accordion" ng-repeat="y in ds"
+												ng-hide="isStatLoading">
+												<div class="panel panel-default" ng-if=y[0].buildIP>
+													<div class="panel-heading" style="background-color:#e3e9f2">
+														<h4 class="panel-title text-center">
+															<a data-toggle="collapse"
+																href="#{{y[0].gathererIp.replace('.','').replace('.','').replace('.','')}}" ng-click="getArrays(y,'success')" data-parent=".accordion">{{y[0].gathererIp}}
+																/ <strong class="text-primary">Build</strong>
+															</a>
+
+														</h4>
+													</div>
+													<div
+														id="{{y[0].gathererIp.replace('.','').replace('.','').replace('.','')}}"
+														class="panel-collapse collapse table-responsive">
+														
+														<select class="form-control" style="width:200px;margin:0 auto;" ng-model="critera"
+															ng-change="getArrays(y,critera)">
+															<option value="" class="text-muted text-center">---Select Criteria---</option>
+															<option value="success" ng-selected="true">Success</option>
+															<option value="agentErrors">Agent</option>
+															<option value="siteErrors">Site</option>
+															<option value="uarErrors">UAR</option>
+															<option value="infraErrors">Infra</option>
+															<option value="avgLatency">Latency</option>
+															<option value="avgInfraLatency">Infra Latency</option>
+															<option value="error402">402</option>
+															<option value="error413">413</option>
+														</select>
+														
+														<h5 class="text-center text-info"><strong><u>{{selmes}}</u></strong></h5>
+														<div id="resizable" style="margin: 0 auto;">
+															<div zingchart
+																class="{{y[0].gathererIp.replace('.','').replace('.','').replace('.','')}}{{critera}}"
+																zc-json="myJson" zc-width="100%" zc-height="80%"></div>
+														</div>
+														<!-- <table class="table table-bordered">
+														<thead>
+															<tr>
+																<th>Date</th>
+																<th>Total</th>
+																<th>Success</th>
+																<th>Agent</th>
+																<th>Site</th>
+																<th>UAR</th>
+																<th>Latency</th>
+															</tr>
+														</thead>
+														<tbody>
+															<tr ng-repeat="x in y">
+																<td>{{x.timeStamp}}</td>
+																<td>{{x.totalRequests}}</td>
+																<td>{{x.success}}</td>
+																<td>{{x.agentErrors}}</td>
+																<td>{{x.siteErrors}}</td>
+																<td>{{x.uarErrors}}</td>
+																<td>{{x.avgLatency}}</td>
+															</tr>
+														</tbody>
+													</table> -->
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="row" ng-show="buildTypeStat">
+								<div class="col-sm-12">
+									<div class="panel panel-primary">
+										<div class="panel-header bg-primary text-center">Last 7
+											days stats</div>
+										<div class="panel-body">
+											<div class="loader" ng-show="isStatLoading">Loading...</div>
+											<div class="panel-group accordion" ng-repeat="y in ds"
+												ng-hide="isStatLoading">
+												<div class="panel panel-default" ng-if=!y[0].buildIP>
+													<div class="panel-heading" style="background-color:#e3e9f2">
+														<h4 class="panel-title text-center">
+															<a data-toggle="collapse"
+																href="#{{y[0].gathererIp.replace('.','').replace('.','').replace('.','')}}" ng-click="getArrays(y,'success')" data-parent=".accordion">{{y[0].gathererIp}}
+																/ <strong class="text-primary">Non Build</strong>
+															</a>
+
+														</h4>
+													</div>
+													<div
+														id="{{y[0].gathererIp.replace('.','').replace('.','').replace('.','')}}"
+														class="panel-collapse collapse table-responsive">
+
+														<select class="form-control" style="width:200px;margin:0 auto;" ng-model="critera"
+															ng-change="getArrays(y,critera)">
+															<option value="" class="text-muted text-center">---Select Criteria---</option>
+															<option value="success" ng-selected="true">Success</option>
+															<option value="agentErrors">Agent</option>
+															<option value="siteErrors">Site</option>
+															<option value="uarErrors">UAR</option>
+															<option value="infraErrors">Infra</option>
+															<option value="avgLatency">Latency</option>
+															<option value="avgInfraLatency">Infra Latency</option>
+															<option value="error402">402</option>
+															<option value="error413">413</option>
+														</select>
+														
+														<br/>
+														<h5 class="text-center text-info"><strong><u>{{selmes}}</u></strong></h5>
+														<div id="resizable" style="margin: 0 auto;">
+															<div zingchart
+																class="{{y[0].gathererIp.replace('.','').replace('.','').replace('.','')}}{{critera}}"
+																zc-json="myJson" zc-width="100%" zc-height="80%"></div>
+														</div>
+													
+														<!-- <table class="table table-bordered">
+														<thead>
+															<tr>
+																<th>Date</th>
+																<th>Total</th>
+																<th>Success</th>
+																<th>Agent</th>
+																<th>Site</th>
+																<th>UAR</th>
+																<th>Latency</th>
+															</tr>
+														</thead>
+														<tbody>
+															<tr ng-repeat="x in y">
+																<td>{{x.timeStamp}}</td>
+																<td>{{x.totalRequests}}</td>
+																<td>{{x.success}}</td>
+																<td>{{x.agentErrors}}</td>
+																<td>{{x.siteErrors}}</td>
+																<td>{{x.uarErrors}}</td>
+																<td>{{x.avgLatency}}</td>
+															</tr>
+														</tbody>
+													</table> -->
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default"
+								data-dismiss="modal">Close</button>
+						</div>
+					</div>
+
+				</div>
 			</div>
 		</div>
-		</div>
 	</div>
-	<script type="text/javascript">
+	<script th:inline="none">
 		//<![CDATA[
-		var app = angular.module('myApp', []);
-		app.controller('myCtrl', function($scope, $http, $timeout) {
+		var app = angular.module('myApp', ['zingchart-angularjs']);
+		app.controller('myCtrl', function($scope, $http, $timeout,$location) {
+			$scope.myURL="http://"+$location.host()+":"+$location.port()+"/build/";
 
 			$scope.sortType = 'successDiff'; // set the default sort type
 			$scope.sortReverse = false; // set the default sort order
 			$scope.isLoading=true;
 			$http({
 				method : "GET",
-				url : "http://localhost:7777/build/comparestats"
+				url : $scope.myURL+"comparestats"
 			}).then(
 					function mySuccess(response) {
 						$scope.isLoading=false;
 						$scope.buildData = response.data;
 						angular.element(document).ready(function() {
 							dTable = $('.example')
+							$.fn.DataTable.ext.errMode = 'none';
 							dTable.DataTable({
-								"ordering" : false,
-								"fixedHeader": true
-							    
+								
+								"order": [[ 7, "desc" ]],
+								"pageLength" : 7,
+							    "lengthMenu": [[7, 15, 25, 100,-1], [7, 15, 25,100,'All']],
+							    "destroy":true
 								
 							});
 						});
@@ -1139,7 +1485,7 @@ div.dataTables_wrapper {
 							$scope.buildTypeStat = false;
 							$scope.ds = '';
 							$http.get(
-									'http://localhost:7777/build/dailystats?type=agent&buildip='
+									$scope.myURL+'dailystats?type=agent&buildip='
 											+ stats.buildIps + '&nonBuildIp='
 											+ stats.nonBuildIps + '&env='
 											+ stats.environament + '&class='
@@ -1155,7 +1501,7 @@ div.dataTables_wrapper {
 					});
 
 			$scope.getSuccDiffAlert = function(val1) {
-				if(val1 <= -3 && val1 >= -10){
+				if(val1 <=-3 && val1 >= -10){
 					return "glyphicon glyphicon-warning-sign yellow";
 				}
 				else if (val1 < -10) {
@@ -1167,10 +1513,10 @@ div.dataTables_wrapper {
 			
 			$scope.getLatDiffAlert = function(val1) {
 				//if(val1 <= -3 && val1 >= -10)
-				if(val1 <= -3 && val1 >= -10){
+				if(val1 >= 3 && val1 <= 10){
 					return "glyphicon glyphicon-warning-sign yellow";
 				}
-				else if (val1 < -10) {
+				else if (val1 > 10) {
 					return "glyphicon glyphicon-question-sign red"
 				} else {
 					return "glyphicon glyphicon-ok-sign green";
@@ -1179,10 +1525,10 @@ div.dataTables_wrapper {
 			
 			$scope.getInfraLatDiffAlert = function(val1) {
 				//if(val1 <= -3 && val1 >= -10)
-				if(val1 <= -3 && val1 >= -10){
+				if(val1 >= 1 && val1 <= 5){
 					return "glyphicon glyphicon-warning-sign yellow";
 				}
-				else if (val1 < -10) {
+				else if (val1 > 5) {
 					return "glyphicon glyphicon-question-sign red"
 				} else {
 					return "glyphicon glyphicon-ok-sign green";
@@ -1191,10 +1537,10 @@ div.dataTables_wrapper {
 			
 			$scope.getInfraDiffAlert = function(val1) {
 				//if(val1 <= -3 && val1 >= -10)
-				if(val1 <= -1 && val1 >= -2){
+				if(val1 >= 1 && val1 <= 2){
 					return "glyphicon glyphicon-warning-sign yellow";
 				}
-				else if (val1 < -10) {
+				else if (val1 > 2) {
 					return "glyphicon glyphicon-question-sign red"
 				} else {
 					return "glyphicon glyphicon-ok-sign green";
@@ -1203,14 +1549,336 @@ div.dataTables_wrapper {
 			
 			$scope.get413DiffAlert = function(val1) {
 				//if(val1 <= -3 && val1 >= -10)
-				if(val1 <= -1 && val1 >= -2){
+				if(val1 >= 1 && val1 <= 3){
 					return "glyphicon glyphicon-warning-sign yellow";
 				}
-				else if (val1 < -10) {
+				else if (val1 > 3) {
 					return "glyphicon glyphicon-question-sign red"
 				} else {
 					return "glyphicon glyphicon-ok-sign green";
 				}
+			};
+			$scope.getArrays = function(
+					arr, criteria) {
+				//alert(criteria);
+				
+				
+
+				$scope
+						.$watch(
+								'ds',
+								function() {
+									//alert("watch");
+									//alert(criteria);
+					
+									$scope.retArr = [];
+									$scope.retDates = [];
+									if (criteria
+											.match("success")) {
+										//alert("succ");
+										$scope.selmes="SUCCESS";
+										
+										angular
+												.forEach(
+														arr,
+														function(
+																value,
+																index) {
+															$scope.succper=Math.round(((value.success/value.totalRequests)*100)*100)/100;
+															$scope.retArr
+																	.push($scope.succper);
+															$scope.retDates
+																	.push(value.timeStamp);
+														});
+										$scope.myJson = {
+											type : 'line',
+											"plot": {
+												"line-color":"#33578e",
+											    "value-box": {
+											      //Displays all data values by default.
+											    }
+											  },
+											"scale-x" : {
+												"values" : $scope.retDates,
+											},
+											"scale-y" : {
+												values: '0:100:20',
+											},
+											series : [ {
+												values : $scope.retArr
+											} ]
+										};
+									} else if (criteria
+											.match("agent")) {
+										$scope.selmes="AGENT";
+										angular
+												.forEach(
+														arr,
+														function(
+																value,
+																index) {
+															$scope.succper=Math.round(((value.agentErrors/value.totalRequests)*100)*100)/100;
+															$scope.retArr
+																	.push($scope.succper);
+															$scope.retDates
+																	.push(value.timeStamp);
+														});
+										$scope.myJson = {
+												type : 'line',
+												"plot": {
+													"line-color":"#33578e",
+												    "value-box": {
+												      //Displays all data values by default.
+												    }
+												  },
+												"scale-x" : {
+													"values" : $scope.retDates,
+												},
+												"scale-y" : {
+													values: '0:100:20',
+												},
+												series : [ {
+													values : $scope.retArr
+												} ]
+											};
+									} else if (criteria
+											.match("site")) {
+										$scope.selmes="SITE";
+										angular
+												.forEach(
+														arr,
+														function(
+																value,
+																index) {
+															$scope.succper=Math.round(((value.siteErrors/value.totalRequests)*100)*100)/100;
+															$scope.retArr
+																	.push($scope.succper);
+															$scope.retDates
+																	.push(value.timeStamp);
+														});
+										$scope.myJson = {
+												type : 'line',
+												"plot": {
+													"line-color":"#33578e",
+												    "value-box": {
+												      //Displays all data values by default.
+												    }
+												  },
+												"scale-x" : {
+													"values" : $scope.retDates,
+												},
+												"scale-y" : {
+													values: '0:100:20',
+												},
+												series : [ {
+													values : $scope.retArr
+												} ]
+											};
+									} else if (criteria
+											.match("uar")) {
+										$scope.selmes="UAR";
+										angular
+												.forEach(
+														arr,
+														function(
+																value,
+																index) {
+															$scope.succper=Math.round(((value.uarErrors/value.totalRequests)*100)*100)/100;
+															$scope.retArr
+																	.push($scope.succper);
+															$scope.retDates
+																	.push(value.timeStamp);
+														});
+										$scope.myJson = {
+												type : 'line',
+												"plot": {
+													"line-color":"#33578e",
+												    "value-box": {
+												      //Displays all data values by default.
+												    }
+												  },
+												"scale-x" : {
+													"values" : $scope.retDates,
+												},
+												"scale-y" : {
+													values: '0:100:20',
+												},
+												series : [ {
+													values : $scope.retArr
+												} ]
+											};
+									} else if (criteria
+											.match("avgLatency")) {
+										$scope.selmes="LATENCY";
+										angular
+												.forEach(
+														arr,
+														function(
+																value,
+																index) {
+															$scope.retArr
+																	.push(value.avgLatency);
+															$scope.retDates
+																	.push(value.timeStamp);
+														});
+										$scope.myJson = {
+												type : 'line',
+												"plot": {
+													"line-color":"#33578e",
+												    "value-box": {
+												      //Displays all data values by default.
+												    }
+												  },
+												"scale-x" : {
+													"values" : $scope.retDates,
+												},
+												series : [ {
+													values : $scope.retArr
+												} ]
+											};
+									} else if (criteria
+											.match("infraErrors")) {
+										$scope.selmes="INFRA";
+										angular
+												.forEach(
+														arr,
+														function(
+																value,
+																index) {
+															$scope.succper=Math.round(((value.infraErrors/value.totalRequests)*100)*100)/100;
+															$scope.retArr
+																	.push($scope.succper);
+															$scope.retDates
+																	.push(value.timeStamp);
+														});
+										$scope.myJson = {
+												type : 'line',
+												"plot": {
+													"line-color":"#33578e",
+												    "value-box": {
+												      //Displays all data values by default.
+												    }
+												  },
+												"scale-x" : {
+													"values" : $scope.retDates,
+												},
+												"scale-y" : {
+													values: '0:100:20',
+												},
+												series : [ {
+													values : $scope.retArr
+												} ]
+											};
+									} else if (criteria
+											.match("402")) {
+										$scope.selmes="402";
+										angular
+												.forEach(
+														arr,
+														function(
+																value,
+																index) {
+															$scope.succper=Math.round(((value.error402/value.totalRequests)*100)*100)/100;
+															$scope.retArr
+																	.push($scope.succper);
+															$scope.retDates
+																	.push(value.timeStamp);
+														});
+										$scope.myJson = {
+												type : 'line',
+												"plot": {
+													"line-color":"#33578e",
+												    "value-box": {
+												      //Displays all data values by default.
+												    }
+												  },
+												"scale-x" : {
+													"values" : $scope.retDates,
+												},
+												"scale-y" : {
+													values: '0:100:20',
+												},
+												series : [ {
+													values : $scope.retArr
+												} ]
+											};
+									} else if (criteria
+											.match("413")) {
+										$scope.selmes="413";
+										angular
+												.forEach(
+														arr,
+														function(
+																value,
+																index) {
+															$scope.succper=Math.round(((value.error413/value.totalRequests)*100)*100)/100;
+															$scope.retArr
+																	.push($scope.succper);
+															$scope.retDates
+																	.push(value.timeStamp);
+														});
+										$scope.myJson = {
+												type : 'line',
+												"plot": {
+													"line-color":"#33578e",
+												    "value-box": {
+												      //Displays all data values by default.
+												    }
+												  },
+												"scale-x" : {
+													"values" : $scope.retDates,
+												},
+												"scale-y" : {
+													values: '0:100:20',
+												},
+												series : [ {
+													values : $scope.retArr
+												} ]
+											};
+									} else if (criteria
+											.match("avgInfraLatency")) {
+										$scope.selmes="INFRA LATENCY";
+										angular
+												.forEach(
+														arr,
+														function(
+																value,
+																index) {
+															$scope.retArr
+																	.push(value.avgInfraLatency);
+															$scope.retDates
+																	.push(value.timeStamp);
+														});
+										$scope.myJson = {
+												type : 'line',
+												"plot": {
+													"line-color":"#33578e",
+												    "value-box": {
+												      //Displays all data values by default.
+												    }
+												  },
+												"scale-x" : {
+													"values" : $scope.retDates,
+												},
+												series : [ {
+													values : $scope.retArr
+												} ]
+											};
+									}
+									else
+									{
+										$scope.myJson = {
+												type : 'line',
+												"scale-x" : {
+													"values" : ["NA","NA"],
+												},
+												series : [ {
+													values : [0,0]
+												} ]
+											};
+									}
+								});
+
 			};
 		});
 		//]]>
